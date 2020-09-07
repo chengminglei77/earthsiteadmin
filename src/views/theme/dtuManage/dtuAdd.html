@@ -1,0 +1,121 @@
+
+<script type="text/html" template lay-done="layui.data.sendParams(d.params)">
+    <input type="text" style="display: none;" name="id" value="{{d.params.id||''}}">
+</script>
+
+<form class="layui-form layui-row layui-col-space10 layui-bg-white" lay-filter="lawerForm"><!--此处的lawerForm不要修改-->
+
+    <div class="layui-col-md9 layui-col-xs12">
+        <div class="layui-row layui-col-space10">
+            <div class="layui-col-md9 layui-col-xs7">
+                <div class="layui-form-item magt3">
+                    <label class="layui-form-label lovexian-form-item-require">dtuName</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input dtuName" name="dtuName"  lay-verify="dtuName" placeholder="请输入dtuName">
+                    </div><!--actiontitle 需要改变变量名称-->
+                </div>
+                <div class="layui-form-item magt3">
+                    <label class="layui-form-label">dtuId</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input dtuId" lay-verify="dtuId" name="dtuId" placeholder="请输入dtuId">
+                    </div><!--同样需要修改变量名称-->
+                </div>
+                <div class="layui-form-item magt3">
+                    <label class="layui-form-label">dtu类型</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input dtuType" lay-verify="dtuType" name="dtuType" placeholder="请输入dtu类型">
+                    </div><!--同样需要修改变量名称-->
+                </div>
+                <div class="layui-form-item magt3">
+                    <label class="layui-form-label">dtu状态</label>
+                    <div class="layui-input-block">
+                        <div class="layui-input-inline">
+                            <input type="text" name="status" id="status" class="layui-input status" placeholder="请输入dtu状态">
+                        </div>
+                        <!--                        <input type="text" class="layui-input workTime" lay-verify="workTime" name="workTime" placeholder="请输入工作年限">-->
+                    </div><!--同样需要修改变量名称-->
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">dis信息</label>
+                    <div class="layui-input-block">
+                        <textarea placeholder="请输入dis信息" class="layui-textarea disInfo" name="disInfo" ></textarea>
+                    </div><!--同样需要修改变量名称-->
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="layui-col-md3 layui-col-xs12">
+        <blockquote class="layui-elem-quote title magt10"><i class="layui-icon">&#xe609;</i> 发布</blockquote>
+        <div class="border">
+<!--            <div>-->
+<!--                <label class="layui-form-label"><i class="seraph icon-look"></i> 星级</label>-->
+<!--                <div id="test2" lay-verify="test2"  name="test2"></div>-->
+<!--            </div>-->
+<!--            <div class="layui-form-item">-->
+<!--                <label class="layui-form-label"><i class="layui-icon">&#xe60e;</i> 状态</label>-->
+<!--                <div class="layui-input-block lawerStatus">-->
+<!--                    <select name="checkState" lay-verify="required" onchange="changeInfoStatus()">-->
+<!--                        <option value="100">保存草稿</option>-->
+<!--                        <option value="0">等待审核</option>-->
+<!--                    </select>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="layui-form-item openness">-->
+<!--                <label class="layui-form-label"><i class="seraph icon-look"></i> 公开度</label>-->
+<!--                <div class="layui-input-block">-->
+<!--                    <input type="radio" name="openness" title="开放浏览" lay-skin="primary" checked />-->
+<!--                    <input type="radio" name="openness" title="私密浏览" lay-skin="primary" />-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="layui-form-item openness">-->
+<!--                <label class="layui-form-label"><i class="seraph icon-look"></i> 语言</label>-->
+<!--                <div class="layui-input-block actionStatus">-->
+
+<!--                    <select name="languageType" lay-verify="required" onchange="changeLanguageType()">-->
+<!--                        <option value="100">请选择</option>-->
+<!--                        <option value="1" >英文</option>-->
+<!--                        <option value="2">中文</option>-->
+<!--                    </select>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="layui-form-item newsTop">-->
+<!--                <label class="layui-form-label"><i class="seraph icon-zhiding"></i> 置　顶</label>-->
+<!--                <div class="layui-input-block">-->
+<!--                    <input type="checkbox" name="isTop" lay-skin="switch" lay-text="是|否">-->
+<!--                </div>-->
+<!--            </div>-->
+            <hr class="layui-bg-gray" />
+            <div class="layui-right">
+                <a id="saveBtn" class="layui-btn layui-btn-sm" lay-filter="addNews" lay-submit><i class="layui-icon">&#xe655;</i>保存</a>
+                <a class="layui-btn layui-btn-primary layui-btn-sm" lay-filter="look" lay-submit>预览</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+<script>
+    var starEle;
+    var starNum = 0;
+    layui.data.sendParams = function(params){
+        if(params.isEdit){
+            starNum = params.star;
+        }
+        layui.use('rate', function(){
+            var rate = layui.rate;
+            //渲染
+            starEle = rate.render({
+                elem: '#test2',  //绑定元素,
+                length: 5,
+                value: starNum
+                ,choose: function(value){
+                    starNum = value;
+                }
+            });
+        });
+    };
+</script>
