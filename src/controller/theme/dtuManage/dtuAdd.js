@@ -85,17 +85,23 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
 
         //此处要和下方var dtudata =里面的数量类型一致
         var id = $("input[name='id']").val();
-        var dtuName = $('.dtuName').val();
         var dtuId = $('.dtuId').val();
+        var dtuName = $('.dtuName').val();
+        var longitude = $('.longitude').val();
+        var latitude = $('.latitude').val();
         var dtuType = $('.dtuType').val();
+        var elcVolume = $('.elcVolume').val();
         var status = $('.status').val();
         var disInfo = $('.disInfo').val();
 
         var dtudata = {
             id:id,
-            dtuName:dtuName,
             dtuId:dtuId,
+            dtuName:dtuName,
+            longitude:longitude,
+            latitude:latitude,
             dtuType: dtuType,
+            elcVolume:elcVolume,
             status:status,
             disInfo:disInfo,
         };
@@ -107,10 +113,7 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
     });
 
 
-
-
-
-
+//取消按钮,直接关闭当前窗口
     form.on("submit(cancelBtn)",function(data){
         layer.closeAll();
     });

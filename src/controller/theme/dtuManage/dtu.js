@@ -36,7 +36,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
 
     //渲染权限
     var fakerData = ["faker"];
-    var getTpl = actionMoreTpl.innerHTML
+    var getTpl = actionMoreDtuTpl.innerHTML
         , view = document.getElementById('actionMoreContainer');
     laytpl(getTpl).render(fakerData, function (html) {
         view.innerHTML = html;
@@ -52,148 +52,62 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
     dropdown.render({//添加删除小组件
         elem: $view.find('.action-more'),
         click: function (name, elem, event) {
-            var checkStatus = table.checkStatus('dtuTab');
+            var checkStatus = table.checkStatus('dtusTable');
             if (name === 'add') {
-                addLawerInfo("",0);
+                addDtuInfo("",0);
                 //跳转到actionAdd页面
                 // location.hash = search.redirect ? decodeURIComponent(search.redirect) : '/theme/life/actionAdd';
             }
             if (name === 'delete') {//批量删除
                 if (!checkStatus.data.length) {
-                    lovexian.alert.warn('请选择需要删除的律师信息');
+                    lovexian.alert.warn('请选择需要删除的dtu信息');
                 } else {
-                    lovexian.modal.confirm('删除律师', '确定删除这些律师信息吗？', function () {
-                        var lawerIds = [];
+                    lovexian.modal.confirm('删除dtu', '确定删除这些dtu信息吗？', function () {
+                        var dtuIds = [];
                         layui.each(checkStatus.data, function (key, item) {
-                            lawerIds.push(item.id)
+                            dtuIds.push(item.id)
                         });
-                        deleteActions(lawerIds.join(','));
+                        deleteActions(dtuIds.join(','));
                     });
                 }
             }
-
         },
         options: [{
             name: 'add',
-            title: '添加律师信息',
-            perms: 'add:lawerInfo'
+            title: '添加dtu信息',
+            perms: 'dtuInfo:add'
         }, {
             name: 'delete',
-            title: '批量删除',
-            perms: 'del:lawerInfo'
+            title: '批量删除dtu信息',
+            perms: 'lawerInfo:del'
         }]
     });
-    function clearFormData() {
-        $(".lawerName").val("");
-        $(".lawerOrganization").val("");
-        $(".telNumber").val("");
-        $(".skillField").val("");
-        $(".workTime").val("");
-        $(".lawerAbstract").val("");
-        $(".keywords").val("");
-        // $(".thumbImg").val("");
-        $(".others").val("");
-        $(".thumbImg").attr('src',"");
-        $(".star").val("");
-    }
-    function addLawerInfo(data,isEdit){
+
+    function addDtuInfo(data,isEdit){
         // console.log(isEdit);
         lovexian.popup("theme/dtuManage/dtuAdd",isEdit?"编辑律师":"添加律师",$.extend(data,{isEdit:isEdit}),function () {
                 if(isEdit===1) {
                     layui.use('theme/dtuManage/dtuAdd', layui.factory('theme/dtuManage/dtuAdd'));
                     form.val("lawerForm",{//此处显示修改时框内显示的内容.显示原来未修改时的信息
-                        "dtuName":data.dtuName,
                         "dtuId":data.dtuId,
+                        "dtuName":data.dtuName,
+                        "longitude":data.longitude,
+                        "latitude":data.latitude,
                         "dtuType":data.dtuType,
+                        "elcVolume":data.elcVolume,
                         "status":data.status,
                         "disInfo":data.disInfo,
                     });
                     $('.thumbImg').attr("src",data.lawerHeadPhoto);
-
                 } else{
                     layui.use('theme/dtuManage/dtuAdd', layui.factory('theme/dtuManage/dtuAdd'));
-
                 }
-
             },
             function () {
                 // $query.click();
             });
     }
-    /*  function addLawerInfo2(data,isEdit){//新增数据页面
-          var width = $(window).width() - $("#my-side").width()+'px';
-          var height = $(window).height() - $("#my-header").height()+'px';
-          var edit = isEdit;
 
-
-          var index = layui.layer.open({
-              title : "律师信息",
-              type : 1,
-              skin:"layui-layer-admin-page",
-              offset: 'rb',
-              area :[width,height],
-              content : "theme/life/lawerAdd",
-              shade : false,
-              resize:false,
-              anim: 2,
-              success : function(layero, index){
-                  if(isEdit===1)
-                  {
-                      console.log(data)
-                      layui.use('rate', function(){
-                          var rate = layui.rate;
-                          //渲染
-                          var ins1 = rate.render({
-                              elem: '#test2',  //绑定元素,
-                              length: 5,
-                              value: data.star
-                              ,text: true //开启文本
-                              ,choose: function(value){
-                                  stars = value;
-                              }
-                          });
-                      });
-                      form.val("lawerForm",{
-                          'id':data.id,
-                          "lawerName":data.lawerName,
-                          "lawerOrganization":data.lawerOrganization,
-                          "telNumber":data.telNumber,
-                          "skillField":data.skillField,
-                     /!*     "workTime":data.workTime,*!/
-                          "lawerAbstract":data.lawerAbstract,
-                          "keywords":data.keywords,
-                          "stars":data.stars,
-
-                      });
-                      $('.thumbImg').attr("src",data.lawerHeadPhoto);
-  /!*                    var strings = data.star.toString().split("星");
-                      star = parseInt(strings[0]);*!/
-
-
-                  }
-                  else{
-                      stars=0;
-                      layui.use('rate', function(){
-                          var rate = layui.rate;
-                          //渲染
-                          var ins1 = rate.render({
-                              elem: '#test2',  //绑定元素,
-                              length: 5
-                              ,text: true //开启文本
-                              ,value: stars
-                              ,choose: function(value){
-                                  stars = value;
-                              }
-                          });
-                      });
-                  }
-              },
-              end:function (layero, index) {
-                  clearFormData();
-                  initTable();
-              },
-          })
-      }*/
     function initTable() {//初始化界面（下面的表格）
         tableIns = lovexian.table.init({
             elem: $('#dtusTable'),
@@ -208,53 +122,25 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
                 {field: 'dtuName', title: 'dtu名 ', minWidth: 120,align:'center',fixed: 'lift'},//field对应后台idea的字段
                 {field: 'dtuType', title: 'dtu类型', minWidth:120,align:'center'},
                 {field: 'status', title: 'dtu状态', minWidth:180,align:'center'},
-                {field: 'createdAt', title: '创建时间', minWidth: 180, sort: true,align:'center'},
+                {field: 'createdAt', title: '部署时间', minWidth: 180, sort: true,align:'center'},
                 {field: 'updatedAt', title: '更新时间',minWidth: 180, sort: true,align:'center'},
-                {field: 'disInfo', title: 'dis信息',minWidth: 180, sort: true,align:'center'},
+                // {field: 'disInfo', title: 'dis信息',minWidth: 180, sort: true,align:'center'},
                 {title: '操作', toolbar: '#action-option', minWidth: 120, fixed: 'right'}
             ]],
         });
     }
 
+
+
+
+
+
+
+    //对下方的dtusTable(列表)的操作
     table.on('tool(dtusTable)', function (obj) {
         var data = obj.data,
             layEvent = obj.event;
-        var type
-        if(obj.event === 'showImage'){
-            layer.open({
-                type: 1
-                ,id:'dtusTable'+type
-                ,btn: '关闭'
-                ,btnAlign: 'c' //按钮居中
-                ,shade: 0 //不显示遮罩
-                ,yes: function(){
-                    layer.closeAll();
-                }
-            });
-        }
-        if (layEvent === 'detail') {//三大组件之detail,要修改
-            showContent(data);
-            pre_layer.show();
-            resetPrePhoneCss();
-            pre_bg.on("click",function(){
-                pre_layer.hide();
-            });
-            //预览图片居中样式
-            var css_str = {};
-            var pos_left = 0;
-            var pos_top = 0;
-            $(window).resize(resetPrePhoneCss);
-            //重置预览手机页面的CSS
-            function resetPrePhoneCss(){
-                pos_left = $(window).width() / 2 - pre_phone.width() / 2;
-                pos_top = $(window).height() / 2 - pre_phone.height() / 2+25;
-                css_str = {
-                    left:pos_left + "px",
-                    top:pos_top + "px"
-                }
-                pre_phone.css(css_str);
-            }
-        }
+
         if (layEvent === 'del') {//删除景点信息
             lovexian.modal.confirm('删除dtu信息', '确定删除这条dtu的记录吗？', function () {
                 lovexian.del(proPath + '/admin/dtus/deleteById?id='+ obj.data.id, null, function () {
@@ -266,15 +152,15 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
         }
         if (layEvent === 'edit') {
             //编辑也跳转到actionAdd，根据类型判断是添加还是编辑
-            addLawerInfo(obj.data,1);
+            addDtuInfo(obj.data,1);
         }
     });//操作
 
 
-    function deleteActions(lawerIds) {//操作组件之一，批量删除
-        lovexian.del(proPath + '/admin/lawerInfo/BatchDelete/' + lawerIds, null, function () {
+    function deleteActions(dtuIds) {//操作组件之一，批量删除
+        lovexian.del(proPath + '/admin/dtus/BatchDelete/' + dtuIds, null, function () {
             console.log("success");
-            lovexian.alert.success('删除文章成功');
+            lovexian.alert.success('删除选中dtu成功');
             $query.click();
         });
     }
@@ -301,11 +187,11 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
             ifr_image.html(image_src);
         }
     }
-    function getQueryParams() {
-        var createdAt = $searchForm.find('input[name="createdAt"]').val();
-        return {
-            dtuName: $searchForm.find('input[name="dtuName"]').val().trim(),
-            status: $searchForm.find("select[name='status']").val(),
+    function getQueryParams() {//trim():去除字符串的头尾空格,val():设置输入域的值,find()方法返回通过测试（函数内判断）的数组的第一个元素的值。
+        return {//根据find不同,调用不同的方法,其中dtuName对应queryDtuInfo,而status对应listByTypeId
+            dtuName: $searchForm.find('input[name="dtuName"]').val().trim(),//此处对应<input type="text" name="dtuName" autocomplete="off" class="layui-input">
+            dtuType: $searchForm.find('input[name="dtuType"]').val(),
+            status: $searchForm.find("select[name='status']").val(),//此处对应html里面的select框:<select name="status">
         };
     }
     $query.on('click',function () {
@@ -313,63 +199,10 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
         console.log(params);
         tableIns.reload({where: params});
     });
-    $reset.on('click',function () {//重置
+    $reset.on('click',function () {//刷新
         initTable();
     });
 
-    //置顶状态的请求
-    form.on('switch(isTop)',function(data){
-        var id=$(data.elem).val();
-        var text = data.elem.checked ? '置顶':'不置顶';
-        layer.confirm("您正在【"+text+"】该信息，您确定吗？",{icon: 3, title:'提示'}, function (index) {
-            lovexian.post(proPath+"/admin/lawerInfo/updateLawer",{"isTop":text==='置顶'? 1:0,"id":id},function(res){
-                if(res.code == 200){
-                    layer.alert('【'+text+'】成功^_^', {
-                        icon: 1,
-                        skin: 'layui-layer-molv'
-                    });
-                }else{
-                    layer.alert('【'+text+'】失败~_~', {
-                        icon: 2,
-                        skin: 'layui-layer-hong'
-                    });
-                    if(text === '置顶')
-                        data.elem.checked = true;
-                    else
-                        data.elem.checked = false;
-                }
-                form.render();
-            });
-            layer.close(index);
-        });
-    });
-
-    //展示状态的请求
-    form.on('switch(isShow)',function(data){
-        var id=$(data.elem).val();
-        var text = data.elem.checked ? '展示':'不展示';
-        layer.confirm("您正在【"+text+"】该信息，您确定吗？",{icon: 3, title:'提示'}, function (index) {
-            lovexian.post(proPath+"/admin/lawerInfo/updateLawer",{"isShow":text==='展示'? 1:0,"id":id},function(res){
-                if(res.code == 200){
-                    layer.alert('【'+text+'】成功^_^', {
-                        icon: 1,
-                        skin: 'layui-layer-molv'
-                    });
-                }else{
-                    layer.alert('【'+text+'】失败~_~', {
-                        icon: 2,
-                        skin: 'layui-layer-hong'
-                    });
-                    if(text === '展示')
-                        data.elem.checked = true;
-                    else
-                        data.elem.checked = false;
-                }
-                form.render();
-            });
-            layer.close(index);
-        });
-    });
 
 
 
