@@ -320,6 +320,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
 
         var createTimeFrom='',
             createTimeTo='',
+
             createTime = $searchForm.find('input[name="createTime"]').val();
         //alert(createTime);
         if (createTime) {
