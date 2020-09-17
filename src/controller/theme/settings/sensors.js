@@ -117,9 +117,9 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
                 {type: 'checkbox',fixed: 'lift'},
                 {field: 'sensorId', title: '传感器型号', minWidth: 120,align:'center',fixed: 'lift'},//对应后台idea的字段
                 {field: 'typeId', title: '传感器类别', minWidth:120,align:'center'},
-                {field: 'status', title: '状态', minWidth:180,align:'center'},
-                {field: 'createAt', title: '部署时间', minWidth: 180, sort: true,align:'center'},
-                {field: 'updateAt', title: '更新时间',minWidth: 180, sort: true,align:'center'},
+                {field: 'status', title: '传感器状态', minWidth:180,align:'center'},
+                {field: 'createdAt', title: '部署时间', minWidth: 180, sort: true,align:'center'},
+                {field: 'updatedAt', title: '更新时间',minWidth: 180, sort: true,align:'center'},
                 {title: '操作', toolbar: '#action-option', minWidth: 120, fixed: 'right'}
             ]],
         });
