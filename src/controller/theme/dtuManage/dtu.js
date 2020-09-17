@@ -78,7 +78,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
             perms: 'dtuInfo:add'
         }, {
             name: 'delete',
-            title: '批量删除dtu信息',
+            title: '批量删除',
             perms: 'lawerInfo:del'
         }]
     });
@@ -89,7 +89,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
                 if(isEdit===1) {
                     layui.use('theme/dtuManage/dtuAdd', layui.factory('theme/dtuManage/dtuAdd'));
                     form.val("lawerForm",{//此处显示修改时框内显示的内容.显示原来未修改时的信息
-                        "dtuId":data.dtuId,
+                        "sensorId":data.sensorId,
                         "dtuName":data.dtuName,
                         "longitude":data.longitude,
                         "latitude":data.latitude,
@@ -120,10 +120,13 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
             cols: [[
                 {type: 'checkbox',fixed: 'lift'},
                 {field: 'dtuName', title: 'dtu名 ', minWidth: 120,align:'center',fixed: 'lift'},//field对应后台idea的字段
-                {field: 'dtuType', title: 'dtu类型', minWidth:120,align:'center'},
-                {field: 'status', title: 'dtu状态', minWidth:180,align:'center'},
+                {field: 'dtuType', title: 'dtu类型', minWidth:130,align:'center'},
+                {field: 'status', title: 'dtu状态', minWidth:130,align:'center'},
+                {field: 'longitude', title: '经度', minWidth:120,align:'center'},
+                {field: 'latitude', title: '纬度', minWidth:120,align:'center'},
+                {field: 'descInfo', title: '位置信息', minWidth:120,align:'center'},
                 {field: 'createdAt', title: '部署时间', minWidth: 180, sort: true,align:'center'},
-                {field: 'updatedAt', title: '更新时间',minWidth: 180, sort: true,align:'center'},
+                {field: 'updatedAt', title: '最后更新时间',minWidth: 180, sort: true,align:'center'},
                 // {field: 'disInfo', title: 'dis信息',minWidth: 180, sort: true,align:'center'},
                 {title: '操作', toolbar: '#action-option', minWidth: 120, fixed: 'right'}
             ]],
