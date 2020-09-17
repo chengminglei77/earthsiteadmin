@@ -3,7 +3,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
         admin = layui.admin,
         laydate = layui.laydate,
         setter = layui.setter,
-        $view = $('#lovexian-dtus'),//与对应html中id相同(html的第8行)
+        $view = $('#lovexian-gateway'),//与html中id相同
         laytpl = layui.laytpl,
         lovexian = layui.lovexian,
         dropdown = layui.dropdown,
@@ -27,55 +27,56 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
     // layui.data('id',{key:'actionTypeId',value:1});
     // alert(layui.data('id').actionTypeId);
 
-    element.on('tab(dtusTable)',function (data) {
+    element.on('tab(gatewayInfoTable)',function (data) {
         var idvalue=data.index+1;//从0开始
-        layui.data('id',{key:'dtuTypeId',value:idvalue});
+        layui.data('id',{key:'gatewayTypeId',value:idvalue});
         // $searchForm.find('input[name="actTitle"]').val("");
         initTable();
     });
 
     //渲染权限
     var fakerData = ["faker"];
-    var getTpl = actionMoreDtuTpl.innerHTML
+    var getTpl = actionMoreTpl.innerHTML
         , view = document.getElementById('actionMoreContainer');
     laytpl(getTpl).render(fakerData, function (html) {
         view.innerHTML = html;
     });
     laydate.render({
-        elem: '#createdAt',
+        elem: '#createAt',
         range: true,
         trigger: 'click',
         position: 'fixed'
     });
-    element.tabChange('dtuTab',1);//需要修改的地方
+    element.tabChange('gatewayTab',1);
 
     dropdown.render({//添加删除小组件
         elem: $view.find('.action-more'),
         click: function (name, elem, event) {
-            var checkStatus = table.checkStatus('dtusTable');
+            var checkStatus = table.checkStatus('gatewayInfoTable');
             if (name === 'add') {
-                addDtuInfo("",0);
+                addgatewayInfo("",0);
                 //跳转到actionAdd页面
                 // location.hash = search.redirect ? decodeURIComponent(search.redirect) : '/theme/life/actionAdd';
             }
             if (name === 'delete') {//批量删除
                 if (!checkStatus.data.length) {
-                    lovexian.alert.warn('请选择需要删除的dtu信息');
+                    lovexian.alert.warn('请选择需要删除的网关信息');
                 } else {
-                    lovexian.modal.confirm('删除dtu', '确定删除这些dtu信息吗？', function () {
-                        var dtuIds = [];
+                    lovexian.modal.confirm('删除网关', '确定删除这些网关信息吗？', function () {
+                        var gatewayIds = [];
                         layui.each(checkStatus.data, function (key, item) {
-                            dtuIds.push(item.id)
+                            gatewayIds.push(item.id)
                         });
-                        deleteActions(dtuIds.join(','));
+                        deleteActions(gatewayIds.join(','));
                     });
                 }
             }
+
         },
         options: [{
             name: 'add',
-            title: '添加dtu信息',
-            perms: 'dtuInfo:add'
+            title: '添加网关信息',
+            perms: 'gatewayInfo:add'
         }, {
             name: 'delete',
             title: '批量删除',
@@ -83,25 +84,31 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
         }]
     });
 
-    function addDtuInfo(data,isEdit){
+    function addgatewayInfo(data,isEdit){
         // console.log(isEdit);
-        lovexian.popup("theme/dtuManage/dtuAdd",isEdit?"编辑律师":"添加律师",$.extend(data,{isEdit:isEdit}),function () {
+        lovexian.popup("theme/gatewayManage/gatewayAdd",isEdit?"编辑网关":"添加网关信息",$.extend(data,{isEdit:isEdit}),function () {
                 if(isEdit===1) {
-                    layui.use('theme/dtuManage/dtuAdd', layui.factory('theme/dtuManage/dtuAdd'));
-                    form.val("lawerForm",{//此处显示修改时框内显示的内容.显示原来未修改时的信息
-                        "sensorId":data.sensorId,
-                        "dtuName":data.dtuName,
+                    layui.use('theme/gatewayManage/gatewayAdd', layui.factory('theme/gatewayManage/gatewayAdd'));
+                    form.val("lawerForm",{
+                        "id":data.id,
+                        "gateId":data.gateId,
                         "longitude":data.longitude,
                         "latitude":data.latitude,
-                        "dtuType":data.dtuType,
-                        "elcVolume":data.elcVolume,
                         "status":data.status,
+                        "elecCharge":data.elecCharge,
+                        "serverIp":data.serverIp,
+                        "serverPort":data.serverPort,
+                        "createdAt":data.createdAt,
+                        "updatedAt":data.updatedAt,
                         "disInfo":data.disInfo,
                     });
                     $('.thumbImg').attr("src",data.lawerHeadPhoto);
+
                 } else{
-                    layui.use('theme/dtuManage/dtuAdd', layui.factory('theme/dtuManage/dtuAdd'));
+                    layui.use('theme/gatewayManage/gatewayAdd', layui.factory('theme/gatewayManage/gatewayAdd'));
+
                 }
+
             },
             function () {
                 // $query.click();
@@ -110,60 +117,52 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
 
     function initTable() {//初始化界面（下面的表格）
         tableIns = lovexian.table.init({
-            elem: $('#dtusTable'),
-            id: 'dtusTable',
-            url: proPath + '/admin/dtus/listByTypeId?',//id根据组件而动，初始化表格
+            elem: $('#gatewayInfoTable'),
+            id: 'gatewayInfoTable',
+            url: proPath + '/admin/gateways/listByTypeId?',//id根据组件而动，初始化表格
             type:'GET',
             headers:{
                 Authentication :layui.data(setter.tableName)[setter.TOKENNAME]
             },
             cols: [[
                 {type: 'checkbox',fixed: 'lift'},
-                {field: 'dtuName', title: 'dtu名 ', minWidth: 120,align:'center',fixed: 'lift'},//field对应后台idea的字段
-                {field: 'dtuType', title: 'dtu类型', minWidth:130,align:'center'},
-                {field: 'status', title: 'dtu状态', minWidth:130,align:'center'},
+                {field: 'gateId', title: '网关标识 ', minWidth: 120,align:'center',fixed: 'lift'},//对应后台idea的字段
+                {field: 'status', title: '状态', minWidth:120,align:'center'},
                 {field: 'longitude', title: '经度', minWidth:120,align:'center'},
-                {field: 'latitude', title: '纬度', minWidth:120,align:'center'},
-                {field: 'descInfo', title: '位置信息', minWidth:120,align:'center'},
-                {field: 'createdAt', title: '部署时间', minWidth: 180, sort: true,align:'center'},
-                {field: 'updatedAt', title: '最后更新时间',minWidth: 180, sort: true,align:'center'},
-                // {field: 'disInfo', title: 'dis信息',minWidth: 180, sort: true,align:'center'},
+                {field: 'latitude', title: '纬度', minWidth:180,align:'center'},
+
+                {field: 'serverIp', title: '服务器地址', minWidth: 180, sort: true,align:'center'},
+                {field: 'serverPort', title: '服务器端口',minWidth: 180, sort: true,align:'center'},
                 {title: '操作', toolbar: '#action-option', minWidth: 120, fixed: 'right'}
             ]],
         });
     }
 
-
-
-
-
-
-
-    //对下方的dtusTable(列表)的操作
-    table.on('tool(dtusTable)', function (obj) {
+    table.on('tool(gatewayInfoTable)', function (obj) {
         var data = obj.data,
             layEvent = obj.event;
 
+
         if (layEvent === 'del') {//删除景点信息
-            lovexian.modal.confirm('删除dtu信息', '确定删除这条dtu的记录吗？', function () {
-                lovexian.del(proPath + '/admin/dtus/deleteById?id='+ obj.data.id, null, function () {
+            lovexian.modal.confirm('删除网关信息', '确定删除这条网关的记录吗？', function () {
+                lovexian.del(proPath + '/admin/gateways/deleteById?id='+ obj.data.id, null, function () {
                     console.log("success");
-                    lovexian.alert.success('删除该dtu成功');
+                    lovexian.alert.success('删除该网关成功');
                     $query.click();
                 });
             });
         }
         if (layEvent === 'edit') {
             //编辑也跳转到actionAdd，根据类型判断是添加还是编辑
-            addDtuInfo(obj.data,1);
+            addgatewayInfo(obj.data,1);
         }
     });//操作
 
 
-    function deleteActions(dtuIds) {//操作组件之一，批量删除
-        lovexian.del(proPath + '/admin/dtus/BatchDelete/' + dtuIds, null, function () {
+    function deleteActions(gatewayIds) {//操作组件之一，删除
+        lovexian.del(proPath + '/admin/gateways/BatchDelete/' + gatewayIds, null, function () {
             console.log("success");
-            lovexian.alert.success('删除选中dtu成功');
+            lovexian.alert.success('删除选中网关');
             $query.click();
         });
     }
@@ -172,7 +171,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
         var ifr_document = document.getElementById("preview-html").contentWindow.document;
         if(ifr_document){
             //设置标题
-            var title_str = data.dtuName;
+            var title_str = data.lawerName;
             var ifr_title = $(ifr_document).find(".article-title .title");
             ifr_title.html(title_str);
             //设置作者
@@ -190,25 +189,24 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
             ifr_image.html(image_src);
         }
     }
-    function getQueryParams() {//trim():去除字符串的头尾空格,val():设置输入域的值,find()方法返回通过测试（函数内判断）的数组的第一个元素的值。
-        return {//根据find不同,调用不同的方法,其中dtuName对应queryDtuInfo,而status对应listByTypeId
-            dtuName: $searchForm.find('input[name="dtuName"]').val().trim(),//此处对应<input type="text" name="dtuName" autocomplete="off" class="layui-input">
-            dtuType: $searchForm.find('input[name="dtuType"]').val(),
-            status: $searchForm.find("select[name='status']").val(),//此处对应html里面的select框:<select name="status">
+    function getQueryParams() {
+        return {
+            gateId: $searchForm.find('input[name="gateId"]').val().trim(),
+            status: $searchForm.find('select[name="status"]').val(),
         };
     }
+
     $query.on('click',function () {
         var params = getQueryParams();
         console.log(params);
         tableIns.reload({where: params});
     });
-    $reset.on('click',function () {//刷新
+
+    $reset.on('click',function () {//重置
         initTable();
     });
 
 
-
-
     //对外暴露的接口
-    exports('theme/dtuManage/dtu', {});
+    exports('theme/gatewayManage/gateway', {});
 });
