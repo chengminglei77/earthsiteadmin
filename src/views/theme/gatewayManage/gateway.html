@@ -20,18 +20,11 @@
                                 <div class="layui-col-md10">
                                     <div class="layui-form-item">
                                         <div class="layui-inline">
-                                            <label class="layui-form-label layui-form-label-sm">网关名称</label>
+                                            <label class="layui-form-label layui-form-label-sm">网关标识</label>
                                             <div class="layui-input-inline">
-                                                <input type="text" name="gatewayName" autocomplete="off" class="layui-input">
+                                                <input type="text" name="gateId" autocomplete="off" class="layui-input">
                                             </div>
                                         </div>
-                                        <div class="layui-inline">
-                                            <label class="layui-form-label layui-form-label-sm">创建时间</label>
-                                            <div class="layui-input-inline">
-                                                <input type="text" name="createTime" id="createTime" class="layui-input">
-                                            </div>
-                                        </div>
-
                                         <div class="layui-inline">
                                             <label class="layui-form-label layui-form-label-sm">状态</label>
                                             <div class="layui-input-inline">
@@ -39,18 +32,6 @@
                                                     <option value=""></option>
                                                     <option value="0">未删除</option>
                                                     <option value="1">已删除</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="layui-inline">
-                                            <label class="layui-form-label layui-form-label-sm">审核状态</label>
-                                            <div class="layui-input-inline">
-                                                <select name="check">
-                                                    <option value=""></option>
-                                                    <option value="0">未审核</option>
-                                                    <option value="100">草稿</option>
-                                                    <option value="1">已通过</option>
-                                                    <option value="2">已拒绝</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -130,42 +111,12 @@
 </script>
 
 <script type="text/html" id="actionMoreTpl"><!--展示更多-->
-{{# if(hasAnyPermission(['add:lawerInfo'])) { }}
+{{# if(hasAnyPermission(['gatewayInfo:add'])) { }}
 <div class="layui-btn layui-btn-sm layui-btn-primary table-action action-more">
     <i class="layui-icon">&#xe875;</i>
 </div>
 {{# } }}
 </script>
-
-
-<!--<script type="text/html" id="action-option">-->
-<!--    {{# if(hasPermission(['fairInfo:list'])) { }}-->
-<!--    <a lay-event="detail" title="查看详情"><i class="layui-icon lovexian-edit-area lovexian-green">&#xe7a5;</i></a>-->
-<!--    {{# } }}-->
-<!--    {{# if(hasPermission(['update:lawerInfo'])) { }}-->
-
-<!--    {{# if(d.checkState==0){ }}-->
-<!--    <a lay-event="edit" title=" 编辑"><i class="layui-icon lovexian-edit-area lovexian-blue" style="color: #9f9f9f">&#xe642;</i></a>-->
-<!--    {{# }else{ }}-->
-<!--    <a lay-event="edit" title=" 编辑"><i class="layui-icon lovexian-edit-area lovexian-blue">&#xe642;</i></a>-->
-<!--    {{# } }}-->
-
-<!--    {{# } }}-->
-
-<!--    {{# if(hasPermission(['del:lawerInfo'])) { }}-->
-<!--    <a lay-event="del" title="删除"><i class="layui-icon lovexian-edit-area lovexian-red">&#xe640;</i></a>-->
-<!--    {{# } }}-->
-<!--    {{# if(lacksPermission(['fairInfo:list','update:lawerInfo','del:lawerInfo'])) { }}-->
-<!--    <span>-->
-<!--            <span class="layui-badge-dot lovexian-bg-orange"></span> 无权限-->
-<!--        </span>-->
-<!--    -->
-<!--    -->
-<!--    {{# } }}-->
-<!--</script>-->
-
-
-
 
 
 
