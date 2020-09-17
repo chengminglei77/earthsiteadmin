@@ -1,130 +1,92 @@
 
 <script type="text/html" template lay-done="layui.data.sendParams(d.params)">
-  <input type="text" style="display: none;" name="id" value="{{d.params.id||''}}">
+    <input type="text" style="display: none;" name="id" value="{{d.params.id||''}}">
 </script>
-<form class="layui-form layui-row layui-col-space10 layui-bg-white" lay-filter="sensorsForm">
 
-  <div class="layui-col-md9 layui-col-xs12">
-    <div class="layui-row layui-col-space10">
-      <div class="layui-col-md9 layui-col-xs7">
-        <div class="layui-form-item magt3">
-          <label class="layui-form-label lovexian-form-item-require">传感器名称</label>
-          <div class="layui-input-block">
-            <input type="text" class="layui-input sensorsName" name="sensorsName"  lay-verify="sensorsName" placeholder="请输入传感器名称">
-          </div><!--actiontitle 需要改变变量名称-->
+<form class="layui-form layui-row layui-col-space10 layui-bg-white" lay-filter="lawerForm"><!--此处的lawerForm不要修改-->
+
+    <div class="layui-col-md9 layui-col-xs12">
+        <div class="layui-row layui-col-space10">
+            <div class="layui-col-md9 layui-col-xs7">
+
+
+
+
+                <div class="layui-form-item magt3">
+                    <label class="layui-form-label ">传感器型号</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input typeId" name="typeId"  lay-verify="typeId" placeholder="请输入传感器型号">
+                    </div><!--actiontitle 需要改变变量名称-->
+                </div>
+
+
+                <div class="layui-form-item magt3">
+                    <label class="layui-form-label ">经度</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input longitude" name="longitude"  lay-verify="longitude" placeholder="请输入经度">
+                    </div><!--actiontitle 需要改变变量名称-->
+                </div>
+
+                <div class="layui-form-item magt3">
+                    <label class="layui-form-label ">纬度</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input latitude" name="latitude"  lay-verify="latitude" placeholder="请输入纬度">
+                    </div><!--actiontitle 需要改变变量名称-->
+                </div>
+
+                <div class="layui-form-item openness">
+                    <label class="layui-form-label lovexian-form-item-require"><i class="seraph icon-look"></i> 传感器状态</label>
+                    <div class="layui-input-block actionStatus">
+
+                        <select name="languageType" lay-verify="required" onchange="changeLanguageType()">
+                            <option value="0" >未删除</option>
+                            <option value="1">删除</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="layui-form-item magt3">
+                    <label class="layui-form-label">gis信息</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input disInfo" lay-verify="disInfo" name="disInfo" placeholder="请输入gis信息">
+                    </div><!--同样需要修改变量名称-->
+                </div>
+
+            </div>
+
         </div>
-        <div class="layui-form-item magt3">
-          <label class="layui-form-label">传感器Id</label>
-          <div class="layui-input-block">
-            <input type="text" class="layui-input sensorsId" lay-verify="sensorsId" name="sensorsId" placeholder="请输入传感器Id">
-          </div><!--同样需要修改变量名称-->
-        </div>
-        <div class="layui-form-item magt3">
-          <label class="layui-form-label">传感器类型</label>
-          <div class="layui-input-block">
-            <input type="text" class="layui-input sensorsType" lay-verify="sensorsType" name="sensorsType" placeholder="请输入sensors类型">
-          </div><!--同样需要修改变量名称-->
-        </div>
-        <div class="layui-form-item magt3">
-          <label class="layui-form-label">传感器状态</label>
-          <div class="layui-input-block">
-            <input type="text" class="layui-input status" lay-verify="skillField" name="status" placeholder="请输入传感器状态">
-          </div><!--同样需要修改变量名称-->
-        </div>
-<!--        <div class="layui-form-item magt3">-->
-<!--          <label class="layui-form-label">工作年限</label>-->
-<!--          <div class="layui-input-block">-->
-<!--            <div class="layui-input-inline">-->
-<!--              <input type="text" name="workTime" id="workTime" class="layui-input workTime" placeholder="请输入工作年限">-->
-<!--            </div>-->
-<!--            &lt;!&ndash;                        <input type="text" class="layui-input workTime" lay-verify="workTime" name="workTime" placeholder="请输入工作年限">&ndash;&gt;-->
-<!--          </div>&lt;!&ndash;同样需要修改变量名称&ndash;&gt;-->
-<!--        </div>-->
-        <div class="layui-form-item">
-          <label class="layui-form-label">传感器信息</label>
-          <div class="layui-input-block">
-            <textarea placeholder="请输入传感器信息" class="layui-textarea sensorsInfo" name="sensorsInfo" ></textarea>
-          </div><!--同样需要修改变量名称-->
-        </div>
-      </div>
-      <div class="layui-col-md3 layui-col-xs5"><!--封面-->
-        <div class="layui-upload-list thumbBox mag0 magt4">
-          <img class="layui-upload-img thumbImg" name="thumbImg" >
-        </div>
-      </div>
+        <!--        left: -200px;margin-bottom: 20px;-->
     </div>
 
-  </div>
-  <div class="layui-col-md3 layui-col-xs12">
-    <blockquote class="layui-elem-quote title magt10"><i class="layui-icon">&#xe609;</i> 发布</blockquote>
-    <div class="border">
-<!--      <div>-->
-<!--        <label class="layui-form-label"><i class="seraph icon-look"></i> 星级</label>-->
-<!--        <div id="test2" lay-verify="test2"  name="test2"></div>-->
-<!--      </div>-->
-<!--      <div class="layui-form-item">-->
-<!--        <label class="layui-form-label"><i class="layui-icon">&#xe60e;</i> 状态</label>-->
-<!--        <div class="layui-input-block lawerStatus">-->
-<!--          <select name="checkState" lay-verify="required" onchange="changeInfoStatus()">-->
-<!--            <option value="100">保存草稿</option>-->
-<!--            <option value="0">等待审核</option>-->
-<!--          </select>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class="layui-form-item openness">-->
-<!--        <label class="layui-form-label"><i class="seraph icon-look"></i> 公开度</label>-->
-<!--        <div class="layui-input-block">-->
-<!--          <input type="radio" name="openness" title="开放浏览" lay-skin="primary" checked />-->
-<!--          <input type="radio" name="openness" title="私密浏览" lay-skin="primary" />-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class="layui-form-item openness">-->
-<!--        <label class="layui-form-label"><i class="seraph icon-look"></i> 语言</label>-->
-<!--        <div class="layui-input-block actionStatus">-->
-
-<!--          <select name="languageType" lay-verify="required" onchange="changeLanguageType()">-->
-<!--            <option value="100">请选择</option>-->
-<!--            <option value="1" >英文</option>-->
-<!--            <option value="2">中文</option>-->
-<!--          </select>-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--      <div class="layui-form-item newsTop">-->
-<!--        <label class="layui-form-label"><i class="seraph icon-zhiding"></i> 置　顶</label>-->
-<!--        <div class="layui-input-block">-->
-<!--          <input type="checkbox" name="isTop" lay-skin="switch" lay-text="是|否">-->
-<!--        </div>-->
-<!--      </div>-->
-      <hr class="layui-bg-gray" />
-      <div class="layui-right">
-        <a  id="saveBtn" class="layui-btn layui-btn-sm" lay-filter="addNews" lay-submit><i class="layui-icon">&#xe655;</i>确认保存</a>
-        <a class="layui-btn layui-btn-primary layui-btn-sm" lay-filter="look" lay-submit>预览</a>
-      </div>
+    <div class="layui-col-md3 layui-col-xs12">
+        <div style=" width: 150px;position: relative;left: -500px; bottom: -500px" class="layui-right">
+            <a id="saveBtn" class="layui-btn layui-btn-sm" lay-filter="addNews" lay-submit><i class="layui-icon">&#xe655;</i>保存</a>
+            <a class="layui-btn layui-btn-primary layui-btn-sm" lay-filter="cancelBtn" lay-submit>取消</a>
+        </div>
     </div>
-  </div>
 </form>
 
 
 
 <script>
-  var starEle;
-  var starNum = 0;
-  layui.data.sendParams = function(params){
-    if(params.isEdit){
-      starNum = params.star;
-    }
-    layui.use('rate', function(){
-      var rate = layui.rate;
-      //渲染
-      starEle = rate.render({
-        elem: '#test2',  //绑定元素,
-        length: 5,
-        value: starNum
-        ,choose: function(value){
-          starNum = value;
+    var starEle;
+    var starNum = 0;
+    layui.data.sendParams = function(params){
+        if(params.isEdit){
+            starNum = params.star;
         }
-      });
-    });
-  };
+        layui.use('rate', function(){
+            var rate = layui.rate;
+            //渲染
+            starEle = rate.render({
+                elem: '#test2',  //绑定元素,
+                length: 5,
+                value: starNum
+                ,choose: function(value){
+                    starNum = value;
+                }
+            });
+        });
+    };
 </script>
