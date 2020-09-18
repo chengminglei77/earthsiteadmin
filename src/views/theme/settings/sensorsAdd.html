@@ -2,7 +2,6 @@
 <script type="text/html" template lay-done="layui.data.sendParams(d.params)">
     <input type="text" style="display: none;" name="id" value="{{d.params.id||''}}">
 </script>
-
 <form class="layui-form layui-row layui-row layui-col-space6  layui-col-md-offset3 layui-bg-white layui-col-md6" lay-filter="lawerForm" ><!--此处的lawerForm不要修改-->
 
     <div class="layui-col-md9 layui-col-xs12">
@@ -10,12 +9,10 @@
             <div class="layui-col-md9 layui-col-xs7">
 
 
-
-
                 <div class="layui-form-item magt3">
                     <label class="layui-form-label lovexian-form-item-require"><i class="seraph icon-look"></i>传感器型号</label>
                     <div class="layui-input-block">
-                        <input type="text" style="width:300px !important" class="layui-input typeId" name="typeId"  lay-verify="typeId" placeholder="请输入传感器型号">
+                        <input type="text" style="width:300px !important" class="layui-input sensorId" name="sensorId"  lay-verify="sensorId" placeholder="请输入传感器型号">
                     </div><!--actiontitle 需要改变变量名称-->
                 </div>
                 <div class="layui-form-item magt3">
@@ -75,6 +72,7 @@
 
 
 <script>
+
     var starEle;
     var starNum = 0;
     layui.data.sendParams = function(params){
