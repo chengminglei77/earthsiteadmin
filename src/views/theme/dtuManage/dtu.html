@@ -16,24 +16,24 @@
                                 <div class="layui-col-md10">
                                     <div class="layui-form-item">
                                         <div class="layui-inline">
-                                            <label  class="layui-form-label layui-form-label-sm">dtu名</label>
+                                            <label  class="layui-form-label layui-form-label-sm">DTU名</label>
                                             <div class="layui-input-inline">
                                                 <input type="text" name="dtuName" autocomplete="off" class="layui-input">
                                             </div>
                                         </div>
                                         <div class="layui-inline">
-                                            <label class="layui-form-label layui-form-label-sm">dtu类型</label>
+                                            <label class="layui-form-label layui-form-label-sm">DTU类型</label>
                                             <div class="layui-input-inline">
                                                 <input type="text" name="dtuType" autocomplete="off" class="layui-input">
                                             </div>
                                         </div>
                                         <div class="layui-inline">
-                                            <label class="layui-form-label layui-form-label-sm">dtu状态</label>
+                                            <label class="layui-form-label layui-form-label-sm">DTU状态</label>
                                             <div class="layui-input-inline">
                                                 <select name="status">
                                                     <option value=""></option>
-                                                    <option value="0">未删除</option>
-                                                    <option value="1">已删除</option>
+                                                    <option value="0">状态正常</option>
+                                                    <option value="1">状态错误</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -87,16 +87,16 @@
 </div>
 
 
-<!--审核状态-->
+<!--状态--><!--此处需要修改status和数据库字段一致,-->
+<!--注意:script中不要加注释,否则会错误--><!--注意:script中不要加注释,否则会错误--><!--注意:script中不要加注释,否则会错误--><!--注意:script中不要加注释,否则会错误-->
 <script type="text/html" id="check-state">
     {{#
     var status = {
     100: {title: '草稿状态', color: 'lime'},
-    0: {title: '未审核', color: 'blue'},
-    1: {title: '审核通过', color: 'green'},
+    0: {title: '状态正常', color: 'blue'},
+    1: {title: '状态错误', color: 'green'},
     2: {title: '审核拒绝', color: 'volcano'}
-    }[d.checkState];
-
+    }[d.status];
     }}
     <span class="layui-badge lovexian-tag-{{ status.color}}">{{ status.title }}</span>
 </script>
@@ -125,7 +125,7 @@
     {{# } }}
     {{# if(hasPermission(['fairInfo:list'])) { }}
 
-    <a lay-event="edit" title=" 编辑"><i class="layui-icon lovexian-edit-area lovexian-blue" style="color: #9f9f9f">&#xe642;</i></a>
+    <a lay-event="edit" title=" 编辑"><i class="layui-icon lovexian-edit-area lovexian-blue" style="color: #2db7f5">&#xe642;</i></a>
     {{# }else{ }}
 
 
