@@ -23,14 +23,15 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
 
         //此处要和下方var dtudata =里面的数量类型一致
         var id = $("input[name='id']").val();
+        var sensorId = $('.sensorId').val();
         var typeId = $('.typeId').val();
         var longitude = $('.longitude').val();
         var latitude = $('.latitude').val();
         var status = $('.status').val();
         var disInfo = $('.disInfo').val();
-
         var sensordata = {
             id:id,
+            sensorId: sensorId,
             typeId:typeId,
             longitude:longitude,
             latitude:latitude,

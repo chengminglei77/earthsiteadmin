@@ -184,7 +184,8 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
     }
     function getQueryParams() {//trim():去除字符串的头尾空格,val():设置输入域的值,find()方法返回通过测试（函数内判断）的数组的第一个元素的值。
         return {//根据find不同,调用不同的方法,其中dtuName对应queryDtuInfo,而status对应listByTypeId
-            typeId: $searchForm.find('input[name="typeId"]').val().trim(),//此处对应<input type="text" name="dtuName" autocomplete="off" class="layui-input">
+            sensorId: $searchForm.find('input[name="sensorId"]').val().trim(),//此处对应<input type="text" name="dtuName" autocomplete="off" class="layui-input">
+            typeId: $searchForm.find('input[name="typeId"]').val(),
             status: $searchForm.find("select[name='status']").val(),//此处对应html里面的select框:<select name="status">
         };
     }
