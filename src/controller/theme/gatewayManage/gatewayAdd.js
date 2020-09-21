@@ -25,6 +25,7 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
         var gateId = $('.gateId').val();
         var longitude = $('.longitude').val();
         var latitude = $('.latitude').val();
+        var descInfo = $('.descInfo').val();
         var status = $('.status').val();
         var elecCharge=$('.elecCharge').val();
         var serverIp=$('.serverIp').val();
@@ -38,6 +39,7 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
             gateId:gateId,
             longitude:longitude,
             latitude:latitude,
+            descInfo:descInfo,
             status:status,
             elecCharge: elecCharge,
             serverIp:serverIp,

@@ -119,9 +119,9 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
             },
             cols: [[
                 {type: 'checkbox',fixed: 'lift'},
-                {field: 'dtuName', title: 'dtu名 ', minWidth: 120,align:'center',fixed: 'lift'},//field对应后台idea的字段
-                {field: 'dtuType', title: 'dtu类型', minWidth:130,align:'center'},
-                {field: 'status', title: 'dtu状态', minWidth:130,align:'center'},
+                {field: 'dtuName', title: 'DTU名 ', minWidth: 120,align:'center',fixed: 'lift'},//field对应后台idea的字段
+                {field: 'dtuType', title: 'DTU类型', minWidth:130,align:'center'},
+                {title: 'DTU状态', templet: '#check-state',minWidth:120,align:'center'},
                 {field: 'longitude', title: '经度', minWidth:120,align:'center'},
                 {field: 'latitude', title: '纬度', minWidth:120,align:'center'},
                 {field: 'descInfo', title: '位置信息', minWidth:120,align:'center'},
@@ -205,8 +205,6 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
     $reset.on('click',function () {//刷新
         initTable();
     });
-
-
 
 
     //对外暴露的接口

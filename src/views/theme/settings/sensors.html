@@ -17,19 +17,24 @@
                                     <div class="layui-form-item">
 
                                         <div class="layui-inline">
-                                            <label class="layui-form-label layui-form-label-sm">传感器类别</label>
+                                            <label class="layui-form-label layui-form-label-sm">传感器型号</label>
                                             <div class="layui-input-inline">
                                                 <input type="text" name="typeId" autocomplete="off" class="layui-input">
                                             </div>
                                         </div>
-
                                         <div class="layui-inline">
-                                            <label class="layui-form-label layui-form-label-sm">状态</label>
+                                            <label class="layui-form-label layui-form-label-sm">传感器类别</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" name="dtuType" autocomplete="off" class="layui-input">
+                                            </div>
+                                        </div>
+                                        <div class="layui-inline">
+                                            <label class="layui-form-label layui-form-label-sm">传感器状态</label>
                                             <div class="layui-input-inline">
                                                 <select name="status">
                                                     <option value=""></option>
-                                                    <option value="0">未删除</option>
-                                                    <option value="1">已删除</option>
+                                                    <option value="0">状态正常</option>
+                                                    <option value="1">状态错误</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -54,7 +59,7 @@
 
                         <div class="layui-tab layui-tab-brief" lay-filter="sensorTab">
                             <ul class="layui-tab-title">
-                                <li class="layui-this" lay-id="1">传感器信息</li>
+                                <li style="color: #2db7f5"  class="layui-this" lay-id="1">传感器信息</li>
                             </ul>
                             <input hidden="hidden" id="actTypeId" value="">
                             <!--景点信息开始-->
@@ -84,11 +89,10 @@
     {{#
     var status = {
     100: {title: '草稿状态', color: 'lime'},
-    0: {title: '未审核', color: 'blue'},
-    1: {title: '审核通过', color: 'green'},
+    0: {title: '状态正常', color: 'blue'},
+    1: {title: '状态错误', color: 'green'},
     2: {title: '审核拒绝', color: 'volcano'}
-    }[d.checkState];
-
+    }[d.status];
     }}
     <span class="layui-badge lovexian-tag-{{ status.color}}">{{ status.title }}</span>
 </script>
@@ -126,7 +130,7 @@
     {{# } }}
     {{# if(hasPermission(['fairInfo:list'])) { }}
 
-    <a lay-event="edit" title=" 编辑"><i class="layui-icon lovexian-edit-area lovexian-blue" style="color: #9f9f9f">&#xe642;</i></a>
+    <a lay-event="edit" title=" 编辑"><i class="layui-icon lovexian-edit-area lovexian-blue" style="color: #2db7f5">&#xe642;</i></a>
     {{# }else{ }}
 
 
