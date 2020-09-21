@@ -118,11 +118,8 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
                 {field: 'sensorId', title: '传感器型号', minWidth: 120,align:'center',fixed: 'lift'},//对应后台idea的字段
                 {field: 'typeId', title: '传感器类别', minWidth:120,align:'center'},
                 {title: '传感器状态', templet: '#check-state',minWidth:120,align:'center'},
-                {field: 'longitude', title: '经度', minWidth:120,align:'center'},
-                {field: 'latitude', title: '纬度', minWidth:120,align:'center'},
-                {field: 'descInfo', title: '位置信息', minWidth:120,align:'center'},
                 {field: 'createdAt', title: '部署时间', minWidth: 180, sort: true,align:'center'},
-                {field: 'updatedAt', title: '最后更新时间',minWidth: 180, sort: true,align:'center'},
+                {field: 'updatedAt', title: '更新时间',minWidth: 180, sort: true,align:'center'},
                 {title: '操作', toolbar: '#action-option', minWidth: 120, fixed: 'right'}
             ]],
         });
@@ -134,16 +131,16 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
 
 
 
-    //对下方的dtusTable(列表)的操作
+    //对下方的sensorsTable(列表)的操作
     table.on('tool(sensorsTable)', function (obj) {
         var data = obj.data,
             layEvent = obj.event;
 
         if (layEvent === 'del') {//删除景点信息
-            lovexian.modal.confirm('删除dtu信息', '确定删除这条dtu的记录吗？', function () {
+            lovexian.modal.confirm('删除传感器信息', '确定删除这条传感器的记录吗？', function () {
                 lovexian.del(proPath + '/admin/sensors/deleteById?id='+ obj.data.id, null, function () {
                     console.log("success");
-                    lovexian.alert.success('删除该dtu成功');
+                    lovexian.alert.success('删除该传感器成功');
                     $query.click();
                 });
             });
