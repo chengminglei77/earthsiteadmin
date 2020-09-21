@@ -86,14 +86,15 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
 
     function addgatewayInfo(data,isEdit){
         // console.log(isEdit);
-        lovexian.popup("theme/gatewayManage/gatewayAdd",isEdit?"编辑网关":"添加网关信息",$.extend(data,{isEdit:isEdit}),function () {
+        lovexian.popup("theme/settings/gatewayManage/gatewayAdd",isEdit?"编辑网关":"添加网关信息",$.extend(data,{isEdit:isEdit}),function () {
                 if(isEdit===1) {
-                    layui.use('theme/gatewayManage/gatewayAdd', layui.factory('theme/gatewayManage/gatewayAdd'));
+                    layui.use('theme/settings/gatewayManage/gatewayAdd', layui.factory('theme/settings/gatewayManage/gatewayAdd'));
                     form.val("lawerForm",{
                         "id":data.id,
                         "gateId":data.gateId,
                         "longitude":data.longitude,
                         "latitude":data.latitude,
+                        "descInfo":data.descInfo,
                         "status":data.status,
                         "elecCharge":data.elecCharge,
                         "serverIp":data.serverIp,
@@ -105,7 +106,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
                     $('.thumbImg').attr("src",data.lawerHeadPhoto);
 
                 } else{
-                    layui.use('theme/gatewayManage/gatewayAdd', layui.factory('theme/gatewayManage/gatewayAdd'));
+                    layui.use('theme/settings/gatewayManage/gatewayAdd', layui.factory('theme/settings/gatewayManage/gatewayAdd'));
 
                 }
 
@@ -127,11 +128,14 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
             cols: [[
                 {type: 'checkbox',fixed: 'lift'},
                 {field: 'gateId', title: '网关标识 ', minWidth: 120,align:'center',fixed: 'lift'},//对应后台idea的字段
-                {field: 'status', title: '状态', minWidth:120,align:'center'},
+                {title: '网关状态', templet: '#check-state',minWidth:120,align:'center'},
                 {field: 'longitude', title: '经度', minWidth:120,align:'center'},
                 {field: 'latitude', title: '纬度', minWidth:180,align:'center'},
+                {field: 'descInfo', title: '位置信息', minWidth:120,align:'center'},
                 {field: 'serverIp', title: '服务器地址', minWidth: 180, sort: true,align:'center'},
                 {field: 'serverPort', title: '服务器端口',minWidth: 180, sort: true,align:'center'},
+                {field: 'createdAt', title: '部署时间', minWidth: 180, sort: true,align:'center'},
+                {field: 'updatedAt', title: '最后更新时间',minWidth: 180, sort: true,align:'center'},
                 {title: '操作', toolbar: '#action-option', minWidth: 120, fixed: 'right'}
             ]],
         });
