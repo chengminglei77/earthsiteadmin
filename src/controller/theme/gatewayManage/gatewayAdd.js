@@ -21,7 +21,7 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
 
     form.on("submit(addNews)",function(data){
 
-        var id = $("input[name='id']").val();
+        var id = $("input[name='id']").val();     //input[name='id']是访问input对象id属性
         var gateId = $('.gateId').val();
         var longitude = $('.longitude').val();
         var latitude = $('.latitude').val();
@@ -34,6 +34,7 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
         var updatedAt=$('.updatedAt').val();
         var disInfo= $('.disInfo ').val();
 
+        //dtudata对象
         var dtudata = {
             id:id,
             gateId:gateId,
