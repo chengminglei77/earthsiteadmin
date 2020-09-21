@@ -74,7 +74,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
         },
         options: [{
             name: 'add',
-            title: '添加dtu信息',
+            title: '添加DTU信息',
             perms: 'dtuInfo:add'
         }, {
             name: 'delete',
@@ -85,22 +85,26 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
 
     function addDtuInfo(data,isEdit){
         // console.log(isEdit);
-        lovexian.popup("theme/dtuManage/dtuAdd",isEdit?"编辑律师":"添加律师",$.extend(data,{isEdit:isEdit}),function () {
+        lovexian.popup("theme/settings/dtuManage/dtuAdd",isEdit?"编辑DTU信息":"添加律师",$.extend(data,{isEdit:isEdit}),function () {
                 if(isEdit===1) {
-                    layui.use('theme/dtuManage/dtuAdd', layui.factory('theme/dtuManage/dtuAdd'));
+                    layui.use('theme/settings/dtuManage/dtuAdd', layui.factory('theme/settings/dtuManage/dtuAdd'));
                     form.val("lawerForm",{//此处显示修改时框内显示的内容.显示原来未修改时的信息
+                        "dtuId":data.dtuId,
                         "sensorId":data.sensorId,
                         "dtuName":data.dtuName,
                         "longitude":data.longitude,
                         "latitude":data.latitude,
+                        "descInfo":data.descInfo,
                         "dtuType":data.dtuType,
                         "elcVolume":data.elcVolume,
                         "status":data.status,
                         "disInfo":data.disInfo,
                     });
                     $('.thumbImg').attr("src",data.lawerHeadPhoto);
+
                 } else{
-                    layui.use('theme/dtuManage/dtuAdd', layui.factory('theme/dtuManage/dtuAdd'));
+                    layui.use('theme/settings/dtuManage/dtuAdd', layui.factory('theme/settings/dtuManage/dtuAdd'));
+
                 }
             },
             function () {
@@ -122,11 +126,11 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
                 {field: 'dtuName', title: 'DTU名 ', minWidth: 120,align:'center',fixed: 'lift'},//field对应后台idea的字段
                 {field: 'dtuType', title: 'DTU类型', minWidth:130,align:'center'},
                 {title: 'DTU状态', templet: '#check-state',minWidth:120,align:'center'},
-                {field: 'longitude', title: '经度', minWidth:120,align:'center'},
-                {field: 'latitude', title: '纬度', minWidth:120,align:'center'},
-                {field: 'descInfo', title: '位置信息', minWidth:120,align:'center'},
+                //{field: 'longitude', title: '经度', minWidth:120,align:'center'},
+                //{field: 'latitude', title: '纬度', minWidth:120,align:'center'},
+                //{field: 'descInfo', title: '位置信息', minWidth:120,align:'center'},
                 {field: 'createdAt', title: '部署时间', minWidth: 180, sort: true,align:'center'},
-                {field: 'updatedAt', title: '最后更新时间',minWidth: 180, sort: true,align:'center'},
+                {field: 'updatedAt', title: '更新时间',minWidth: 180, sort: true,align:'center'},
                 // {field: 'disInfo', title: 'dis信息',minWidth: 180, sort: true,align:'center'},
                 {title: '操作', toolbar: '#action-option', minWidth: 120, fixed: 'right'}
             ]],
@@ -145,13 +149,30 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
             layEvent = obj.event;
 
         if (layEvent === 'del') {//删除景点信息
-            lovexian.modal.confirm('删除dtu信息', '确定删除这条dtu的记录吗？', function () {
-                lovexian.del(proPath + '/admin/dtus/deleteById?id='+ obj.data.id, null, function () {
-                    console.log("success");
-                    lovexian.alert.success('删除该dtu成功');
-                    $query.click();
+//逻辑删除
+            if(data.status == '0'){
+                lovexian.modal.confirm('删除DTU信息', '确定删除这条DTU的记录吗？', function () {
+                    lovexian.del(proPath + '/admin/dtus/deleteById?id='+ obj.data.id, null, function () {
+                        console.log("success");
+                        lovexian.alert.success('删除该dtu成功');
+                        $query.click();
+                    });
                 });
-            });
+//物理删除
+            }else if(data.status == '1'){
+                lovexian.modal.confirm('彻底删除DTU信息', '确定彻底删除这条DTU的记录吗？', function () {
+                    lovexian.del(proPath + '/admin/dtus/completelyDelete?id='+ obj.data.id, null, function () {
+                        console.log("success");
+                        lovexian.alert.success('彻底删除该dtu成功');
+                        $query.click();
+                    });
+                });
+
+
+
+            }
+
+
         }
         if (layEvent === 'edit') {
             //编辑也跳转到actionAdd，根据类型判断是添加还是编辑
@@ -208,5 +229,5 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
 
 
     //对外暴露的接口
-    exports('theme/dtuManage/dtu', {});
+    exports('theme/settings/dtuManage/dtu', {});
 });

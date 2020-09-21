@@ -89,6 +89,7 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
         var dtuName = $('.dtuName').val();
         var longitude = $('.longitude').val();
         var latitude = $('.latitude').val();
+        var descInfo = $('.descInfo').val();
         var dtuType = $('.dtuType').val();
         var elcVolume = $('.elcVolume').val();
         var status = $('.status').val();
@@ -100,6 +101,7 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
             dtuName:dtuName,
             longitude:longitude,
             latitude:latitude,
+            descInfo:descInfo,
             dtuType: dtuType,
             elcVolume:elcVolume,
             status:status,
@@ -107,6 +109,7 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
         };
 
         lovexian.post(proPath + '/admin/dtus/saveOrUpdate',dtudata);
+
         layer.closeAll();
         return false;
 
@@ -119,5 +122,5 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
     });
 
     //对外暴露的接口
-    exports('theme/dtuManage/dtuAdd', {});
+    exports('theme/settings/dtuManage/dtuAdd', {});
 });

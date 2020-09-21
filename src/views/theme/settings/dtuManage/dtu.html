@@ -32,8 +32,8 @@
                                             <div class="layui-input-inline">
                                                 <select name="status">
                                                     <option value=""></option>
-                                                    <option value="0">状态正常</option>
-                                                    <option value="1">状态错误</option>
+                                                    <option value="0">在线</option>
+                                                    <option value="1">离线</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -93,9 +93,9 @@
     {{#
     var status = {
     100: {title: '草稿状态', color: 'lime'},
-    0: {title: '状态正常', color: 'blue'},
-    1: {title: '状态错误', color: 'green'},
-    2: {title: '审核拒绝', color: 'volcano'}
+    0: {title: '在线', color: 'blue'},
+    1: {title: '离线', color: 'green'},
+    2: {title: '未启用', color: 'volcano'}
     }[d.status];
     }}
     <span class="layui-badge lovexian-tag-{{ status.color}}">{{ status.title }}</span>
@@ -142,6 +142,6 @@
 </script>
 
 <script>
-    layui.use('theme/dtuManage/dtu', layui.factory('theme/dtuManage/dtu'));
+    layui.use('theme/settings/dtuManage/dtu', layui.factory('theme/settings/dtuManage/dtu'));
 </script>
 
