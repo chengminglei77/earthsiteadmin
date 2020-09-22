@@ -46,7 +46,9 @@
                                     <div class="layui-btn layui-btn-sm layui-btn-primary table-action" name="reset" title="刷新">
                                         <i class="layui-icon">&#xe669;</i>
                                     </div>
+
                                     <span id="actionMoreContainer">
+
 
                                     </span>
 
@@ -121,9 +123,9 @@
 
 
 <script type="text/html" id="action-option">
-    {{# if(hasPermission(['fairInfo:list'])) { }}
+    {{# if(hasPermission(['dtuInfo:list'])) { }}
     {{# } }}
-    {{# if(hasPermission(['fairInfo:list'])) { }}
+    {{# if(hasPermission(['dtuInfo:list'])) { }}
 
     <a lay-event="edit" title=" 编辑"><i class="layui-icon lovexian-edit-area lovexian-blue" style="color: #2db7f5">&#xe642;</i></a>
     {{# }else{ }}
@@ -131,10 +133,10 @@
 
     {{# } }}
 
-    {{# if(hasPermission(['fairInfo:list'])) { }}
+    {{# if(hasPermission(['dtuInfo:list'])) { }}
     <a lay-event="del" title="删除"><i class="layui-icon lovexian-edit-area lovexian-red">&#xe640;</i></a>
     {{# } }}
-    {{# if(lacksPermission(['fairInfo:list','dtuInfo:update','dtuInfo:del'])) { }}
+    {{# if(lacksPermission(['dtuInfo:list','dtuInfo:update','dtuInfo:del'])) { }}
     <span>
             <span class="layui-badge-dot lovexian-bg-orange"></span> 无权限
     </span>

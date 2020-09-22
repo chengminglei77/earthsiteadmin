@@ -122,16 +122,10 @@
 {{# } }}
 </script>
 
-
-
-
-
-
-
 <script type="text/html" id="action-option">
-    {{# if(hasPermission(['fairInfo:list'])) { }}
+    {{# if(hasPermission(['gatewayInfo:list'])) { }}
     {{# } }}
-    {{# if(hasPermission(['fairInfo:list'])) { }}
+    {{# if(hasPermission(['gatewayInfo:list'])) { }}
 
     <a lay-event="edit" title=" 编辑"><i class="layui-icon lovexian-edit-area lovexian-blue" style="color: #2db7f5">&#xe642;</i></a>
     {{# }else{ }}
@@ -139,10 +133,10 @@
 
     {{# } }}
 
-    {{# if(hasPermission(['fairInfo:list'])) { }}
+    {{# if(hasPermission(['gatewayInfo:list'])) { }}
     <a lay-event="del" title="删除"><i class="layui-icon lovexian-edit-area lovexian-red">&#xe640;</i></a>
     {{# } }}
-    {{# if(lacksPermission(['fairInfo:list','dtuInfo:update','dtuInfo:del'])) { }}
+    {{# if(lacksPermission(['gatewayInfo:list','gatewayInfo:update','gatewayInfo:del'])) { }}
     <span>
             <span class="layui-badge-dot lovexian-bg-orange"></span> 无权限
     </span>
@@ -153,7 +147,7 @@
 
 
 <script>
-    layui.use('theme/gatewayManage/gateway', layui.factory('theme/gatewayManage/gateway'));
+    layui.use('theme/settings/gatewayManage/gateway', layui.factory('theme/settings/gatewayManage/gateway'));
 </script>
 
 </html>
