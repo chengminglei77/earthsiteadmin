@@ -114,7 +114,7 @@
 </script>
 
 <script type="text/html" id="actionMoreTpl"><!--展示更多-->
-{{# if(hasAnyPermission(['sensorInfo:add'])) { }}
+{{# if(hasAnyPermission(['sensorsInfo:add'])) { }}
 <div class="layui-btn layui-btn-sm layui-btn-primary table-action action-more">
     <i class="layui-icon">&#xe875;</i>
 </div>
@@ -139,7 +139,7 @@
     {{# if(hasPermission(['sensorsInfo:list'])) { }}
     <a lay-event="del" title="删除"><i class="layui-icon lovexian-edit-area lovexian-red">&#xe640;</i></a>
     {{# } }}
-    {{# if(lacksPermission(['sensorsInfo:list','sensorInfo:update','sensorInfo:del'])) { }}
+    {{# if(lacksPermission(['sensorsInfo:list','sensorsInfo:update','sensorsInfo:del'])) { }}
     <span>
             <span class="layui-badge-dot lovexian-bg-orange"></span> 无权限
     </span>

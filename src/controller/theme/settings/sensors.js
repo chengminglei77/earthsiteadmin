@@ -61,11 +61,11 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
                     lovexian.alert.warn('请选择需要删除的传感器信息');
                 } else {
                     lovexian.modal.confirm('删除传感器', '确定删除这些传感器信息吗？', function () {
-                        var dtuIds = [];
+                        var sensorsIds = [];
                         layui.each(checkStatus.data, function (key, item) {
-                            dtuIds.push(item.id)
+                            sensorsIds.push(item.id)
                         });
-                        deleteActions(dtuIds.join(','));
+                        deleteActions(sensorsIds.join(','));
                     });
                 }
             }
@@ -73,11 +73,11 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
         options: [{
             name: 'add',
             title: '添加传感器信息',
-            perms: 'dtuInfo:add'
+            perms: 'sensorsInfo:add'
         }, {
             name: 'delete',
             title: '批量删除',
-            perms: 'lawerInfo:del'
+            perms: 'sensorsInfo:del'
         }]
     });
 
