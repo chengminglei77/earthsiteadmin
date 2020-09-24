@@ -141,6 +141,52 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
         });
     }
 
+
+
+    function gatewaydtuInfo(data){
+        // console.log(isEdit);
+        lovexian.popup("theme/settings/gatewaydtuManage/gatewaydtu",function () {
+                    layui.use('theme/settings/gatewaydtuManage/gatewaydtu', layui.factory('theme/settings/gatewaydtuManage/gatewaydtu'));
+                    form.val("lawerForm",{
+                        "id":data.id,
+                        "gatewayId":data.gatewayId,
+                        "dtuId":data.dtuId
+                    });
+                    $('.thumbImg').attr("src",data.lawerHeadPhoto);
+            },
+            function () {
+                // $query.click();
+            });
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     table.on('tool(gatewayInfoTable)', function (obj) {
         var data = obj.data,
             layEvent = obj.event;
@@ -174,6 +220,11 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
         if (layEvent === 'edit') {
             //编辑也跳转到actionAdd，根据类型判断是添加还是编辑
             addgatewayInfo(obj.data,1);
+        }
+
+        if (layEvent == 'sel'){
+            //查看与网关相连的dtu信息
+            gatewaydtuInfo(data);
         }
     });//操作
 
