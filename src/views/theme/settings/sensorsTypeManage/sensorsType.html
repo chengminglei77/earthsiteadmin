@@ -1,0 +1,157 @@
+<!--#include virtual="lawerDetail.html" -->
+<style>
+    .layui-table-cell {
+        height: 60px;
+        max-width: 200px;
+    }
+</style>
+<div class="layui-fluid layui-anim lovexian-anim" id="lovexian-sensorsType" lay-title="传感器类型信息">
+    <div class="layui-row lovexian-container">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body lovexian-table-full">
+                    <div class="layui-row">
+                        <form class="layui-form layui-table-form" lay-filter="action-table-form">
+                            <div class="layui-row">
+                                <div class="layui-col-md10">
+                                    <div class="layui-form-item">
+
+                                        <div class="layui-inline">
+                                            <label class="layui-form-label layui-form-label-sm">传感器名</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" name="sensorName" autocomplete="off" class="layui-input">
+                                            </div>
+                                        </div>
+                                        <div class="layui-inline">
+                                            <label class="layui-form-label layui-form-label-sm">传感器型号</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" name="sensorModel" autocomplete="off" class="layui-input">
+                                            </div>
+                                        </div>
+                             <!--           <div class="layui-inline">
+                                            <label class="layui-form-label layui-form-label-sm">传感器状态</label>
+                                            <div class="layui-input-inline">
+                                                <select name="status">
+                                                    <option value=""></option>
+                                                    <option value="0">在线</option>
+                                                    <option value="1">离线</option>
+                                                </select>
+                                            </div>
+                                        </div>-->
+
+                                    </div>
+                                </div>
+                                <div class="layui-col-md2 layui-col-sm12 layui-col-xs12 table-action-area">
+                                    <div class="layui-btn layui-btn-sm layui-btn-primary table-action" name="query" title="搜索">
+                                        <i class="layui-icon">&#xe615;</i>
+                                    </div>
+                                    <div class="layui-btn layui-btn-sm layui-btn-primary table-action" name="reset" title="重置">
+                                        <i class="layui-icon">&#xe669;</i>
+                                    </div>
+                                    <span id="actionMoreContainer">
+
+                                    </span>
+
+                                </div>
+                            </div>
+                        </form>
+
+
+                        <div class="layui-tab layui-tab-brief" lay-filter="sensorTypeTab">
+                            <ul class="layui-tab-title">
+                                <li style="color: #2db7f5"  class="layui-this" lay-id="1">传感器类型信息</li>
+                            </ul>
+                            <input hidden="hidden" id="actTypeId" value="">
+                            <!--景点信息开始-->
+                            <div class="layui-tab-content"><!--景点信息-->
+                                <div class="layui-fluid layui-tab-item">
+                                    <div class="layui-row"><!--表格展示-->
+                                        <table lay-filter="sensorsTypeTable" id="sensorsTypeTable" lay-data="{id:'sensorsTypeTable'}">
+                                        </table>
+                                    </div>
+                                </div><!--景点信息结束-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="preview-layer">
+    <div class="preview-bg"></div>
+    <div class="preview-phone" id="previewPhone">
+        <iframe id="preview-html" name="preview-html" src="#/preview/preview-h5"></iframe>
+    </div>
+</div>
+
+<script type="text/html" id="check-state">
+    {{#
+    var status = {
+    100: {title: '草稿状态', color: 'lime'},
+    0: {title: '在线', color: 'blue'},
+    1: {title: '离线', color: 'green'},
+    2: {title: '未启用', color: 'volcano'}
+    }[d.status];
+    }}
+    <span class="layui-badge lovexian-tag-{{ status.color}}">{{ status.title }}</span>
+</script>
+
+<script type="text/html" id="show-flag">
+    {{# if(d.isShow == 1){ }}
+    <input type="checkbox" value={{d.id}}  lay-filter="delState" name="delState" lay-skin="switch" lay-text="展示|不展示" checked>
+    {{# }else{ }}
+    <input type="checkbox" value={{d.id}} lay-filter="delState" name="delState" lay-skin="switch" lay-text="展示|不展示">
+    {{# } }}
+</script>
+
+<script type="text/html" id="top-flag">
+    {{# if(d.isTop == 1){ }}
+    <input type="checkbox" value={{d.id}} name="isTop" lay-filter="isTop" lay-skin="switch" lay-text="置顶|不置顶" checked>
+    {{# }else{ }}
+    <input type="checkbox" value={{d.id}} name="isTop" lay-filter="isTop" lay-skin="switch" lay-text="置顶|不置顶">
+    {{# } }}
+</script>
+
+<script type="text/html" id="actionMoreTpl"><!--展示更多-->
+{{# if(hasAnyPermission(['sensorsTypeInfo:add'])) { }}
+<div class="layui-btn layui-btn-sm layui-btn-primary table-action action-more">
+    <i class="layui-icon">&#xe875;</i>
+</div>
+{{# } }}
+</script>
+
+
+
+
+
+<script type="text/html" id="action-option">
+    {{# if(hasPermission(['sensorsTypeInfo:list'])) { }}
+    {{# } }}
+    {{# if(hasPermission(['sensorsTypeInfo:list'])) { }}
+
+    <a lay-event="edit" title=" 编辑"><i class="layui-icon lovexian-edit-area lovexian-blue" style="color: #2db7f5">&#xe642;</i></a>
+    {{# }else{ }}
+
+
+    {{# } }}
+
+    {{# if(hasPermission(['sensorsTypeInfo:list'])) { }}
+    <a lay-event="del" title="删除"><i class="layui-icon lovexian-edit-area lovexian-red">&#xe640;</i></a>
+    {{# } }}
+    {{# if(lacksPermission(['sensorsTypeInfo:list','sensorsTypeInfo:update','sensorsTypeInfo:del'])) { }}
+    <span>
+            <span class="layui-badge-dot lovexian-bg-orange"></span> 无权限
+    </span>
+    {{# } }}
+</script>
+
+
+
+
+
+
+<script>
+    layui.use('theme/settings/sensorsTypeManage/sensorsType', layui.factory('theme/settings/sensorsTypeManage/sensorsType'));
+</script>
+
