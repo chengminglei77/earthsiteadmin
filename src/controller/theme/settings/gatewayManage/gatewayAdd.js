@@ -10,18 +10,15 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
         layedit = layui.layedit,
         laydate = layui.laydate,
         $ = layui.jquery;
-    $ = layui.jquery,
+        $ = layui.jquery,
         validate = layui.validate;
     //表单校验
     form.verify(validate);
     form.render();
 
-
-
-
     form.on("submit(addNews)",function(data){
 
-        var id = $("input[name='id']").val();     //input[name='id']是访问input对象id属性
+       var id = $("input[name='id']").val();     //input[name='id']是访问input对象id属性
         var gateId = $('.gateId').val();
         var longitude = $('.longitude').val();
         var latitude = $('.latitude').val();
@@ -35,7 +32,7 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
         var disInfo= $('.disInfo ').val();
 
         //dtudata对象
-        var dtudata = {
+       var dtudata = {
             id:id,
             gateId:gateId,
             longitude:longitude,
@@ -49,8 +46,10 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
             updatedAt:updatedAt,
             disInfo:disInfo,
         };
-
-        lovexian.post(proPath + '/admin/gateways/saveOrUpdate',dtudata);
+        lovexian.post(proPath + '/admin/gateways/saveOrUpdate',dtudata,function () {//存入数据的路径
+                lovexian.alert.success('保存成功');
+            // $('#lovexian-job').find('#query').click();
+        });
         layer.closeAll();
         return false;
     });

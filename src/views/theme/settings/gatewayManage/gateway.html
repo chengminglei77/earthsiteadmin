@@ -46,17 +46,11 @@
                                     <div class="layui-btn layui-btn-sm layui-btn-primary table-action" name="reset" title="刷新">
                                         <i class="layui-icon">&#xe669;</i>
                                     </div>
-
                                     <span id="actionMoreContainer">
-
-
                                     </span>
-
-
                                 </div>
                             </div>
                         </form>
-
 
                         <div class="layui-tab layui-tab-brief" lay-filter="gatewayTab">
                             <ul class="layui-tab-title">
@@ -89,10 +83,9 @@
 <script type="text/html" id="check-state">
     {{#
     var status = {
-    100: {title: '草稿状态', color: 'lime'},
     0: {title: '在线', color: 'blue'},
-    1: {title: '离线', color: 'green'},
-    2: {title: '审核拒绝', color: 'volcano'}
+    1: {title: '离线', color: 'red'},
+    2: {title: '未启用', color: 'orange'},
     }[d.status];
     }}
     <span class="layui-badge lovexian-tag-{{ status.color}}">{{ status.title }}</span>
@@ -121,15 +114,12 @@
 </div>
 {{# } }}
 </script>
-
 <script type="text/html" id="action-option">
     {{# if(hasPermission(['gatewayInfo:list'])) { }}
     {{# } }}
     {{# if(hasPermission(['gatewayInfo:list'])) { }}
-
     <a lay-event="edit" title=" 编辑"><i class="layui-icon lovexian-edit-area lovexian-blue" style="color: #2db7f5">&#xe642;</i></a>
     {{# }else{ }}
-
 
     {{# } }}
 
@@ -142,12 +132,7 @@
     </span>
     {{# } }}
 </script>
-
-
-
-
 <script>
     layui.use('theme/settings/gatewayManage/gateway', layui.factory('theme/settings/gatewayManage/gateway'));
 </script>
-
 </html>
