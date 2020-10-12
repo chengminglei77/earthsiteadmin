@@ -132,7 +132,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
             {title: '网关状态', templet: '#check-state',minWidth:120,align:'center'},
             /*{field: 'longitude', title: '经度', minWidth:120,align:'center'},
             {field: 'latitude', title: '纬度', minWidth:180,align:'center'},*/
-            {field: 'descInfo', title: '位置信息', minWidth:120,align:'center'},
+           /* {field: 'descInfo', title: '位置信息', minWidth:120,align:'center'},*/
             {field: 'serverIp', title: '服务器地址', minWidth: 180, sort: true,align:'center'},
             {field: 'serverPort', title: '服务器端口',minWidth: 180, sort: true,align:'center'},
             {field: 'createdAt', title: '部署时间', minWidth: 180, sort: true,align:'center'},
@@ -175,7 +175,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
 
         if (layEvent === 'del') {//删除景点信息
             //逻辑删除
-            if(data.status == '0'){
+            if(data.deleteState == '0'){
                 lovexian.modal.confirm('删除网关信息', '确定删除这条网关记录吗？', function () {
                     lovexian.del(proPath + '/admin/gateways/deleteById?id='+ obj.data.id, null, function () {
                         console.log("success");
@@ -184,7 +184,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
                     });
                 });
             //物理删除
-            }else if(data.status == '1'){
+            }else if(data.deleteState == '1'){
                 lovexian.modal.confirm('彻底删除网关信息', '确定彻底删除这条网关记录吗？', function () {
                     lovexian.del(proPath + '/admin/gateways/completelyDelete?id='+ obj.data.id, null, function () {
                         console.log("success");
@@ -198,9 +198,21 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
             }
 
         }
+
         if (layEvent === 'edit') {
             //编辑也跳转到actionAdd，根据类型判断是添加还是编辑
             addgatewayInfo(obj.data,1);
+        }
+
+        if (layEvent === 'restore') {
+            //还原
+            lovexian.modal.confirm('还原网关信息', '确定还原这条网关记录吗？', function () {
+                lovexian.post(proPath + '/admin/gateways/restoreById?id='+ obj.data.id, null, function () {
+                    console.log("success");
+                    lovexian.alert.success('还原该报警信息成功');
+                    $query.click();
+                });
+            });
         }
 
         if (layEvent == 'sel'){
@@ -244,6 +256,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
         return {
             gateId: $searchForm.find('input[name="gateId"]').val().trim(),
             status: $searchForm.find('select[name="status"]').val(),
+            deleteState: $searchForm.find('select[name="deleteState"]').val(),
         };
     }
 
