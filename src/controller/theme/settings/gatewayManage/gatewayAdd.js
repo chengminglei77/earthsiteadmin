@@ -30,6 +30,7 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
         var createdAt=$('.createdAt').val();
         var updatedAt=$('.updatedAt').val();
         var disInfo= $('.disInfo ').val();
+        var deleteState= $('.deleteState').val();
 
         //dtudata对象
        var dtudata = {
@@ -45,6 +46,7 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
             createdAt:createdAt,
             updatedAt:updatedAt,
             disInfo:disInfo,
+           deleteState:deleteState,
         };
         lovexian.post(proPath + '/admin/gateways/saveOrUpdate',dtudata,function () {//存入数据的路径
                 lovexian.alert.success('保存成功');
@@ -53,6 +55,8 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
         layer.closeAll();
         return false;
     });
+
+
     form.on("submit(cancelBtn)",function(data){
         layer.closeAll();
     });

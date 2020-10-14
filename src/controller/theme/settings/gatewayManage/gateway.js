@@ -81,7 +81,8 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
             name: 'delete',
             title: '批量删除',
             perms: 'gatewayInfo:del'
-        }]
+        },
+        ]
     });
 
     function addgatewayInfo(data,isEdit){
@@ -118,74 +119,54 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
 
     function initTable() {//初始化界面（下面的表格）
         tableIns = lovexian.table.init({
+        elem: $('#gatewayInfoTable'),
+        id: 'gatewayInfoTable',
+        url: proPath + '/admin/gateways/listByTypeId?',//id根据组件而动，初始化表格
+        type:'GET',
+        headers:{
+            Authentication :layui.data(setter.tableName)[setter.TOKENNAME]
+        },
+        cols: [[
+            {type: 'checkbox',fixed: 'lift'},
+            {field: 'gateId', title: '网关标识 ', minWidth: 120,align:'center',fixed: 'lift'},//对应后台idea的字段
+            {title: '网关状态', templet: '#check-state',minWidth:120,align:'center'},
+            /*{field: 'longitude', title: '经度', minWidth:120,align:'center'},
+            {field: 'latitude', title: '纬度', minWidth:180,align:'center'},*/
+           /* {field: 'descInfo', title: '位置信息', minWidth:120,align:'center'},*/
+            {field: 'serverIp', title: '服务器地址', minWidth: 180, sort: true,align:'center'},
+            {field: 'serverPort', title: '服务器端口',minWidth: 180, sort: true,align:'center'},
+            {field: 'createdAt', title: '部署时间', minWidth: 180, sort: true,align:'center'},
+            {field: 'updatedAt', title: '最后更新时间',minWidth: 180, sort: true,align:'center'},
+            {title: '操作', toolbar: '#action-option', minWidth: 120, fixed: 'right'}
+        ]],
+    });
+}
+
+
+
+
+
+    function gatewaydtuInfo(data,isEdit){//初始化界面
+        tableIns = lovexian.table.init({
             elem: $('#gatewayInfoTable'),
             id: 'gatewayInfoTable',
-            url: proPath + '/admin/gateways/listByTypeId?',//id根据组件而动，初始化表格
+            url: proPath + '/admin/gatewayDtu/gatewayDtu',//id根据组件而动，初始化表格
             type:'GET',
             headers:{
                 Authentication :layui.data(setter.tableName)[setter.TOKENNAME]
             },
             cols: [[
                 {type: 'checkbox',fixed: 'lift'},
-                {field: 'gateId', title: '网关标识 ', minWidth: 120,align:'center',fixed: 'lift'},//对应后台idea的字段
-                {title: '网关状态', templet: '#check-state',minWidth:120,align:'center'},
-                /*{field: 'longitude', title: '经度', minWidth:120,align:'center'},
-                {field: 'latitude', title: '纬度', minWidth:180,align:'center'},*/
-                {field: 'descInfo', title: '位置信息', minWidth:120,align:'center'},
-                {field: 'serverIp', title: '服务器地址', minWidth: 180, sort: true,align:'center'},
-                {field: 'serverPort', title: '服务器端口',minWidth: 180, sort: true,align:'center'},
+                {field: 'gatewayId', title: '网关标识 ', minWidth: 120,align:'center',fixed: 'lift'},//对应后台idea的字段
+                {field: 'dtuId', title: 'DTU标识', minWidth:130,align:'center'},
+                {field: 'dtuName', title: 'DTU名称', minWidth:130,align:'center'},
+                {field: 'dtuType', title: 'DTU类型', minWidth:130,align:'center'},
+                {title: 'DTU状态', templet: '#check-state',minWidth:120,align:'center'},
                 {field: 'createdAt', title: '部署时间', minWidth: 180, sort: true,align:'center'},
                 {field: 'updatedAt', title: '最后更新时间',minWidth: 180, sort: true,align:'center'},
-                {title: '操作', toolbar: '#action-option', minWidth: 120, fixed: 'right'}
             ]],
         });
     }
-
-
-
-    function gatewaydtuInfo(data){
-        // console.log(isEdit);
-        lovexian.popup("theme/settings/gatewaydtuManage/gatewaydtu",function () {
-                    layui.use('theme/settings/gatewaydtuManage/gatewaydtu', layui.factory('theme/settings/gatewaydtuManage/gatewaydtu'));
-                    form.val("lawerForm",{
-                        "id":data.id,
-                        "gatewayId":data.gatewayId,
-                        "dtuId":data.dtuId
-                    });
-                    $('.thumbImg').attr("src",data.lawerHeadPhoto);
-            },
-            function () {
-                // $query.click();
-            });
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     table.on('tool(gatewayInfoTable)', function (obj) {
         var data = obj.data,
@@ -194,7 +175,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
 
         if (layEvent === 'del') {//删除景点信息
             //逻辑删除
-            if(data.status == '0'){
+            if(data.deleteState == '0'){
                 lovexian.modal.confirm('删除网关信息', '确定删除这条网关记录吗？', function () {
                     lovexian.del(proPath + '/admin/gateways/deleteById?id='+ obj.data.id, null, function () {
                         console.log("success");
@@ -203,7 +184,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
                     });
                 });
             //物理删除
-            }else if(data.status == '1'){
+            }else if(data.deleteState == '1'){
                 lovexian.modal.confirm('彻底删除网关信息', '确定彻底删除这条网关记录吗？', function () {
                     lovexian.del(proPath + '/admin/gateways/completelyDelete?id='+ obj.data.id, null, function () {
                         console.log("success");
@@ -217,14 +198,26 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
             }
 
         }
+
         if (layEvent === 'edit') {
             //编辑也跳转到actionAdd，根据类型判断是添加还是编辑
             addgatewayInfo(obj.data,1);
         }
 
+        if (layEvent === 'restore') {
+            //还原
+            lovexian.modal.confirm('还原网关信息', '确定还原这条网关记录吗？', function () {
+                lovexian.post(proPath + '/admin/gateways/restoreById?id='+ obj.data.id, null, function () {
+                    console.log("success");
+                    lovexian.alert.success('还原该报警信息成功');
+                    $query.click();
+                });
+            });
+        }
+
         if (layEvent == 'sel'){
             //查看与网关相连的dtu信息
-            gatewaydtuInfo(data);
+            gatewaydtuInfo(obj.data,1);
         }
     });//操作
 
@@ -263,6 +256,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
         return {
             gateId: $searchForm.find('input[name="gateId"]').val().trim(),
             status: $searchForm.find('select[name="status"]').val(),
+            deleteState: $searchForm.find('select[name="deleteState"]').val(),
         };
     }
 
