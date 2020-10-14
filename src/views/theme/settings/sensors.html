@@ -1,4 +1,8 @@
 <!--#include virtual="lawerDetail.html" -->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">;
+</head>
 <style>
     .layui-table-cell {
         height: 60px;
@@ -15,13 +19,6 @@
                             <div class="layui-row">
                                 <div class="layui-col-md10">
                                     <div class="layui-form-item">
-
-                                        <div class="layui-inline">
-                                            <label class="layui-form-label layui-form-label-sm">传感器型号</label>
-                                            <div class="layui-input-inline">
-                                                <input type="text" name="sensorId" autocomplete="off" class="layui-input">
-                                            </div>
-                                        </div>
                                         <div class="layui-inline">
                                             <label class="layui-form-label layui-form-label-sm">传感器类别</label>
                                             <div class="layui-input-inline">
@@ -33,12 +30,21 @@
                                             <div class="layui-input-inline">
                                                 <select name="status">
                                                     <option value=""></option>
-                                                    <option value="0">状态正常</option>
-                                                    <option value="1">状态错误</option>
+                                                    <option value="0">在线</option>
+                                                    <option value="1">离线</option>
                                                 </select>
                                             </div>
                                         </div>
-
+                                        <div class="layui-inline">
+                                            <label class="layui-form-label layui-form-label-sm">删除状态</label>
+                                            <div class="layui-input-inline">
+                                                <select name="delete_status">
+                                                    <option value=""></option>
+                                                    <option value="1">已删除</option>
+                                                    <option value="0">未删除</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div style="width: 100%;height: 900px">
@@ -91,10 +97,8 @@
 <script type="text/html" id="check-state">
     {{#
     var status = {
-    100: {title: '草稿状态', color: 'lime'},
-    0: {title: '状态正常', color: 'blue'},
-    1: {title: '状态错误', color: 'green'},
-    2: {title: '审核拒绝', color: 'volcano'}
+    0: {title: '在线', color: 'blue'},
+    1: {title: '离线', color: 'green'},
     }[d.status];
     }}
     <span class="layui-badge lovexian-tag-{{ status.color}}">{{ status.title }}</span>
@@ -139,9 +143,18 @@
 
     {{# } }}
 
-    {{# if(hasPermission(['sensorsInfo:list'])) { }}
+    {{# if(hasPermission(['sensorsInfo:list'])&&d.deleteState==0) { }}
     <a lay-event="del" title="删除"><i class="layui-icon lovexian-edit-area lovexian-red">&#xe640;</i></a>
     {{# } }}
+
+    {{# if(d.deleteState==1) { }}
+    <a lay-event="restore" title="还原"><i class="layui-icon lovexian-edit-area lovexian-blue">&#xe603;</i></a>
+    {{# } }}
+    {{# if(d.deleteState==1) { }}
+    <a lay-event="destroy" title="彻底删除"><i class="layui-icon lovexian-edit-area lovexian-red">&#xe639;</i></a>
+    {{# } }}
+
+
     {{# if(lacksPermission(['sensorsInfo:list','sensorsInfo:update','sensorsInfo:del'])) { }}
     <span>
             <span class="layui-badge-dot lovexian-bg-orange"></span> 无权限
@@ -158,3 +171,4 @@
     layui.use('theme/settings/sensors', layui.factory('theme/settings/sensors'));
 </script>
 
+</html>

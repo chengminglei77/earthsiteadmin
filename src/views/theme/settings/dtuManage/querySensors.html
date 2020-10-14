@@ -5,7 +5,7 @@
         max-width: 200px;
     }
 </style>
-<div class="layui-fluid layui-anim lovexian-anim" id="lovexian-dtus" lay-title="dtu信息">
+<div class="layui-fluid layui-anim lovexian-anim" id="lovexian-dtuSensors" lay-title="Dtu连接的传感器的信息">
     <div class="layui-row lovexian-container">
         <div class="layui-col-md12">
             <div class="layui-card">
@@ -15,40 +15,40 @@
                             <div class="layui-row">
                                 <div class="layui-col-md10">
                                     <div class="layui-form-item">
+
                                         <div class="layui-inline">
-                                            <label  class="layui-form-label layui-form-label-sm">DTU名</label>
+                                            <label class="layui-form-label layui-form-label-sm">DTU的ID</label>
                                             <div class="layui-input-inline">
-                                                <input type="text" name="dtuName" autocomplete="off" class="layui-input">
+                                                <input type="text" name="dtuId" autocomplete="off" class="layui-input">
                                             </div>
                                         </div>
                                         <div class="layui-inline">
-                                            <label class="layui-form-label layui-form-label-sm">DTU类型</label>
+                                            <label class="layui-form-label layui-form-label-sm">传感器ID</label>
                                             <div class="layui-input-inline">
-                                                <input type="text" name="dtuType" autocomplete="off" class="layui-input">
+                                                <input type="text" name="sensorId" autocomplete="off" class="layui-input">
                                             </div>
                                         </div>
-                                        <div class="layui-inline">
-                                            <label class="layui-form-label layui-form-label-sm">DTU状态</label>
-                                            <div class="layui-input-inline">
-                                                <select name="status">
-                                                    <option value=""></option>
-                                                    <option value="0">在线</option>
-                                                    <option value="1">离线</option>
-                                                </select>
-                                            </div>
-                                        </div>
+                                        <!--           <div class="layui-inline">
+                                                       <label class="layui-form-label layui-form-label-sm">传感器状态</label>
+                                                       <div class="layui-input-inline">
+                                                           <select name="status">
+                                                               <option value=""></option>
+                                                               <option value="0">在线</option>
+                                                               <option value="1">离线</option>
+                                                           </select>
+                                                       </div>
+                                                   </div>-->
+
                                     </div>
                                 </div>
                                 <div class="layui-col-md2 layui-col-sm12 layui-col-xs12 table-action-area">
                                     <div class="layui-btn layui-btn-sm layui-btn-primary table-action" name="query" title="搜索">
                                         <i class="layui-icon">&#xe615;</i>
                                     </div>
-                                    <div class="layui-btn layui-btn-sm layui-btn-primary table-action" name="reset" title="刷新">
+                                    <div class="layui-btn layui-btn-sm layui-btn-primary table-action" name="reset" title="重置">
                                         <i class="layui-icon">&#xe669;</i>
                                     </div>
-
                                     <span id="actionMoreContainer">
-
 
                                     </span>
 
@@ -57,19 +57,16 @@
                         </form>
 
 
-                        <div class="layui-tab layui-tab-brief" lay-filter="dtuTab">
+                        <div class="layui-tab layui-tab-brief" lay-filter="dtuSensorsTab">
                             <ul class="layui-tab-title">
-<!-- lay-id:两个列表,设置的值越小,那么小的就会率先出现下划线-->
-                                <li style="color: #2db7f5" class="layui-this" lay-id="1">dtu信息</li>
+                                <li style="color: #2db7f5"  class="layui-this" lay-id="1">Dtu连接的传感器的信息</li>
                             </ul>
-
-
                             <input hidden="hidden" id="actTypeId" value="">
-                            <!--dtu信息列表展示开始-->
+                            <!--景点信息开始-->
                             <div class="layui-tab-content"><!--景点信息-->
                                 <div class="layui-fluid layui-tab-item">
                                     <div class="layui-row"><!--表格展示-->
-                                        <table lay-filter="dtusTable" id="dtusTable" lay-data="{id:'dtusTable'}">
+                                        <table lay-filter="dtuSensorsTab" id="dtuSensorsTab" lay-data="{id:'dtuSensorsTab'}">
                                         </table>
                                     </div>
                                 </div><!--景点信息结束-->
@@ -88,9 +85,6 @@
     </div>
 </div>
 
-
-<!--状态--><!--此处需要修改status和数据库字段一致,-->
-<!--注意:script中不要加注释,否则会错误--><!--注意:script中不要加注释,否则会错误--><!--注意:script中不要加注释,否则会错误--><!--注意:script中不要加注释,否则会错误-->
 <script type="text/html" id="check-state">
     {{#
     var status = {
@@ -111,10 +105,16 @@
     {{# } }}
 </script>
 
+<script type="text/html" id="top-flag">
+    {{# if(d.isTop == 1){ }}
+    <input type="checkbox" value={{d.id}} name="isTop" lay-filter="isTop" lay-skin="switch" lay-text="置顶|不置顶" checked>
+    {{# }else{ }}
+    <input type="checkbox" value={{d.id}} name="isTop" lay-filter="isTop" lay-skin="switch" lay-text="置顶|不置顶">
+    {{# } }}
+</script>
 
-<!--展示更多:批量删除,新增按钮-->
-<script type="text/html" id="actionMoreDtuTpl">
-{{# if(hasAnyPermission(['dtuInfo:add'])) { }}
+<script type="text/html" id="actionMoreTpl"><!--展示更多-->
+{{# if(hasAnyPermission(['sensorsTypeInfo:add'])) { }}
 <div class="layui-btn layui-btn-sm layui-btn-primary table-action action-more">
     <i class="layui-icon">&#xe875;</i>
 </div>
@@ -122,34 +122,35 @@
 </script>
 
 
-<script type="text/html" id="action-option">
-    {{# if(hasPermission(['dtuInfo:list'])) { }}
-    {{# } }}
 
-    {{# if(hasPermission(['dtuInfo:list'])) { }}
+
+
+<script type="text/html" id="action-option">
+    {{# if(hasPermission(['sensorsTypeInfo:list'])) { }}
+    {{# } }}
+    {{# if(hasPermission(['sensorsTypeInfo:list'])) { }}
+
     <a lay-event="edit" title=" 编辑"><i class="layui-icon lovexian-edit-area lovexian-blue" style="color: #2db7f5">&#xe642;</i></a>
     {{# }else{ }}
+
+
     {{# } }}
 
-    {{# if(hasPermission(['dtuInfo:list'])) { }}
+    {{# if(hasPermission(['sensorsTypeInfo:list'])) { }}
     <a lay-event="del" title="删除"><i class="layui-icon lovexian-edit-area lovexian-red">&#xe640;</i></a>
     {{# } }}
-
-    {{# if(hasPermission(['dtuInfo:list'])) { }}
-    <a lay-event="querySensors" title="查看相连的传感器"><i class="layui-icon lovexian-edit-area lovexian-purple">&#xe615;</i></a>
-    {{# } }}
-
-
-
-
-    {{# if(lacksPermission(['dtuInfo:list','dtuInfo:update','dtuInfo:del'])) { }}
+    {{# if(lacksPermission(['sensorsTypeInfo:list','sensorsTypeInfo:update','sensorsTypeInfo:del'])) { }}
     <span>
             <span class="layui-badge-dot lovexian-bg-orange"></span> 无权限
     </span>
     {{# } }}
 </script>
 
-<script>
-    layui.use('theme/settings/dtuManage/dtu', layui.factory('theme/settings/dtuManage/dtu'));
-</script>
 
+
+
+
+
+<script>
+    layui.use('theme/settings/dtuManage/querySensors', layui.factory('theme/settings/dtuManage/querySensors'));
+</script>

@@ -1,0 +1,125 @@
+
+<script type="text/html" template lay-done="layui.data.sendParams(d.params)">
+    <input type="text" style="display: none;" name="id" value="{{d.params.id||''}}">
+</script>
+
+<form class="layui-form layui-row layui-row layui-col-space6  layui-col-md-offset3 layui-bg-white layui-col-md6" lay-filter="lawerForm"><!--此处的lawerForm不要修改-->
+
+    <div class="layui-col-md9 layui-col-xs12">
+        <div class="layui-row layui-col-space10" >
+            <div class="layui-col-md9 layui-col-xs7" >
+
+<!--                <div class="layui-form-item magt3">-->
+<!--                    <label class="layui-form-label lovexian-form-item-require">DtuId</label>-->
+<!--                    <div class="layui-input-block">-->
+<!--                        <input type="text" style="width:300px !important" class="layui-input" lay-verify="dtuId" name="dtuId" placeholder="请输入dtuId">-->
+<!--                    </div>&lt;!&ndash;同样需要修改变量名称&ndash;&gt;-->
+<!--                </div>-->
+
+<!--                <div class="layui-form-item magt3">
+                    <label class="layui-form-label">DTUID</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input dtuId" name="dtuId"  lay-verify="dtuId" placeholder="请输入Sensors的型号">
+                    </div>&lt;!&ndash;actiontitle 需要改变变量名称&ndash;&gt;
+                </div>-->
+
+               <!-- <div class="layui-form-item magt3">
+                    <label class="layui-form-label">DTU的名称</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input dtuName" name="dtuName"  lay-verify="dtuName" placeholder="请输入DTU的名称">
+                    </div>&lt;!&ndash;actiontitle 需要改变变量名称&ndash;&gt;
+                </div>-->
+
+                <div class="layui-form-item magt3">
+                    <label class="layui-form-label ">传感器型号</label>
+                    <div class="layui-input-block">
+                        <input type="text" style="width:300px !important" class="layui-input sensorId" name="sensorId"  lay-verify="sensorId" placeholder="无">
+                    </div><!--actiontitle 需要改变变量名称-->
+                </div>
+
+               <!-- <div class="layui-form-item magt3">
+                    <label class="layui-form-label ">纬度</label>
+                    <div class="layui-input-block">
+                        <input type="text" style="width:300px !important" class="layui-input latitude" name="latitude"  lay-verify="latitude" placeholder="请输入纬度">
+                    </div>&lt;!&ndash;actiontitle 需要改变变量名称&ndash;&gt;
+                </div>
+
+                <div class="layui-form-item magt3">
+                    <label class="layui-form-label ">位置</label>
+                    <div class="layui-input-block">
+                        <input type="text" style="width:300px !important" class="layui-input descInfo" name="descInfo"  lay-verify="descInfo" placeholder="请输入位置">
+                    </div>&lt;!&ndash;actiontitle 需要改变变量名称&ndash;&gt;
+                </div>
+
+
+                <div class="layui-form-item magt3">
+                    <label class="layui-form-label">Dtu类型</label>
+                    <div class="layui-input-block">
+                        <input type="text" style="width:300px !important" class="layui-input dtuType" lay-verify="dtuType" name="dtuType" placeholder="请输入dtu类型">
+                    </div>&lt;!&ndash;同样需要修改变量名称&ndash;&gt;
+                </div>-->
+
+             <!--   <div class="layui-form-item magt3">
+                    <label class="layui-form-label">电池容量</label>
+                    <div class="layui-input-block">
+                        <input type="text" style="width:300px !important" class="layui-input elcVolume" lay-verify="elcVolume" name="elcVolume" placeholder="请输入电池容量">
+                    </div>&lt;!&ndash;同样需要修改变量名称&ndash;&gt;
+                </div>-->
+
+
+
+              <!--  <div class="layui-form-item openness">
+                    <label class="layui-form-label lovexian-form-item-require"><i class="seraph icon-look"></i> Dtu状态</label>
+                    <div class="layui-input-block actionStatus" style="width:300px !important">
+                        <select name="languageType" lay-verify="required" onchange="changeLanguageType()">
+
+                            <option value="0">在线</option>
+                            <option value="1">离线</option>
+                        </select>
+                    </div>
+                </div>-->
+
+
+            <!--    <div class="layui-form-item">
+                    <label class="layui-form-label">Dis信息</label>
+                    <div class="layui-input-block" style="width:400px !important">
+                        <textarea placeholder="请输入dis信息" class="layui-textarea disInfo" name="disInfo" ></textarea>
+                    </div>&lt;!&ndash;同样需要修改变量名称&ndash;&gt;
+                </div>-->
+            </div>
+
+        </div>
+<!--        left: -200px;margin-bottom: 20px;-->
+    </div>
+
+    <div class="layui-col-md3 layui-col-xs12">
+            <div style=" width: 250px;position: relative;left: -500px; bottom: -500px" class="layui-right">
+                <a id="saveBtn" class="layui-btn layui-btn-normal" lay-filter="addNews" lay-submit><i class="layui-icon">&#xe621;</i>保存</a>
+                <a class="layui-btn layui-btn-primary layui-btn-normal" lay-filter="cancelBtn" lay-submit><i class="layui-icon">&#xe669;</i>取消</a>
+            </div>
+    </div>
+</form>
+
+
+
+<script>
+    var starEle;
+    var starNum = 0;
+    layui.data.sendParams = function(params){
+        if(params.isEdit){
+            starNum = params.star;
+        }
+        layui.use('rate', function(){
+            var rate = layui.rate;
+            //渲染
+            starEle = rate.render({
+                elem: '#test2',  //绑定元素,
+                length: 5,
+                value: starNum
+                ,choose: function(value){
+                    starNum = value;
+                }
+            });
+        });
+    };
+</script>

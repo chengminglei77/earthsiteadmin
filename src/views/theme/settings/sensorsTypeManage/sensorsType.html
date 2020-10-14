@@ -28,6 +28,16 @@
                                                 <input type="text" name="sensorModel" autocomplete="off" class="layui-input">
                                             </div>
                                         </div>
+                                        <div class="layui-inline">
+                                            <label class="layui-form-label layui-form-label-sm">删除状态</label>
+                                            <div class="layui-input-inline">
+                                                <select name="delete_status">
+                                                    <option value=""></option>
+                                                    <option value="1">已删除</option>
+                                                    <option value="0">未删除</option>
+                                                </select>
+                                            </div>
+                                        </div>
                              <!--           <div class="layui-inline">
                                             <label class="layui-form-label layui-form-label-sm">传感器状态</label>
                                             <div class="layui-input-inline">
@@ -136,9 +146,17 @@
 
     {{# } }}
 
-    {{# if(hasPermission(['sensorsTypeInfo:list'])) { }}
+    {{# if(hasPermission(['sensorsTypeInfo:list'])&&d.deleteState==0) { }}
     <a lay-event="del" title="删除"><i class="layui-icon lovexian-edit-area lovexian-red">&#xe640;</i></a>
     {{# } }}
+
+    {{# if(d.deleteState==1) { }}
+    <a lay-event="restore" title="还原"><i class="layui-icon lovexian-edit-area lovexian-blue">&#xe603;</i></a>
+    {{# } }}
+    {{# if(d.deleteState==1) { }}
+    <a lay-event="destroy" title="彻底删除"><i class="layui-icon lovexian-edit-area lovexian-red">&#xe639;</i></a>
+    {{# } }}
+
     {{# if(lacksPermission(['sensorsTypeInfo:list','sensorsTypeInfo:update','sensorsTypeInfo:del'])) { }}
     <span>
             <span class="layui-badge-dot lovexian-bg-orange"></span> 无权限

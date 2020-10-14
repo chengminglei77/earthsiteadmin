@@ -6,7 +6,7 @@
 <script type="text/html" template lay-done="layui.data.sendParams(d.params)">
     <input type="text" style="display: none;" name="id" value="{{d.params.id||''}}">
 </script>
-<form class="layui-form layui-row layui-col-space10 layui-bg-white" lay-filter="lawerForm">
+<form class="layui-form layui-row layui-col-space6 layui-col-md-offset3 layui-bg-white layui-col-md6" lay-filter="lawerForm">
 
     <div class="layui-col-md9 layui-col-xs12">
         <div class="layui-row layui-col-space10">
@@ -17,6 +17,25 @@
                     <div class="layui-input-block">
                         <input type="text" class="layui-input gateId" name="gateId"  lay-verify="gateId" placeholder="请输入网关标识">
                     </div><!--actiontitle 需要改变变量名称-->
+                </div>
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">DTU标识</label>
+                    <div class="layui-input-inline">
+                        <select name="languageType" lay-verify="required"  onchange = "changeLanguageType()">
+                            <option value="">直接选择或搜索选择</option>
+                            <option value="1">10</option>
+                            <option value="2">11</option>
+                            <option value="3">12</option>
+                            <option value="4">13</option>
+                            <option value="5">14</option>
+                            <option value="6">15</option>
+                            <option value="7">16</option>
+                            <option value="8">17</option>
+                            <option value="9">18</option>
+                            <option value="10">19</option>
+                        </select>
+                    </div>
                 </div>
 
 
@@ -53,9 +72,9 @@
                             <input type="text" name="elecCharge" id="elecCharge" class="layui-input elecCharge" placeholder="请输入当前电量">
                         </div>
                     </div>
-                    <div class="layui-form-label">
+                    <!--<div class="layui-form-label">
                        <div class="layui-slider" id="slideTest1" ></div>
-                    </div><!--同样需要修改变量名称-->
+                    </div>&lt;!&ndash;同样需要修改变量名称&ndash;&gt;-->
                 </div>
 
                 <div class="layui-form-item magt3">
@@ -77,10 +96,10 @@
                 </div>
 
                 <div class="layui-form-item magt3">
-                    <label class="layui-form-label">gis信息</label>
+                    <label class="layui-form-label">删除状态</label>
                     <div class="layui-input-block">
                         <div class="layui-input-inline">
-                            <input type="text" name="disInfo" id="disInfo" class="layui-input disInfo" placeholder="请输入gis信息">
+                            <input type="text" name="deleteState" id="deleteState" class="layui-input deleteState" placeholder="删除状态">
                         </div>
                     </div><!--同样需要修改变量名称-->
                 </div>
@@ -93,17 +112,20 @@
                         </div>
                     </div><!--同样需要修改变量名称-->
                 </div>
+
+                <div class="layui-col-md3 layui-col-xs12">
+                    <div style=" width: 500px;left: -200px;height: 10px; bottom: -500px" class="layui-right">
+                        <a id="saveBtn" class="layui-btn layui-btn-normal" lay-filter="addNews" lay-submit><i class="layui-icon">&#xe621;</i>保存</a>
+                        <!--<a class="layui-btn layui-btn-primary layui-btn-normal" lay-filter="cancelBtn" lay-submit><i class="layui-icon">&#xe669;</i>取消</a>-->
+                        <a class="layui-btn layui-btn-primary layui-btn-sm" lay-filter="cancelBtn" lay-submit>取消</a>
+                    </div>
+                </div>
+
+
             </div>
         </div>
     </div>
-    <div class="layui-col-md3 layui-col-xs12">
-        <div style=" width: 150px;position: relative;left: -250px; bottom: -500px" class="layui-right">
-            <a id="saveBtn" class="layui-btn layui-btn-sm" lay-filter="addNews" lay-submit><i class="layui-icon">&#xe655;</i>保存</a>
-            <a class="layui-btn layui-btn-primary layui-btn-sm" lay-filter="cancelBtn" lay-submit>取消</a>
-        </div>
-    </div>
 </form>
-
 
 
 <script>
