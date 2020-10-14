@@ -153,6 +153,26 @@ table.on('tool(sensorsTypeTable)', function (obj) {
             //编辑也跳转到actionAdd，根据类型判断是添加还是编辑
             addSensorTypeInfo(obj.data,1);
         }
+    if (layEvent === 'restore') {
+        //还原
+        lovexian.modal.confirm('还原传感器信息', '确定还原这条传感器记录吗？', function () {
+            lovexian.post(proPath + '/admin/sensorType/restoreById?id='+ obj.data.id, null, function () {
+                console.log("success");
+                lovexian.alert.success('还原传感器信息成功');
+                $query.click();
+            });
+        });
+    }
+    if (layEvent === 'destroy') {
+        //彻底删除
+        lovexian.modal.confirm('删除传感器信息', '确定彻底删除这条传感器的记录吗？', function () {
+            lovexian.del(proPath + '/admin/sensorType/completelyDelete?id=' + obj.data.id, null, function () {
+                console.log("success");
+                lovexian.alert.success('彻底删除该传感器成功');
+                $query.click();
+            });
+        });
+    }
     });//操作
 
 
@@ -190,6 +210,7 @@ table.on('tool(sensorsTypeTable)', function (obj) {
         return {//根据find不同,调用不同的方法,其中dtuName对应queryDtuInfo,而status对应listByTypeId
             sensorName: $searchForm.find('input[name="sensorName"]').val().trim(),//此处对应<input type="text" name="dtuName" autocomplete="off" class="layui-input">
             sensorModel: $searchForm.find('input[name="sensorModel"]').val(),
+            deleteState: $searchForm.find('select[name="delete_status"]').val(),
             //status: $searchForm.find("select[name='status']").val(),//此处对应html里面的select框:<select name="status">
         };
     }
