@@ -118,7 +118,6 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
             //alert("sdd");
             window.formData1=data;
 
-
             layui.use('theme/settings/dtuManage/sensorsAdd', layui.factory('theme/settings/dtuManage/sensorsAdd'));
             form.val("lawerForm",{//此处显示修改时框内显示的内容.显示原来未修改时的信息
                 "dtuId":window.formData1.dtuId,
@@ -138,17 +137,12 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
     {
         lovexian.popup("theme/settings/dtuManage/querySensors",isEdit?"编辑DTU信息":"添加律师",$.extend(data,{isEdit:isEdit}),function ()
         {  if(isEdit===1) {
-            //
             window.formData2=data;
-            alert(window.formData2.dtuId);
-            layui.use('theme/settings/dtuManage/querySensors', layui.factory('theme/settings/dtuManage/querySensors'));
-
-
+            //alert(window.formData2.dtuId);
+            layui.use('theme/settings/dtuManage/querySensors', layui.factory('theme/settings/dtuManage/querySensors/${data.dtuId}'));
             $('.thumbImg').attr("src",data.lawerHeadPhoto);
-
         } else{
-            layui.use('theme/settings/dtuManage/querySensors', layui.factory('theme/settings/dtuManage/querySensors'));
-
+            layui.use('theme/settings/dtuManage/querySensors/${data.dtuId}', layui.factory('theme/settings/dtuManage/querySensors/${data.dtuId}'));
         }
         },function () {
             // $query.click();
