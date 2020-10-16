@@ -111,49 +111,6 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
                 // $query.click();
             });
     }
-    function  addSensors(data,isEdit)
-    {
-        lovexian.popup("theme/settings/dtuManage/sensorsAdd",isEdit?"编辑DTU信息":"添加律师",$.extend(data,{isEdit:isEdit}),function ()
-        {  if(isEdit===1) {
-            //alert("sdd");
-            window.formData1=data;
-
-
-            layui.use('theme/settings/dtuManage/sensorsAdd', layui.factory('theme/settings/dtuManage/sensorsAdd'));
-            form.val("lawerForm",{//此处显示修改时框内显示的内容.显示原来未修改时的信息
-                "dtuId":window.formData1.dtuId,
-                "sensorId":data.sensorId,
-            });
-            $('.thumbImg').attr("src",data.lawerHeadPhoto);
-
-        } else{
-            layui.use('theme/settings/dtuManage/sensorsAdd', layui.factory('theme/settings/dtuManage/sensorsAdd'));
-
-        }
-        },function () {
-            // $query.click();
-        });
-    }
-    function  querySensors(data,isEdit)
-    {
-        lovexian.popup("theme/settings/dtuManage/querySensors",isEdit?"编辑DTU信息":"添加律师",$.extend(data,{isEdit:isEdit}),function ()
-        {  if(isEdit===1) {
-            //
-            window.formData2=data;
-            alert(window.formData2.dtuId);
-            layui.use('theme/settings/dtuManage/querySensors', layui.factory('theme/settings/dtuManage/querySensors'));
-
-
-            $('.thumbImg').attr("src",data.lawerHeadPhoto);
-
-        } else{
-            layui.use('theme/settings/dtuManage/querySensors', layui.factory('theme/settings/dtuManage/querySensors'));
-
-        }
-        },function () {
-            // $query.click();
-        });
-    }
 
     function initTable() {//初始化界面（下面的表格）
         tableIns = lovexian.table.init({
@@ -193,7 +150,6 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
 
         if (layEvent === 'del') {//删除景点信息
 //逻辑删除
-
             if(data.status == '0'){
                 lovexian.modal.confirm('删除DTU信息', '确定删除这条DTU的记录吗？', function () {
                     lovexian.del(proPath + '/admin/dtus/deleteById?id='+ obj.data.id, null, function () {
@@ -221,15 +177,6 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
         if (layEvent === 'edit') {
             //编辑也跳转到actionAdd，根据类型判断是添加还是编辑
             addDtuInfo(obj.data,1);
-        }
-        if (layEvent === 'addSensors')
-        {
-            addSensors(obj.data,1);
-        }
-        if (layEvent === 'querySensors')
-        {
-
-            querySensors(obj.data,1);
         }
     });//操作
 

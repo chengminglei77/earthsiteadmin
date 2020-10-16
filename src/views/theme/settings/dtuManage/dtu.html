@@ -21,12 +21,12 @@
                                                 <input type="text" name="dtuName" autocomplete="off" class="layui-input">
                                             </div>
                                         </div>
-                                        <div class="layui-inline">
-                                            <label class="layui-form-label layui-form-label-sm">DTU类型</label>
-                                            <div class="layui-input-inline">
-                                                <input type="text" name="dtuType" autocomplete="off" class="layui-input">
-                                            </div>
-                                        </div>
+<!--                                        <div class="layui-inline">-->
+<!--                                            <label class="layui-form-label layui-form-label-sm">DTU类型</label>-->
+<!--                                            <div class="layui-input-inline">-->
+<!--                                                <input type="text" name="dtuType" autocomplete="off" class="layui-input">-->
+<!--                                            </div>-->
+<!--                                        </div>-->
                                         <div class="layui-inline">
                                             <label class="layui-form-label layui-form-label-sm">DTU状态</label>
                                             <div class="layui-input-inline">
@@ -37,6 +37,18 @@
                                                 </select>
                                             </div>
                                         </div>
+
+                                        <div class="layui-inline">
+                                            <label class="layui-form-label layui-form-label-sm">删除状态</label>
+                                            <div class="layui-input-inline">
+                                                <select name="delState">
+                                                    <option value=""></option>
+                                                    <option value="1">已删除</option>
+                                                    <option value="0">未删除</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                                 <div class="layui-col-md2 layui-col-sm12 layui-col-xs12 table-action-area">
@@ -60,7 +72,7 @@
                         <div class="layui-tab layui-tab-brief" lay-filter="dtuTab">
                             <ul class="layui-tab-title">
 <!-- lay-id:两个列表,设置的值越小,那么小的就会率先出现下划线-->
-                                <li style="color: #2db7f5" class="layui-this" lay-id="1">dtu信息</li>
+                                <li style="color: #2db7f5" class="layui-this" lay-id="1">DTU信息</li>
                             </ul>
 
 
@@ -146,6 +158,10 @@
     <span>
             <span class="layui-badge-dot lovexian-bg-orange"></span> 无权限
     </span>
+    {{# } }}
+
+    {{# if(d.delState==1) { }}
+    <a lay-event="restore" title="还原"><i class="layui-icon lovexian-edit-area lovexian-blue">&#xe603;</i></a>
     {{# } }}
 </script>
 

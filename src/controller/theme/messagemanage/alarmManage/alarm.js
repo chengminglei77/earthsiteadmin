@@ -92,7 +92,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
                         "id":data.id,
                         "alarmInfo":data.alarmInfo,
                         "status":data.status,
-                        "test1-1":data.alarmTime,
+                        "alarmTime":data.alarmTime,
                         "dealAdmin":data.dealAdmin,
                         "dealTime":data.dealTime,
                         "alarmReason":data.alarmReason,
@@ -159,7 +159,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
         if (layEvent === 'restore') {
             //还原
             lovexian.modal.confirm('还原报警信息', '确定还原这条报警记录吗？', function () {
-                lovexian.del(proPath + '/admin/alarmInfo/restoreById?id='+ obj.data.id, null, function () {
+                lovexian.post(proPath + '/admin/alarmInfo/restoreById?id='+ obj.data.id, null, function () {
                     console.log("success");
                     lovexian.alert.success('还原该报警信息成功');
                     $query.click();
