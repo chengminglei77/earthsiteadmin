@@ -1,0 +1,159 @@
+<!--#include virtual="lawerDetail.html" -->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">;
+</head>
+<style>
+    .layui-table-cell {
+        height: 60px;
+        max-width: 200px;
+    }
+</style>
+<div class="layui-fluid layui-anim lovexian-anim" id="lovexian-command" lay-title="接口信息">
+    <div class="layui-row lovexian-container">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body lovexian-table-full">
+                    <div class="layui-row">
+                        <form class="layui-form layui-table-form" lay-filter="action-table-form">
+                            <div class="layui-row">
+                                <div class="layui-col-md10">
+                                    <div class="layui-form-item">
+                                        <div class="layui-inline">
+                                            <label class="layui-form-label layui-form-label-sm">创建时间</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" name="createTime" id="createTime" class="layui-input">
+                                            </div>
+                                        </div>
+                                        <div class="layui-inline">
+                                            <label class="layui-form-label layui-form-label-sm">状态</label>
+                                            <div class="layui-input-inline">
+                                                <select name="status">
+                                                    <option value=""></option>
+                                                    <option value="1">已处理</option>
+                                                    <option value="0">未处理</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="layui-inline">
+                                            <label class="layui-form-label layui-form-label-sm">删除状态</label>
+                                            <div class="layui-input-inline">
+                                                <select name="delete_status">
+                                                    <option value=""></option>
+                                                    <option value="1">已删除</option>
+                                                    <option value="0">未删除</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-col-md2 layui-col-sm12 layui-col-xs12 table-action-area">
+                                    <div class="layui-btn layui-btn-sm layui-btn-primary table-action" name="query" title="搜索">
+                                        <i class="layui-icon">&#xe615;</i>
+                                    </div>
+                                    <div class="layui-btn layui-btn-sm layui-btn-primary table-action" name="reset" title="刷新">
+                                        <i class="layui-icon">&#xe669;</i>
+                                    </div>
+
+                                    <span id="actionMoreContainer">
+                                    </span>
+
+                                </div>
+                            </div>
+                        </form>
+
+
+                        <div class="layui-tab layui-tab-brief" lay-filter="commandTab">
+                            <ul class="layui-tab-title">
+                                <li style="color: #2db7f5" class="layui-this" lay-id="1">报警信息</li>
+                            </ul>
+                            <input hidden="hidden" id="actTypeId" value="">
+                            <!--景点信息开始-->
+                            <div class="layui-tab-content"><!--景点信息-->
+                                <div class="layui-fluid layui-tab-item">
+                                    <div class="layui-row"><!--表格展示-->
+                                        <table lay-filter="commandInfoTable" id="commandInfoTable" lay-data="{id: 'commandInfoTable'}">
+                                        </table>
+                                    </div>
+                                </div><!--景点信息结束-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="preview-layer">
+    <div class="preview-bg"></div>
+    <div class="preview-phone" id="previewPhone">
+        <iframe id="preview-html" name="preview-html" src="#/preview/preview-h5"></iframe>
+    </div>
+</div>
+
+<script type="text/html" id="check-state">
+    {{#
+    var status = {
+    0: {title: '已处理', color: 'blue'},
+    1: {title: '未处理', color: 'green'},
+    }[d.status];
+    }}
+    <span class="layui-badge lovexian-tag-{{ status.color}}">{{ status.title }}</span>
+</script>
+
+<script type="text/html" id="show-flag">
+    {{# if(d.isShow == 1){ }}
+    <input type="checkbox" value={{d.id}}  lay-filter="delState" name="delState" lay-skin="switch" lay-text="展示|不展示" checked>
+    {{# }else{ }}
+    <input type="checkbox" value={{d.id}} lay-filter="delState" name="delState" lay-skin="switch" lay-text="展示|不展示">
+    {{# } }}
+</script>
+
+<script type="text/html" id="top-flag">
+    {{# if(d.isTop == 1){ }}
+    <input type="checkbox" value={{d.id}} name="isTop" lay-filter="isTop" lay-skin="switch" lay-text="置顶|不置顶" checked>
+    {{# }else{ }}
+    <input type="checkbox" value={{d.id}} name="isTop" lay-filter="isTop" lay-skin="switch" lay-text="置顶|不置顶">
+    {{# } }}
+</script>
+
+<script type="text/html" id="actionMoreTpl"><!--展示更多-->
+{{# if(hasAnyPermission(['commandInfo:add'])) { }}
+<div class="layui-btn layui-btn-sm layui-btn-primary table-action action-more">
+    <i class="layui-icon">&#xe875;</i>
+</div>
+{{# } }}
+</script>
+
+<script type="text/html" id="action-option">
+    {{# if(hasPermission(['commandInfo:list'])) { }}
+    {{# } }}
+    {{# if(hasPermission(['commandInfo:add'])&&d.deleteState==0) { }}
+    <a lay-event="edit" title=" 编辑"><i class="layui-icon lovexian-edit-area lovexian-blue" style="color: #2db7f5">&#xe642;</i></a>
+    {{# }else{ }}
+    {{# } }}
+    {{# if(hasPermission(['commandInfo:del'])&&d.deleteState==0) { }}
+    <a lay-event="del" title="删除"><i class="layui-icon lovexian-edit-area lovexian-red">&#xe640;</i></a>
+    {{# } }}
+
+    {{# if(d.deleteState==1) { }}
+    <a lay-event="restore" title="还原"><i class="layui-icon lovexian-edit-area lovexian-blue">&#xe603;</i></a>
+    {{# } }}
+    {{# if(d.deleteState==1) { }}
+    <a lay-event="destroy" title="彻底删除"><i class="layui-icon lovexian-edit-area lovexian-red">&#xe639;</i></a>
+    {{# } }}
+    {{# if(lacksPermission(['commandInfo:list','commandInfo:add','commandInfo:del'])) { }}
+    <span>
+            <span class="layui-badge-dot lovexian-bg-orange">无权限</span>
+    </span>
+    {{# } }}
+</script>
+
+
+
+
+<script>
+    layui.use('theme/messagemanage/commandManage/command', layui.factory('theme/messagemanage/commandManage/command'));
+</script>
+
+</html>
