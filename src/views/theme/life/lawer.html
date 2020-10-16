@@ -138,20 +138,20 @@
     {{# if(hasPermission(['fairInfo:list'])) { }}
     <a lay-event="detail" title="查看详情"><i class="layui-icon lovexian-edit-area lovexian-green">&#xe7a5;</i></a>
     {{# } }}
-    {{# if(hasPermission(['update:lawerInfo'])) { }}
+    {{# if(hasPermission(['fairInfo:list'])) { }}
 
-    {{# if(d.checkState==0){ }}
+
     <a lay-event="edit" title=" 编辑"><i class="layui-icon lovexian-edit-area lovexian-blue" style="color: #9f9f9f">&#xe642;</i></a>
     {{# }else{ }}
     <a lay-event="edit" title=" 编辑"><i class="layui-icon lovexian-edit-area lovexian-blue">&#xe642;</i></a>
-    {{# } }}
+
 
     {{# } }}
 
-    {{# if(hasPermission(['del:lawerInfo'])) { }}
+    {{# if(hasPermission(['fairInfo:list'])) { }}
     <a lay-event="del" title="删除"><i class="layui-icon lovexian-edit-area lovexian-red">&#xe640;</i></a>
     {{# } }}
-    {{# if(lacksPermission(['fairInfo:list','update:lawerInfo','del:lawerInfo'])) { }}
+    {{# if(lacksPermission(['fairInfo:list','lawerInfo:update','lawerInfo:del'])) { }}
     <span>
             <span class="layui-badge-dot lovexian-bg-orange"></span> 无权限
         </span>

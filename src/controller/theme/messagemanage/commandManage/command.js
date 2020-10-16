@@ -120,13 +120,12 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
             },
             cols: [[
                 {type: 'checkbox',fixed: 'lift'},
-                {field: 'command', title: '接口信息 ', minWidth: 120,align:'center',fixed: 'lift'},//对应后台idea的字段
-                {field: 'cmd_status', title: '处理状态', minWidth: 180, sort: true,align:'center'},
-                {title: '处理状态', templet: '#check-state',minWidth:120,align:'center'},
-                {field: 'send_Time', title: '发送时间',minWidth: 180, sort: true,align:'center'},
-                {field: 'receive_Time', title: '接收时间', minWidth:120,align:'center'},
-                {field: 'count', title: '计数', minWidth:120,align:'center'},
-                {field: 'description', title: '报警原因', minWidth: 180, sort: true,align:'center'},
+                {field: 'command', title: '接口信息', minWidth: 120,align:'center',fixed: 'lift'},//对应后台idea的字段
+                {title: '处理状态',templet: '#check-state', minWidth: 180, align:'center'},
+                {field: 'sendTime', title: '发送时间',minWidth: 180, align:'center'},
+                {field: 'receiveTime', title: '接收时间', minWidth:120,align:'center'},
+                {field: 'count', title: '数量', minWidth:120,align:'center'},
+                {field: 'description', title: '描述', minWidth: 180, sort: true,align:'center'},
                 {title: '操作', toolbar: '#action-option', minWidth: 120, fixed: 'right'}
             ]],
         });
@@ -134,22 +133,22 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
 
     table.on('tool(commandInfoTable)', function (obj) {
         var data = obj.data,
-            layEvent = obj.event;
+        layEvent = obj.event;
         console.log(data.status)
         if (layEvent === 'del') {//删除景点信息
             //逻辑删除
-            if(data.status == 1) //已处理则删除
+            if(data.cmdStatus == 1) //已处理则删除
                  {
-                lovexian.modal.confirm('删除报警信息', '确定删除这条报警记录吗？', function () {
-                    lovexian.del(proPath + '/admin/commandInfo/deleteById?id=' + obj.data.id, null, function () {
+                lovexian.modal.confirm('删除物理信息', '确定删除这条物理记录吗？', function () {
+                    lovexian.del(proPath + '/admin/commandInfo/completelyDelete?id=' + obj.data.cmdStatus, null, function () {
                         console.log("success");
-                        lovexian.alert.success('删除该报警信息成功');
+                        lovexian.alert.success('删除该物理信息成功');
                         $query.click();
                     });
                 });
             }
             else {
-                lovexian.alert.warn('该报警信息未处理，不能删除');
+                lovexian.alert.warn('该物理信息未处理，不能删除');
             }
         }
         if (layEvent === 'edit') {

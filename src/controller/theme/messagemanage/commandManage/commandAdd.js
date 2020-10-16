@@ -29,11 +29,11 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
         var dealTime = $('.dealTime').val();
         var commandReason=$('.commandReason').val();
 
-        var dealtime = new Date(dealTime);
+        var dealtime = new Date(dealTime);
         //dtudata对象
         var dtudata = {
             id:id,
-            commandInfo:commandInfo,
+            command:command,
             status:status,
             commandTime:commandTime,
             dealAdmin:dealAdmin,
