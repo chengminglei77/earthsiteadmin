@@ -49,28 +49,21 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
         position: 'fixed'
     });
     element.tabChange('dtuSensorsTab',1);//需要修改的地方
-    var data2=window.formData2;
 
-    function initTable() {//初始化界面（下面的表格）
+    function initTable() {//初始化界面（下面的表格）adminDtuSensor   + data3
+        var data3=window.formData2;
+        var data5 = data3.dtuId;
+        var data4= JSON.stringify(data3),
         tableIns = lovexian.table.init({
             elem: $('#dtuSensorsTab'),
             id: 'dtuSensorsTab',
-            url: proPath + '/admin/dtuSensor/selectCheckList?',data2,//id根据组件而动，初始化表格
+            url: proPath + '/admin/dtuSensor/selectCheckList?dtuId='+data5,//id根据组件而动，初始化表格
             type:'GET',
             headers:{
                 Authentication :layui.data(setter.tableName)[setter.TOKENNAME]
             },
             cols: [[
-                //{type: 'checkbox',fixed: 'lift'},
                 {field: 'dtuId', title: 'DTU的ID ',fixed: 'lift'},//field对应后台idea的字段
-                //{field: 'dtuType', title: 'DTU类型', minWidth:130,align:'center'},
-                //{title: 'DTU状态', templet: '#check-state',minWidth:120,align:'center'},
-                //{field: 'longitude', title: '经度', minWidth:120,align:'center'},
-                //{field: 'latitude', title: '纬度', minWidth:120,align:'center'},
-                //{field: 'descInfo', title: '位置信息', minWidth:120,align:'center'},
-                //{field: 'createdAt', title: '部署时间', minWidth: 180, sort: true,align:'center'},
-                //{field: 'updatedAt', title: '更新时间',minWidth: 180, sort: true,align:'center'},
-                // {field: 'disInfo', title: 'dis信息',minWidth: 180, sort: true,align:'center'},
                 {field: 'sensorId',minWidth:130, title: '传感器ID '},
                 {field: 'typeId', minWidth:130,title: '传感器类别 '},
                 {field: 'dtuName',minWidth:130, title: 'dtu名字 '},
