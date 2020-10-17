@@ -85,29 +85,32 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
 
     function addalarmInfo(data,isEdit){
         // console.log(isEdit);
-        lovexian.popup("theme/messagemanage/alarmManage/alarmAdd",isEdit?"编辑报警信息":"添加报警信息",$.extend(data,{isEdit:isEdit}),function () {
-                if(isEdit===1) {
-                    layui.use('theme/messagemanage/alarmManage/alarmAdd', layui.factory('theme/messagemanage/alarmManage/alarmAdd'));
+        if(isEdit===1){
+        lovexian.popup("theme/messagemanage/alarmManage/alarmEdit",isEdit?"编辑报警信息":"添加报警信息",$.extend(data,{isEdit:isEdit}),function () {
+                    layui.use('theme/messagemanage/alarmManage/alarmEdit', layui.factory('theme/messagemanage/alarmManage/alarmEdit'));
                     form.val("lawerForm",{
                         "id":data.id,
                         "alarmInfo":data.alarmInfo,
                         "status":data.status,
-                        "test1-1":data.alarmTime,
+                        "alarmTime":data.alarmTime,
                         "dealAdmin":data.dealAdmin,
                         "dealTime":data.dealTime,
                         "alarmReason":data.alarmReason,
                         "deletestatus":data.deletestatus,
                     });
-
-                } else{
-                    layui.use('theme/messagemanage/alarmManage/alarmAdd', layui.factory('theme/messagemanage/alarmManage/alarmAdd'));
-
-                }
-
             },
             function () {
                 // $query.click();
-            });
+            });}
+        else{
+            lovexian.popup("theme/messagemanage/alarmManage/alarmAdd",isEdit?"编辑报警信息":"添加报警信息",$.extend(data,{isEdit:isEdit}),function () {
+                        layui.use('theme/messagemanage/alarmManage/alarmAdd', layui.factory('theme/messagemanage/alarmManage/alarmAdd'));
+                },
+                function () {
+                    // $query.click();
+                });
+
+        }
     }
 
     function initTable() {//初始化界面（下面的表格）
@@ -123,8 +126,8 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
                 {type: 'checkbox',fixed: 'lift'},
                 {field: 'alarmInfo', title: '报警信息 ', minWidth: 120,align:'center',fixed: 'lift'},//对应后台idea的字段
                 {title: '处理状态', templet: '#check-state',minWidth:120,align:'center'},
-                {field: 'alarmTime', title: '报警时间', minWidth:120,align:'center'},
-                {field: 'dealAdmin', title: '处理人', minWidth: 180, sort: true,align:'center'},
+                {field: 'alarmTime', title: '报警时间', minWidth:180,align:'center'},
+                {field: 'dealAdmin', title: '处理人', minWidth: 120, sort: true,align:'center'},
                 {field: 'dealTime', title: '处理时间',minWidth: 180, sort: true,align:'center'},
                 {field: 'alarmReason', title: '报警原因', minWidth: 180, sort: true,align:'center'},
                 {title: '操作', toolbar: '#action-option', minWidth: 120, fixed: 'right'}
@@ -136,7 +139,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
         var data = obj.data,
             layEvent = obj.event;
         console.log(data.status)
-        if (layEvent === 'del') {//删除景点信息
+        if (layEvent === 'del') {
             //逻辑删除
             if(data.status == 1) //已处理则删除
                  {
@@ -156,6 +159,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
             //编辑也跳转到actionAdd，根据类型判断是添加还是编辑
             addalarmInfo(obj.data,1);
         }
+
         if (layEvent === 'restore') {
             //还原
             lovexian.modal.confirm('还原报警信息', '确定还原这条报警记录吗？', function () {
@@ -220,5 +224,5 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
 
 
     //对外暴露的接口
-    exports('theme/settings/alarmManage/alarm', {});
+    exports('theme/messagemanage/alarmManage/alarm', {});
 });
