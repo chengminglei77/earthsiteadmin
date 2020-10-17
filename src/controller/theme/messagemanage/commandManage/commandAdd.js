@@ -22,12 +22,12 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
     form.on("submit(addNews)",function(data){
 
         var id = $("input[name='id']").val();     //input[name='id']是访问input对象id属性
-        var command = $('.command').val();
+        var command = $('.commandInfo').val();
         var cmdStatus = $('.cmdStatus').val();
         var count = $('.count').val();
         var sendTime = $('.sendTime').val();
         var receiveTime = $('.receiveTime').val();
-        var description=$('.description').val();
+        var description=$('.commandReason').val();
         // var dealtime = new Date(dealTime);
         //dtudata对象
         var dtudata = {
@@ -37,7 +37,6 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
             count:count,
             description:description,
         };
-
         lovexian.post(proPath + '/admin/commandInfo/saveOrUpdate',dtudata,function () {//存入数据的路径
             lovexian.alert.success('保存成功');
             // $('#lovexian-job').find('#query').click();
