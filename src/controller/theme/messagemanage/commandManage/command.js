@@ -74,7 +74,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
         },
         options: [{
             name: 'add',
-            title: '添加报警信息',
+            title: '添加接口信息',
             perms: 'commandInfo:add'
         }, {
             name: 'delete',
@@ -85,17 +85,19 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
 
     function addcommandInfo(data,isEdit){
         // console.log(isEdit);
-        lovexian.popup("theme/messagemanage/commandManage/commandAdd",isEdit?"编辑报警信息":"添加报警信息",$.extend(data,{isEdit:isEdit}),function () {
+        lovexian.popup("theme/messagemanage/commandManage/commandAdd",isEdit?"编辑接口信息":"添加接口信息",$.extend(data,{isEdit:isEdit}),function () {
                 if(isEdit===1) {
                     layui.use('theme/messagemanage/commandManage/commandAdd', layui.factory('theme/messagemanage/commandManage/commandAdd'));
                     form.val("lawerForm",{
                         "id":data.id,
                         "command":data.command,
-                        "cmd_status":data.cmd_status,
-                        "send_Time":data.send_Time,
-                        "receive_Time":data.receive_Time,
+                        "cmdStatus":data.cmdStatus,
+                        "sendTime":data.sendTime,
+                        "receiveTime":data.receiveTime,
                         "count":data.count,
                         "description":data.description,
+                        "delState":data.delState
+
                     });
 
                 } else{
@@ -123,7 +125,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
                 {field: 'command', title: '接口信息', minWidth: 120,align:'center',fixed: 'lift'},//对应后台idea的字段
                 {title: '处理状态',templet: '#check-state', minWidth: 180, align:'center'},
                 {field: 'sendTime', title: '发送时间',minWidth: 180, align:'center'},
-                {field: 'receiveTime', title: '接收时间', minWidth:120,align:'center'},
+                {field: 'receiveTime', title: '接收时间', minWidth:180,align:'center'},
                 {field: 'count', title: '数量', minWidth:120,align:'center'},
                 {field: 'description', title: '描述', minWidth: 180, sort: true,align:'center'},
                 {title: '操作', toolbar: '#action-option', minWidth: 120, fixed: 'right'}
@@ -134,7 +136,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
     table.on('tool(commandInfoTable)', function (obj) {
         var data = obj.data,
         layEvent = obj.event;
-        console.log(data.status)
+        console.log(data.cmdStatus);
         if (layEvent === 'del') {//删除景点信息
             //逻辑删除
             if(data.cmdStatus == 1) //已处理则删除
@@ -201,8 +203,8 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
         return {
             createTimeFrom: createTimeFrom,
             createTimeTo: createTimeTo,
-            status: $searchForm.find('select[name="cmd_status"]').val(),
-            deleteState: $searchForm.find('select[name="delete_status"]').val(),
+            status: $searchForm.find('select[name="cmdStatus"]').val(),
+            deleteState: $searchForm.find('select[name="delState"]').val(),
         };
     }
 

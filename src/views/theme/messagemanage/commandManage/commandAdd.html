@@ -6,7 +6,7 @@
 <script type="text/html" template lay-done="layui.data.sendParams(d.params)">
     <input type="text" style="display: none;" name="id" value="{{d.params.id||''}}">
 </script>
-<form class="layui-form layui-row layui-col-space10 layui-bg-white" lay-filter="lawerForm">
+<form class="layui-form layui-row layui-col-space6  layui-col-md-offset3 layui-bg-white layui-col-md6" lay-filter="lawerForm">
 
     <div class="layui-col-md9 layui-col-xs12">
         <div class="layui-row layui-col-space10">
@@ -15,7 +15,7 @@
                 <div class="layui-form-item magt3">
                     <label class="layui-form-label lovexian-form-item-require">接口信息</label>
                     <div class="layui-input-block">
-                        <input type="text" class="layui-input commandInfo" name="commandInfo"  lay-verify="commandInfo" placeholder="请输入报警信息">
+                        <input type="text" class="layui-input commandInfo" name="command"  lay-verify="command" placeholder="请输入报警信息">
                     </div><!--actiontitle 需要改变变量名称-->
                 </div>
 
@@ -30,24 +30,24 @@
                 </div>
 
 
-                <div class="layui-form-item magt3">
-                    <label class="layui-form-label">处理时间</label>
-                    <div class="layui-input-block">
-                        <div class="layui-input-inline">
-                            <input type="text" name="sendTime" id="sendTime" class="layui-input sendTime" placeholder="请输入处理时间">
-                        </div>
-                    </div><!--同样需要修改变量名称-->
-                </div>
+<!--                <div class="layui-form-item magt3">-->
+<!--                    <label class="layui-form-label">处理时间</label>-->
+<!--                    <div class="layui-input-block">-->
+<!--                        <div class="layui-input-inline">-->
+<!--                            <input type="text" name="sendTime" id="sendTime" class="layui-input sendTime" placeholder="请输入处理时间">-->
+<!--                        </div>-->
+<!--                    </div>&lt;!&ndash;同样需要修改变量名称&ndash;&gt;-->
+<!--                </div>-->
 
 
-                <div class="layui-form-item magt3">
-                    <label class="layui-form-label">处理时间</label>
-                    <div class="layui-input-block">
-                        <div class="layui-input-inline">
-                            <input type="text" name="receiveTime" id="receiveTime" class="layui-input receiveTime" placeholder="请输入处理时间">
-                        </div>
-                    </div><!--同样需要修改变量名称-->
-                </div>
+<!--                <div class="layui-form-item magt3">-->
+<!--                    <label class="layui-form-label">处理时间</label>-->
+<!--                    <div class="layui-input-block">-->
+<!--                        <div class="layui-input-inline">-->
+<!--                            <input type="text" name="receiveTime" id="receiveTime" class="layui-input receiveTime" placeholder="请输入处理时间">-->
+<!--                        </div>-->
+<!--                    </div>&lt;!&ndash;同样需要修改变量名称&ndash;&gt;-->
+<!--                </div>-->
 
 
                 <div class="layui-form-item magt3">
@@ -63,7 +63,7 @@
                     <label class="layui-form-label">描述</label>
                     <div class="layui-input-block">
                         <div class="layui-input-inline">
-                            <textarea style="width: 400px;height: 100px" placeholder="请输入描述" class="layui-textarea commandReason" name="commandReason" ></textarea>
+                            <textarea style="width: 400px;height: 100px" placeholder="请输入描述" class="layui-textarea commandReason" name="description" ></textarea>
                         </div>
                     </div><!--同样需要修改变量名称-->
                 </div>
@@ -72,9 +72,9 @@
         </div>
     </div>
     <div class="layui-col-md3 layui-col-xs12">
-        <div style=" width: 150px;position: relative;left: -250px; bottom: -500px" class="layui-right">
-            <a id="saveBtn" class="layui-btn layui-btn-sm" lay-filter="addNews" lay-submit><i class="layui-icon">&#xe655;</i>保存</a>
-            <a class="layui-btn layui-btn-primary layui-btn-sm" lay-filter="cancelBtn" lay-submit>取消</a>
+        <div style="  width: 250px;position: relative;left: -500px; bottom: -300px" class="layui-right">
+            <a id="saveBtn" class="layui-btn layui-btn-normal" lay-filter="addNews" lay-submit><i class="layui-icon">&#xe621;</i>保存</a>
+            <a class="layui-btn layui-btn-primary layui-btn-normal" lay-filter="cancelBtn" lay-submit><i class="layui-icon">&#xe669;</i>取消</a>
         </div>
     </div>
 </form>
