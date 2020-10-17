@@ -189,22 +189,10 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
     }
 
 
-    function getQueryParams() { var createTimeFrom='',
-        createTimeTo='',
-
-        createTime = $searchForm.find('input[name="createTime"]').val();
-        //alert(createTime);
-        if (createTime) {
-            createTimeFrom = createTime.split(' - ')[0];
-            createTimeTo = createTime.split(' - ')[1];
-        }
-    /*     alert(createTimeFrom);
-         alert(createTimeTo);*/
+    function getQueryParams() {
         return {
-            createTimeFrom: createTimeFrom,
-            createTimeTo: createTimeTo,
-            status: $searchForm.find('select[name="cmdStatus"]').val(),
-            deleteState: $searchForm.find('select[name="delState"]').val(),
+            command: $searchForm.find('input[name="command"]').val().trim(),//此处对应<input type="text" name="dtuName" autocomplete="off" class="layui-input">
+            cmdStatus: $searchForm.find("select[name='cmdStatus']").val(),//此处对应html里面的select框:<select name="status">
         };
     }
 
@@ -215,7 +203,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
     });
 
     $reset.on('click',function () {//重置
-        $searchForm[0].reset();
+        // $searchForm[0].reset();
         initTable();
     });
 

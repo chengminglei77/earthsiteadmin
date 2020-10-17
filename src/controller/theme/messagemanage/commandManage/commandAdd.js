@@ -23,22 +23,19 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
 
         var id = $("input[name='id']").val();     //input[name='id']是访问input对象id属性
         var command = $('.command').val();
-        var status = $('.status').val();
-        var commandTime = $('.commandTime').val();
-        var dealAdmin = $('.dealAdmin').val();
-        var dealTime = $('.dealTime').val();
-        var commandReason=$('.commandReason').val();
-
-        var dealtime = new Date(dealTime);
+        var cmdStatus = $('.cmdStatus').val();
+        var count = $('.count').val();
+        var sendTime = $('.sendTime').val();
+        var receiveTime = $('.receiveTime').val();
+        var description=$('.description').val();
+        // var dealtime = new Date(dealTime);
         //dtudata对象
         var dtudata = {
             id:id,
             command:command,
-            status:status,
-            commandTime:commandTime,
-            dealAdmin:dealAdmin,
-            dealTime:dealtime,
-            commandReason:commandReason,
+            cmdStatus:cmdStatus,
+            count:count,
+            description:description,
         };
 
         lovexian.post(proPath + '/admin/commandInfo/saveOrUpdate',dtudata,function () {//存入数据的路径
