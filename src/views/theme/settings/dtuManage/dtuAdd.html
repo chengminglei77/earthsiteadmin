@@ -3,7 +3,7 @@
     <input type="text" style="display: none;" name="id" value="{{d.params.id||''}}">
 </script>
 
-<form class="layui-form layui-row layui-col-space6  layui-col-md-offset3 layui-bg-white layui-col-md6" lay-filter="lawerForm"><!--此处的lawerForm不要修改-->
+<form class="layui-form layui-row layui-col-space10 layui-bg-white" lay-filter="lawerForm"><!--此处的lawerForm不要修改-->
 
     <div class="layui-col-md9 layui-col-xs12">
         <div class="layui-row layui-col-space10" >
@@ -81,11 +81,34 @@
                 </div>
 
 
+                <div class="layui-form-item openness">
+                    <label class="layui-form-label lovexian-form-item-require"><i class="seraph icon-look"></i> 相连的传感器</label>
+                    <div class="layui-input-block actionStatus" style="width:300px ">
+                        <select name="city" lay-verify="required" xm-select="example6_3" onchange="changeLanguageType()" lay-filter="test" id="SensorsType"
+
+                        >
+
+                            <!--<option value="0">在线</option>
+                            <option value="1">离线</option>-->
+                        </select>
+                    </div>
+                </div>
+
+
                 <div class="layui-form-item">
                     <label class="layui-form-label">Dis信息</label>
-                    <div class="layui-input-block" style="width:400px !important">
+                    <div class="layui-input-block" style="width:300px !important">
                         <textarea placeholder="请输入dis信息" class="layui-textarea disInfo" name="disInfo" ></textarea>
                     </div><!--同样需要修改变量名称-->
+                </div>
+
+                <div class="layui-col-md3 layui-col-xs12">
+                    <div style=" width: 500px;left: -200px;height: 10px; bottom: -500px" class="layui-right">
+                        <a id="saveBtn" class="layui-btn layui-btn-normal" lay-filter="addNews" lay-submit><i class="layui-icon">&#xe621;</i>保存</a>
+                        <!--<a class="layui-btn layui-btn-primary layui-btn-normal" lay-filter="cancelBtn" lay-submit><i class="layui-icon">&#xe669;</i>取消</a>-->
+
+                        <a class="layui-btn layui-btn-primary layui-btn-sm" lay-filter="cancelBtn" lay-submit>取消</a>
+                    </div>
                 </div>
             </div>
 
@@ -93,12 +116,7 @@
 <!--        left: -200px;margin-bottom: 20px;-->
     </div>
 
-    <div class="layui-col-md3 layui-col-xs12">
-            <div style=" width: 250px;position: relative;left: -500px; bottom: -500px" class="layui-right">
-                <a id="saveBtn" class="layui-btn layui-btn-normal" lay-filter="addNews" lay-submit><i class="layui-icon">&#xe621;</i>保存</a>
-                <a class="layui-btn layui-btn-primary layui-btn-normal" lay-filter="cancelBtn" lay-submit><i class="layui-icon">&#xe669;</i>取消</a>
-            </div>
-    </div>
+
 </form>
 
 

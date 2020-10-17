@@ -87,6 +87,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
         // console.log(isEdit);
         lovexian.popup("theme/settings/dtuManage/dtuAdd",isEdit?"编辑DTU信息":"添加律师",$.extend(data,{isEdit:isEdit}),function () {
                 if(isEdit===1) {
+                    window.formData3=data;
                     layui.use('theme/settings/dtuManage/dtuAdd', layui.factory('theme/settings/dtuManage/dtuAdd'));
                     form.val("lawerForm",{//此处显示修改时框内显示的内容.显示原来未修改时的信息
                         "dtuId":data.dtuId,
@@ -249,7 +250,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
             ifr_author.html(author_str);
             //设置正文
             var content_str = data.introduction;
-            var tickets=data.tickets
+            var tickets=data.tickets;
             var ifr_content = $(ifr_document).find(".article-content");
             ifr_content.html("introduction:"+content_str+"</br>"+tickets);
             //设置图片
