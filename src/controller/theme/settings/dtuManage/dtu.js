@@ -100,6 +100,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
                         "elcVolume":data.elcVolume,
                         "status":data.status,
                         "disInfo":data.disInfo,
+                        "delState":data.delState,
                     });
                     $('.thumbImg').attr("src",data.lawerHeadPhoto);
 
@@ -185,11 +186,12 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
     table.on('tool(dtusTable)', function (obj) {
         var data = obj.data,
             layEvent = obj.event;
+        //window.getsensors = data
 
         if (layEvent === 'del') {//删除景点信息
 //逻辑删除
 
-            if(data.status == '0'){
+            if(data.delState == '0'){
                 lovexian.modal.confirm('删除DTU信息', '确定删除这条DTU的记录吗？', function () {
                     lovexian.del(proPath + '/admin/dtus/deleteById?id='+ obj.data.id, null, function () {
                         console.log("success");
@@ -198,7 +200,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
                     });
                 });
 //物理删除
-            }else if(data.status == '1'){
+            }else if(data.delState == '1'){
                 lovexian.modal.confirm('彻底删除DTU信息', '确定彻底删除这条DTU的记录吗？', function () {
                     lovexian.del(proPath + '/admin/dtus/completelyDelete?id='+ obj.data.id, null, function () {
                         console.log("success");
@@ -223,6 +225,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
         }
         if (layEvent === 'querySensors')
         {
+            //alert(data.dtuId);
 
             querySensors(obj.data,1);
         }
@@ -262,8 +265,8 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
     function getQueryParams() {//trim():去除字符串的头尾空格,val():设置输入域的值,find()方法返回通过测试（函数内判断）的数组的第一个元素的值。
         return {//根据find不同,调用不同的方法,其中dtuName对应queryDtuInfo,而status对应listByTypeId
             dtuName: $searchForm.find('input[name="dtuName"]').val().trim(),//此处对应<input type="text" name="dtuName" autocomplete="off" class="layui-input">
-            dtuType: $searchForm.find('input[name="dtuType"]').val(),
-            status: $searchForm.find("select[name='status']").val(),//此处对应html里面的select框:<select name="status">
+            status: $searchForm.find('input[name="status"]').val(),
+            delState: $searchForm.find("select[name='delState']").val(),//此处对应html里面的select框:<select name="status">
         };
     }
     $query.on('click',function () {
