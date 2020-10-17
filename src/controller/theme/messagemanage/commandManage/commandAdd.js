@@ -22,23 +22,26 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
     form.on("submit(addNews)",function(data){
 
         var id = $("input[name='id']").val();     //input[name='id']是访问input对象id属性
-        var alarmInfo = $('.alarmInfo').val();
+        var command = $('.command').val();
         var status = $('.status').val();
-        var alarmTime = $('.alarmTime').val();
-        var alarmReason=$('.alarmReason').val();
+        var commandTime = $('.commandTime').val();
+        var dealAdmin = $('.dealAdmin').val();
+        var dealTime = $('.dealTime').val();
+        var commandReason=$('.commandReason').val();
 
-        var alarmTime = new Date(alarmTime);
-
+        var dealtime = new Date(dealTime);
         //dtudata对象
-        var alarmdata = {
+        var dtudata = {
             id:id,
-            alarmInfo:alarmInfo,
+            command:command,
             status:status,
-            alarmTime:alarmTime,
-            alarmReason:alarmReason,
+            commandTime:commandTime,
+            dealAdmin:dealAdmin,
+            dealTime:dealtime,
+            commandReason:commandReason,
         };
 
-        lovexian.post(proPath + '/admin/alarmInfo/saveOrUpdate',alarmdata,function () {//存入数据的路径
+        lovexian.post(proPath + '/admin/commandInfo/saveOrUpdate',dtudata,function () {//存入数据的路径
             lovexian.alert.success('保存成功');
             // $('#lovexian-job').find('#query').click();
         });
@@ -49,19 +52,11 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
         layer.closeAll();
     });
     //国际版
-    layui.use('laydate', function () {
-        var laydate = layui.laydate;
-        laydate.render({
-            elem: '#alarmTime'// input里时间的Id
-            ,type: 'datetime'
-            ,trigger: 'click'
-            ,position: 'fixed'
-            ,value: new Date()
-            ,done: function (value, date) {
-            }
-        });
+    laydate.render({
+        elem: '#test1-1'
+        ,type: 'datetime'
     });
 
     //对外暴露的接口
-    exports('theme/messagemanage/alarmManage/alarmAdd', {});
+    exports('theme/settings/commandManage/commandAdd', {});
 });

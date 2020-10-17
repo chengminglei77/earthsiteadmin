@@ -584,10 +584,16 @@ layui.define(['admin','view','jquery','table','baseSetting','loadBar','notice','
         console.log("全局websocket1")
         if (typeof (WebSocket) == "undefined") {
             console.log("您的浏览器不支持WebSocket");
-        } else {
+        } /*else {
             // console.log("您的浏览器支持WebSocket");
             //实现化WebSocket对象，指定要连接的服务器地址与端口  建立连接
-            socket1 = new WebSocket((proPath+"/websocket/" + layui.data(setter.cid)[setter.cid]).replace("http", "ws"));
+
+
+
+          socket1 = new WebSocket((proPath+"/websocket/" + layui.data(setter.cid)[setter.cid]).replace("http", "ws"));
+
+
+
             //打开事件
             socket1.onopen = function () {
                 // console.log("Socket1 已打开");
@@ -627,7 +633,7 @@ layui.define(['admin','view','jquery','table','baseSetting','loadBar','notice','
                 //此时可以尝试刷新页面
             };
         }
-        return socket1;
+        return socket1;*/
     }
 
 
@@ -636,7 +642,7 @@ layui.define(['admin','view','jquery','table','baseSetting','loadBar','notice','
 
         if (typeof (WebSocket) == "undefined") {
             console.log("您的浏览器不支持WebSocket");
-        } else {
+        } /*else {
             //实现化WebSocket对象，指定要连接的服务器地址与端口  建立连接
             socket2 = new WebSocket((videoPath+"/videowebsocket/" + layui.data(setter.cid)[setter.cid]).replace("http", "ws"));
             //打开事件
@@ -696,7 +702,7 @@ layui.define(['admin','view','jquery','table','baseSetting','loadBar','notice','
                 }
             });
         }
-        return socket2;
+        return socket2;*/
     }
 
     exports('lovexian', self)
