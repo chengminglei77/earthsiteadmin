@@ -14,34 +14,40 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
         validate = layui.validate;
     //表单校验
     form.verify(validate);
-    form.render();
 
 
-
+   /* form.on('select(required)', function (data) {        //对应lay-filter
+        required= data.value;                            //获取value值
+        text= data.elem[data.elem.selectedIndex].text;   //获取显示的值
+        form.render();
+    });
+*/
 
     form.on("submit(addNews)",function(data){
 
         var id = $("input[name='id']").val();     //input[name='id']是访问input对象id属性
         var alarmInfo = $('.alarmInfo').val();
-        var status = $('.status').val();
+        var status = $('select[name="status"] option:selected').val();
         var alarmTime = $('.alarmTime').val();
         var dealAdmin = $('.dealAdmin').val();
         var dealTime = $('.dealTime').val();
         var alarmReason=$('.alarmReason').val();
 
-        var dealtime = new Date(dealTime);
+        var alarmTime = new Date(alarmTime);
+        var dealTime = new Date(dealTime);
+
         //dtudata对象
-        var dtudata = {
+        var alarmdata = {
             id:id,
             alarmInfo:alarmInfo,
             status:status,
             alarmTime:alarmTime,
             dealAdmin:dealAdmin,
-            dealTime:dealtime,
+            dealTime:dealTime,
             alarmReason:alarmReason,
         };
 
-        lovexian.post(proPath + '/admin/alarmInfo/saveOrUpdate',dtudata,function () {//存入数据的路径
+        lovexian.post(proPath + '/admin/alarmInfo/saveOrUpdate',alarmdata,function () {//存入数据的路径
             lovexian.alert.success('保存成功');
             // $('#lovexian-job').find('#query').click();
         });
@@ -53,10 +59,31 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
     });
     //国际版
     laydate.render({
-        elem: '#test1-1'
+        elem: '#alarmTime'
         ,type: 'datetime'
+        ,position: 'fixed'
     });
+      /*laydate.render({
+        elem: '#dealTime'
+        ,type: 'datetime'
+        ,trigger: 'click'
+        ,position: 'fixed'
+    });*/
 
+    //if(data.dealTime == null) {
+        layui.use('laydate', function () {
+            var laydate = layui.laydate;
+            laydate.render({
+                elem: '#dealTime'// input里时间的Id
+                , type: 'datetime'
+                , trigger: 'click'
+                , position: 'fixed'
+                , value: new Date()
+                , done: function (value, date) {
+                }
+            });
+        });
+    //}
     //对外暴露的接口
-    exports('theme/settings/alarmManage/alarmAdd', {});
+    exports('theme/messagemanage/alarmManage/alarmEdit', {});
 });
