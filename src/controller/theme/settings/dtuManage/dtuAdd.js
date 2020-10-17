@@ -18,67 +18,6 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
 
 
 
-    // //上传缩略图
-    // upload.render({
-    //     elem: '.thumbBox',
-    //     url: proPath+'/fileupload/smallfile',
-    //     method : "post",  //此处是为了演示之用，实际使用中请将此删除，默认用post方式提交
-    //     headers: {
-    //         Authentication :layui.data(setter.tableName)[setter.TOKENNAME]
-    //     },
-    //     done: function(res, index, upload){
-    //         $('.thumbImg').attr('src',res.data.url);
-    //         $('.thumbBox').css("background","#fff");
-    //     }
-    // });
-    //
-    // //格式化时间
-    // function filterTime(val){
-    //     if(val < 10){
-    //         return "0" + val;
-    //     }else{
-    //         return val;
-    //     }
-    // }
-    //
-    // form.verify({
-    //     name : function(val){
-    //         if(val == ''){
-    //             return "律师姓名不能为空";
-    //         }
-    //     },
-    //     locationName:function(val)
-    //     {
-    //         if(val =='')
-    //         {
-    //             return "工作机构不能为空"
-    //         }
-    //     },
-    //     telNumber:function(val){
-    //         if(val == ''){
-    //             return "手机号码不能为空"
-    //         }
-    //     },
-    //     skillField:function(val){
-    //         if(val == ''){
-    //             return "擅长领域不能为空"
-    //         }
-    //     },
-    //     thumbImg: function () {
-    //
-    //         if(typeof ($(".thumbImg").attr("src"))=="undefined")
-    //         {
-    //             return "请上传图片";
-    //         }
-    //     },
-    // });
-    //
-    // function removeTAG(str){
-    //     return str.replace(/<[^>]+>/g, "").trim();
-    // }
-
-
-
 
 
     form.on("submit(addNews)",function(data){
@@ -114,6 +53,11 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
         return false;
 
     });
+
+
+
+
+
 
 
 //取消按钮,直接关闭当前窗口

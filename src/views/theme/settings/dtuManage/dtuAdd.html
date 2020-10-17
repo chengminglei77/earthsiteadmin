@@ -80,12 +80,28 @@
                 </div>
 
 
+
+<!--                动态展示sensor_id-->
+                <div class="layui-form-item openness">
+                    <label class="layui-form-label lovexian-form-item-require"><i class="seraph icon-look"></i> 传感器ID</label>
+                    <div class="layui-input-block actionStatus" style="width:300px !important">
+                        <select id="sensors-show" name="languageType" onclick="getSensorsIdList()" lay-verify="required">
+                        </select>
+                    </div>
+                </div>
+
+
                 <div class="layui-form-item">
                     <label class="layui-form-label">Dis信息</label>
                     <div class="layui-input-block" style="width:400px !important">
                         <textarea placeholder="请输入dis信息" class="layui-textarea disInfo" name="disInfo" ></textarea>
                     </div><!--同样需要修改变量名称-->
                 </div>
+
+
+
+
+
             </div>
 
         </div>
@@ -122,4 +138,29 @@
             });
         });
     };
+
+
+    function getSensorsIdList(){
+        $.ajax({
+            url: '/admin/dtuSensor/getSensorsIdList?',//id根据组件而动，初始化表格
+            type:'GET',
+            // data: params,
+            async: true,
+            dataType: 'json',
+
+            success: function (data,htmlData) {
+                for(var i=0;i<data.length;i++){
+                    var value = data[i].sensorId;
+                    $('#sensors-show').append("<option value="+value+">");
+                }
+            },
+            error: function (data) {
+                $.gridUnLoading({message: "下拉框数据加载失败"});
+            }
+        });
+    }
+
+
+
 </script>
+

@@ -142,7 +142,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
             if(data.cmdStatus == 1) //已处理则删除
                  {
                 lovexian.modal.confirm('删除物理信息', '确定删除这条物理记录吗？', function () {
-                    lovexian.del(proPath + '/admin/commandInfo/completelyDelete?id=' + obj.data.cmdStatus, null, function () {
+                    lovexian.del(proPath + '/admin/commandInfo/completelyDelete?id=' + obj.data.id, null, function () {
                         console.log("success");
                         lovexian.alert.success('删除该物理信息成功');
                         $query.click();
@@ -180,7 +180,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
     });//操作
 
 
-    function deleteActions(commandIds) {//操作组件之一，删除
+    function deleteActions(commandIds) {//操作组件之一，批量删除
         lovexian.del(proPath + '/admin/commandInfo/BatchDelete/' + commandIds, null, function () {
             console.log("success");
             lovexian.alert.success('删除选中报警信息');
