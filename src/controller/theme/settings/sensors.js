@@ -137,19 +137,54 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
             layEvent = obj.event;
 
         if (layEvent === 'del') {//删除景点信息
-            lovexian.modal.confirm('删除传感器信息', '确定删除这条传感器的记录吗？', function () {
-                lovexian.del(proPath + '/admin/sensors/deleteById?id='+ obj.data.id, null, function () {
-                    console.log("success");
-                    lovexian.alert.success('删除该传感器成功');
-                    $query.click();
+            if(data.status == '0') {
+                lovexian.modal.confirm('删除传感器信息', '确定删除这条传感器的记录吗？', function () {
+                    lovexian.del(proPath + '/admin/sensors/deleteById?id=' + obj.data.id, null, function () {
+                        console.log("success");
+                        lovexian.alert.success('删除该传感器成功');
+                        $query.click();
+                    });
                 });
-            });
+            }
+        else if(data.status == '1')
+            {
+                lovexian.modal.confirm('删除传感器信息', '确定删除这条传感器的记录吗？', function () {
+                    lovexian.del(proPath + '/admin/sensors/deleteById?id=' + obj.data.id, null, function () {
+                        console.log("success");
+                        lovexian.alert.success('删除该传感器成功');
+                        $query.click();
+                    });
+                });
+            }
         }
+
         if (layEvent === 'edit') {
             //编辑也跳转到actionAdd，根据类型判断是添加还是编辑
             addSensorInfo(obj.data,1);
         }
+        if (layEvent === 'restore') {
+            //还原
+            lovexian.modal.confirm('还原传感器信息', '确定还原这条传感器记录吗？', function () {
+                lovexian.post(proPath + '/admin/sensors/restoreById?id='+ obj.data.id, null, function () {
+                    console.log("success");
+                    lovexian.alert.success('还原传感器信息成功');
+                    $query.click();
+                });
+            });
+        }
+        if (layEvent === 'destroy') {
+            //彻底删除
+            lovexian.modal.confirm('删除传感器信息', '确定彻底删除这条传感器的记录吗？', function () {
+                lovexian.del(proPath + '/admin/sensors/completelyDelete?id=' + obj.data.id, null, function () {
+                    console.log("success");
+                    lovexian.alert.success('彻底删除该传感器成功');
+                    $query.click();
+                });
+            });
+        }
     });//操作
+
+
 
 
     function deleteActions(sensorsIds) {//操作组件之一，批量删除
@@ -184,9 +219,11 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
     }
     function getQueryParams() {//trim():去除字符串的头尾空格,val():设置输入域的值,find()方法返回通过测试（函数内判断）的数组的第一个元素的值。
         return {//根据find不同,调用不同的方法,其中dtuName对应queryDtuInfo,而status对应listByTypeId
-            sensorId: $searchForm.find('input[name="sensorId"]').val().trim(),//此处对应<input type="text" name="dtuName" autocomplete="off" class="layui-input">
+            //sensorId: $searchForm.find('input[name="sensorId"]').val().trim(),//此处对应<input type="text" name="dtuName" autocomplete="off" class="layui-input">
             typeId: $searchForm.find('input[name="typeId"]').val(),
-            status: $searchForm.find("select[name='status']").val(),//此处对应html里面的select框:<select name="status">
+            status: $searchForm.find('select[name="status"]').val(),//此处对应html里面的select框:<select name="status">
+            deleteState: $searchForm.find('select[name="delete_status"]').val(),
+
         };
     }
     $query.on('click',function () {
@@ -195,6 +232,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
         tableIns.reload({where: params});
     });
     $reset.on('click',function () {//刷新
+        $searchForm[0].reset();
         initTable();
     });
 

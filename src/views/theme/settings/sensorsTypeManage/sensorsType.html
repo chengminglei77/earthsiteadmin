@@ -5,7 +5,7 @@
         max-width: 200px;
     }
 </style>
-<div class="layui-fluid layui-anim lovexian-anim" id="lovexian-sensorInfo" lay-title="律师信息">
+<div class="layui-fluid layui-anim lovexian-anim" id="lovexian-sensorsType" lay-title="传感器类型信息">
     <div class="layui-row lovexian-container">
         <div class="layui-col-md12">
             <div class="layui-card">
@@ -15,41 +15,40 @@
                             <div class="layui-row">
                                 <div class="layui-col-md10">
                                     <div class="layui-form-item">
+
                                         <div class="layui-inline">
-                                            <label class="layui-form-label layui-form-label-sm">律师姓名</label>
+                                            <label class="layui-form-label layui-form-label-sm">传感器名</label>
                                             <div class="layui-input-inline">
                                                 <input type="text" name="sensorName" autocomplete="off" class="layui-input">
                                             </div>
                                         </div>
                                         <div class="layui-inline">
-                                            <label class="layui-form-label layui-form-label-sm">创建时间</label>
+                                            <label class="layui-form-label layui-form-label-sm">传感器型号</label>
                                             <div class="layui-input-inline">
-                                                <input type="text" name="createTime" id="createTime" class="layui-input">
+                                                <input type="text" name="sensorModel" autocomplete="off" class="layui-input">
                                             </div>
                                         </div>
-
                                         <div class="layui-inline">
-                                            <label class="layui-form-label layui-form-label-sm">状态</label>
+                                            <label class="layui-form-label layui-form-label-sm">删除状态</label>
+                                            <div class="layui-input-inline">
+                                                <select name="delete_status">
+                                                    <option value=""></option>
+                                                    <option value="1">已删除</option>
+                                                    <option value="0">未删除</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                             <!--           <div class="layui-inline">
+                                            <label class="layui-form-label layui-form-label-sm">传感器状态</label>
                                             <div class="layui-input-inline">
                                                 <select name="status">
                                                     <option value=""></option>
-                                                    <option value="0">未删除</option>
-                                                    <option value="1">已删除</option>
+                                                    <option value="0">在线</option>
+                                                    <option value="1">离线</option>
                                                 </select>
                                             </div>
-                                        </div>
-                                        <div class="layui-inline">
-                                            <label class="layui-form-label layui-form-label-sm">审核状态</label>
-                                            <div class="layui-input-inline">
-                                                <select name="check">
-                                                    <option value=""></option>
-                                                    <option value="0">未审核</option>
-                                                    <option value="100">草稿</option>
-                                                    <option value="1">已通过</option>
-                                                    <option value="2">已拒绝</option>
-                                                </select>
-                                            </div>
-                                        </div>
+                                        </div>-->
+
                                     </div>
                                 </div>
                                 <div class="layui-col-md2 layui-col-sm12 layui-col-xs12 table-action-area">
@@ -68,16 +67,16 @@
                         </form>
 
 
-                        <div class="layui-tab layui-tab-brief" lay-filter="lawerTab">
+                        <div class="layui-tab layui-tab-brief" lay-filter="sensorTypeTab">
                             <ul class="layui-tab-title">
-                                <li class="layui-this" lay-id="1">律师信息</li>
+                                <li style="color: #2db7f5"  class="layui-this" lay-id="1">传感器类型信息</li>
                             </ul>
                             <input hidden="hidden" id="actTypeId" value="">
                             <!--景点信息开始-->
                             <div class="layui-tab-content"><!--景点信息-->
                                 <div class="layui-fluid layui-tab-item">
                                     <div class="layui-row"><!--表格展示-->
-                                        <table lay-filter="lawerInfoTable" id="lawerInfoTable" lay-data="{id: 'lawerInfoTable'}">
+                                        <table lay-filter="sensorsTypeTable" id="sensorsTypeTable" lay-data="{id:'sensorsTypeTable'}">
                                         </table>
                                     </div>
                                 </div><!--景点信息结束-->
@@ -100,11 +99,10 @@
     {{#
     var status = {
     100: {title: '草稿状态', color: 'lime'},
-    0: {title: '未审核', color: 'blue'},
-    1: {title: '审核通过', color: 'green'},
-    2: {title: '审核拒绝', color: 'volcano'}
-    }[d.checkState];
-
+    0: {title: '在线', color: 'blue'},
+    1: {title: '离线', color: 'green'},
+    2: {title: '未启用', color: 'volcano'}
+    }[d.status];
     }}
     <span class="layui-badge lovexian-tag-{{ status.color}}">{{ status.title }}</span>
 </script>
@@ -126,7 +124,7 @@
 </script>
 
 <script type="text/html" id="actionMoreTpl"><!--展示更多-->
-{{# if(hasAnyPermission(['add:lawerInfo'])) { }}
+{{# if(hasAnyPermission(['sensorsTypeInfo:add'])) { }}
 <div class="layui-btn layui-btn-sm layui-btn-primary table-action action-more">
     <i class="layui-icon">&#xe875;</i>
 </div>
@@ -134,31 +132,44 @@
 </script>
 
 
+
+
+
 <script type="text/html" id="action-option">
-    {{# if(hasPermission(['fairInfo:list'])) { }}
-    <a lay-event="detail" title="查看详情"><i class="layui-icon lovexian-edit-area lovexian-green">&#xe7a5;</i></a>
+    {{# if(hasPermission(['sensorsTypeInfo:list'])) { }}
     {{# } }}
-    {{# if(hasPermission(['fairInfo:list'])) { }}
+    {{# if(hasPermission(['sensorsTypeInfo:list'])) { }}
 
-
-    <a lay-event="edit" title=" 编辑"><i class="layui-icon lovexian-edit-area lovexian-blue" style="color: #9f9f9f">&#xe642;</i></a>
+    <a lay-event="edit" title=" 编辑"><i class="layui-icon lovexian-edit-area lovexian-blue" style="color: #2db7f5">&#xe642;</i></a>
     {{# }else{ }}
-    <a lay-event="edit" title=" 编辑"><i class="layui-icon lovexian-edit-area lovexian-blue">&#xe642;</i></a>
 
 
     {{# } }}
 
-    {{# if(hasPermission(['fairInfo:list'])) { }}
+    {{# if(hasPermission(['sensorsTypeInfo:list'])&&d.deleteState==0) { }}
     <a lay-event="del" title="删除"><i class="layui-icon lovexian-edit-area lovexian-red">&#xe640;</i></a>
     {{# } }}
-    {{# if(lacksPermission(['fairInfo:list','lawerInfo:update','lawerInfo:del'])) { }}
+
+    {{# if(d.deleteState==1) { }}
+    <a lay-event="restore" title="还原"><i class="layui-icon lovexian-edit-area lovexian-blue">&#xe603;</i></a>
+    {{# } }}
+    {{# if(d.deleteState==1) { }}
+    <a lay-event="destroy" title="彻底删除"><i class="layui-icon lovexian-edit-area lovexian-red">&#xe639;</i></a>
+    {{# } }}
+
+    {{# if(lacksPermission(['sensorsTypeInfo:list','sensorsTypeInfo:update','sensorsTypeInfo:del'])) { }}
     <span>
             <span class="layui-badge-dot lovexian-bg-orange"></span> 无权限
-        </span>
+    </span>
     {{# } }}
 </script>
 
+
+
+
+
+
 <script>
-    layui.use('theme/life/lawer', layui.factory('theme/life/lawer'));
+    layui.use('theme/settings/sensorsTypeManage/sensorsType', layui.factory('theme/settings/sensorsTypeManage/sensorsType'));
 </script>
 

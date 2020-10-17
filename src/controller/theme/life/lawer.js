@@ -79,7 +79,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
         }, {
             name: 'delete',
             title: '批量删除',
-            perms: 'del:lawerInfo'
+            perms: 'lawerInfo:del'
         }]
     });
     function clearFormData() {

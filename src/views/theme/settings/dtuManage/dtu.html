@@ -125,17 +125,23 @@
 <script type="text/html" id="action-option">
     {{# if(hasPermission(['dtuInfo:list'])) { }}
     {{# } }}
-    {{# if(hasPermission(['dtuInfo:list'])) { }}
 
+    {{# if(hasPermission(['dtuInfo:list'])) { }}
     <a lay-event="edit" title=" 编辑"><i class="layui-icon lovexian-edit-area lovexian-blue" style="color: #2db7f5">&#xe642;</i></a>
     {{# }else{ }}
-
-
     {{# } }}
 
     {{# if(hasPermission(['dtuInfo:list'])) { }}
     <a lay-event="del" title="删除"><i class="layui-icon lovexian-edit-area lovexian-red">&#xe640;</i></a>
     {{# } }}
+
+    {{# if(hasPermission(['dtuInfo:list'])) { }}
+    <a lay-event="querySensors" title="查看相连的传感器"><i class="layui-icon lovexian-edit-area lovexian-purple">&#xe615;</i></a>
+    {{# } }}
+
+
+
+
     {{# if(lacksPermission(['dtuInfo:list','dtuInfo:update','dtuInfo:del'])) { }}
     <span>
             <span class="layui-badge-dot lovexian-bg-orange"></span> 无权限
