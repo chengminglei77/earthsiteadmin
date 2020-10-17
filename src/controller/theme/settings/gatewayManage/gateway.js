@@ -3,6 +3,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
         admin = layui.admin,
         laydate = layui.laydate,
         setter = layui.setter,
+        viewDtu = layui.view,
         $view = $('#lovexian-gateway'),//与html中id相同
         laytpl = layui.laytpl,
         lovexian = layui.lovexian,
@@ -37,7 +38,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
     //渲染权限
     var fakerData = ["faker"];
     var getTpl = actionMoreTpl.innerHTML
-        , view = document.getElementById('actionMoreContainer');
+        ;view = document.getElementById('actionMoreContainer');
     laytpl(getTpl).render(fakerData, function (html) {
         view.innerHTML = html;
     });
@@ -146,11 +147,15 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
 
 
 
-    function gatewaydtuInfo(data,isEdit){//初始化界面
+   /* function gatewaydtuInfo(data,isEdit){//初始化界面
+        var data3=window.gatewaydata;
+
+        var data5 = data3.gateId;
+        var data4= JSON.stringify(data3),
         tableIns = lovexian.table.init({
             elem: $('#gatewayInfoTable'),
             id: 'gatewayInfoTable',
-            url: proPath + '/admin/gatewayDtu/gatewayDtu',//id根据组件而动，初始化表格
+            url: proPath + '/admin/gatewayDtu/gatewayDtu?gateId='+data5,//id根据组件而动，初始化表格
             type:'GET',
             headers:{
                 Authentication :layui.data(setter.tableName)[setter.TOKENNAME]
@@ -166,12 +171,29 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
                 {field: 'updatedAt', title: '最后更新时间',minWidth: 180, sort: true,align:'center'},
             ]],
         });
-    }
+    }*/
+
+
+    /*function  queryDtu(data,isEdit)
+    {
+        lovexian.popup("theme/settings/gatewayManage/queryDtu",isEdit?"编辑DTU信息":"添加律师",$.extend(data,{isEdit:isEdit}),function ()
+        {  if(isEdit===1) {
+            window.formData2=data;
+            //alert(window.formData2.dtuId);
+            layui.use('theme/settings/gatewayManage/queryDtu', layui.factory('theme/settings/gatewayManage/queryDtu/${data.dtuId}'));
+            $('.thumbImg').attr("src",data.lawerHeadPhoto);
+        } else{
+            layui.use('theme/settings/gatewayManage/queryGatewayDtu/${data.dtuId}', layui.factory('theme/settings/gatewayManage/queryDtu/${data.dtuId}'));
+        }
+        },function () {
+            // $query.click();
+        });
+    }*/
 
     table.on('tool(gatewayInfoTable)', function (obj) {
         var data = obj.data,
             layEvent = obj.event;
-
+        window.gatewaydata = data;
 
         if (layEvent === 'del') {//删除景点信息
             //逻辑删除
@@ -215,9 +237,30 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
             });
         }
 
-        if (layEvent == 'sel'){
-            //查看与网关相连的dtu信息
-            gatewaydtuInfo(obj.data,1);
+
+        if (layEvent = 'sel'){
+            lovexian.get(proPath + "/admin/gatewayDtu/gatewayDtu",{"gateId":data.gateId},function (res) {
+                if (res.status = '200'){
+                    admin.popup({
+                        id: 'LAY-theme-action-check',
+                        area: ['400px','80%'],
+                        shadeClose: 0,
+                        title: 'DTU关联信息',
+                        success:function () {
+                            console.log(res.data.dtuName);
+                            viewDtu(this.id).render('common/checkHistory',{
+                                history: res.data.rows,
+                            }).then(function () {
+                                //视图文件请求完毕，试图内容渲染回顾
+                            }).done(function () {
+                                //视图文件请求完毕和内容渲染完毕的回顾
+                            });
+                        }
+                    });
+                }else {
+                    lovexian.alert.error("获取关联DTU历史信息失败!");
+                }
+            });
         }
     });//操作
 

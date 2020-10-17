@@ -6,7 +6,7 @@
 <script type="text/html" template lay-done="layui.data.sendParams(d.params)">
     <input type="text" style="display: none;" name="id" value="{{d.params.id||''}}">
 </script>
-<form class="layui-form layui-row layui-col-space6 layui-col-md-offset3 layui-bg-white layui-col-md6" lay-filter="lawerForm">
+<form class="layui-form layui-row layui-col-space10 layui-bg-white" lay-filter="lawerForm">
 
     <div class="layui-col-md9 layui-col-xs12">
         <div class="layui-row layui-col-space10">
@@ -15,14 +15,14 @@
                 <div class="layui-form-item magt3">
                     <label class="layui-form-label lovexian-form-item-require">网关标识</label>
                     <div class="layui-input-block">
-                        <input type="text" class="layui-input gateId" name="gateId"  lay-verify="gateId" placeholder="请输入网关标识">
+                        <input type="text" style="width:300px !important" class="layui-input gateId" name="gateId"  lay-verify="gateId" placeholder="请输入网关标识">
                     </div><!--actiontitle 需要改变变量名称-->
                 </div>
 
                 <div class="layui-inline">
-                    <label class="layui-form-label">DTU标识</label>
-                    <div class="layui-input-inline">
-                        <select name="languageType" lay-verify="required"  onchange = "changeLanguageType()">
+                    <label class="layui-form-label" >DTU标识</label>
+                    <div class="layui-input-inline" style="width:300px !important" >
+                        <select name="languageType"  lay-verify="required"  onchange = "changeLanguageType()">
                             <option value="">直接选择或搜索选择</option>
                             <option value="1">10</option>
                             <option value="2">11</option>
@@ -40,24 +40,25 @@
 
 
 
+
                 <div class="layui-form-item magt3">
                     <label class="layui-form-label">经度</label>
                     <div class="layui-input-block">
-                        <input type="text" class="layui-input longitude" lay-verify="longitude" name="longitude" placeholder="请输入经度">
+                        <input type="text" style="width:300px !important" class="layui-input longitude" lay-verify="longitude" name="longitude" placeholder="请输入经度">
                     </div><!--同样需要修改变量名称-->
                 </div>
 
                 <div class="layui-form-item magt3">
                     <label class="layui-form-label">纬度</label>
                     <div class="layui-input-block">
-                        <input type="text" class="layui-input latitude" lay-verify="latitude" name="latitude" placeholder="请输入纬度">
+                        <input type="text" style="width:300px !important" class="layui-input latitude" lay-verify="latitude" name="latitude" placeholder="请输入纬度">
                     </div><!--同样需要修改变量名称-->
                 </div>
 
                 <div class="layui-form-item openness">
                     <label class="layui-form-label lovexian-form-item-require"><i class="seraph icon-look"></i> 网关状态</label>
-                    <div class="layui-input-block actionStatus">
-                        <select name="languageType" lay-verify="required" onchange="changeLanguageType()">
+                    <div class="layui-input-block actionStatus" style="width: 300px ">
+                        <select name="languageType"  lay-verify="required" onchange="changeLanguageType()">
                             <option value="0">在线</option>
                             <option value="1">离线</option>
                             <option value="2" >未启用</option>
@@ -69,7 +70,7 @@
                     <label class="layui-form-label">当前电量</label>
                     <div class="layui-input-block">
                         <div class="layui-input-inline">
-                            <input type="text" name="elecCharge" id="elecCharge" class="layui-input elecCharge" placeholder="请输入当前电量">
+                            <input type="text" style="width:300px !important" name="elecCharge" id="elecCharge" class="layui-input elecCharge" placeholder="请输入当前电量">
                         </div>
                     </div>
                     <!--<div class="layui-form-label">
@@ -81,7 +82,7 @@
                     <label class="layui-form-label">服务器地址</label>
                     <div class="layui-input-block">
                         <div class="layui-input-inline">
-                            <input type="text" name="serverIp" id="serverIp" class="layui-input serverIp" placeholder="请输入服务器地址">
+                            <input type="text" style="width:300px !important" name="serverIp" id="serverIp" class="layui-input serverIp" placeholder="请输入服务器地址">
                         </div>
                     </div><!--同样需要修改变量名称-->
                 </div>
@@ -90,7 +91,7 @@
                     <label class="layui-form-label">服务器端口</label>
                     <div class="layui-input-block">
                         <div class="layui-input-inline">
-                            <input type="text" name="serverPort" id="serverPort" class="layui-input serverPort" placeholder="请输入服务器端口">
+                            <input type="text" style="width:300px !important" name="serverPort" id="serverPort" class="layui-input serverPort" placeholder="请输入服务器端口">
                         </div>
                     </div><!--同样需要修改变量名称-->
                 </div>
@@ -99,7 +100,7 @@
                     <label class="layui-form-label">删除状态</label>
                     <div class="layui-input-block">
                         <div class="layui-input-inline">
-                            <input type="text" name="deleteState" id="deleteState" class="layui-input deleteState" placeholder="删除状态">
+                            <input type="text" style="width:300px !important" name="deleteState" id="deleteState" class="layui-input deleteState" placeholder="删除状态">
                         </div>
                     </div><!--同样需要修改变量名称-->
                 </div>
@@ -118,6 +119,12 @@
                         <a id="saveBtn" class="layui-btn layui-btn-normal" lay-filter="addNews" lay-submit><i class="layui-icon">&#xe621;</i>保存</a>
                         <!--<a class="layui-btn layui-btn-primary layui-btn-normal" lay-filter="cancelBtn" lay-submit><i class="layui-icon">&#xe669;</i>取消</a>-->
                         <a class="layui-btn layui-btn-primary layui-btn-sm" lay-filter="cancelBtn" lay-submit>取消</a>
+                    </div>
+                </div>
+
+                <div class="layui-col-md3 layui-col-xs12">
+                    <div style= "width: 500px;left: -200px;height: 10px; bottom: -1000px" class="layui-right">
+                        <a id="selectDtus" class="layui-btn-sm" lay-filter="relateDtus" lay-submit><i class="layui-icon">&#xe621;</i>关联</a>
                     </div>
                 </div>
 

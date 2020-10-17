@@ -151,6 +151,10 @@
             <span class="layui-badge-dot lovexian-bg-orange"></span> 无权限
     </span>
     {{# } }}
+
+    {{# if(d.deleteState==1) { }}
+    <a lay-event="restore" title="还原"><i class="layui-icon lovexian-edit-area lovexian-blue">&#xe603;</i></a>
+    {{# } }}
 </script>
 <script>
     layui.use('theme/settings/gatewayManage/gateway', layui.factory('theme/settings/gatewayManage/gateway'));
