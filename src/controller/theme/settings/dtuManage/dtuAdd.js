@@ -10,7 +10,6 @@ layui.define(['form','layer','admin','layedit','formSelects','lovexian','laydate
         layedit = layui.layedit,
         laydate = layui.laydate,
         $ = layui.jquery,
-       // sensors = [[${sensors}]]
     formSelects = layui.formSelects,
     $ = layui.jquery,
 
@@ -21,66 +20,7 @@ layui.define(['form','layer','admin','layedit','formSelects','lovexian','laydate
 
 
 
-    // //上传缩略图
-    // upload.render({
-    //     elem: '.thumbBox',
-    //     url: proPath+'/fileupload/smallfile',
-    //     method : "post",  //此处是为了演示之用，实际使用中请将此删除，默认用post方式提交
-    //     headers: {
-    //         Authentication :layui.data(setter.tableName)[setter.TOKENNAME]
-    //     },
-    //     done: function(res, index, upload){
-    //         $('.thumbImg').attr('src',res.data.url);
-    //         $('.thumbBox').css("background","#fff");
-    //     }
-    // });
-    //
-    // //格式化时间
-    // function filterTime(val){
-    //     if(val < 10){
-    //         return "0" + val;
-    //     }else{
-    //         return val;
-    //     }
-    // }
-    //
-    // form.verify({
-    //     name : function(val){
-    //         if(val == ''){
-    //             return "律师姓名不能为空";
-    //         }
-    //     },
-    //     locationName:function(val)
-    //     {
-    //         if(val =='')
-    //         {
-    //             return "工作机构不能为空"
-    //         }
-    //     },
-    //     telNumber:function(val){
-    //         if(val == ''){
-    //             return "手机号码不能为空"
-    //         }
-    //     },
-    //     skillField:function(val){
-    //         if(val == ''){
-    //             return "擅长领域不能为空"
-    //         }
-    //     },
-    //     thumbImg: function () {
-    //
-    //         if(typeof ($(".thumbImg").attr("src"))=="undefined")
-    //         {
-    //             return "请上传图片";
-    //         }
-    //     },
-    // });
-    //
-    // function removeTAG(str){
-    //     return str.replace(/<[^>]+>/g, "").trim();
-    // }
-   /* var data3=window.formData2;
-    var data5 = data3.dtuId;*/
+
 
     formSelects.config('example6_3', {
         searchUrl: proPath + '/admin/sensors/listByTypeId?',
@@ -92,13 +32,10 @@ layui.define(['form','layer','admin','layedit','formSelects','lovexian','laydate
         },
 
         beforeSuccess: function (id, url, searchVal, result) {
-            var data1=result.data;
             var data = result.data.rows;
-          //  var len=result.data.rows.item;
-         //alert(len);
             var tranData = [];
             for (var i = 0; i < data.length; i++) {
-               tranData.push({
+                tranData.push({
                     name: data[i].typeId,
                     value: data[i].sensorId
                 })
@@ -106,50 +43,13 @@ layui.define(['form','layer','admin','layedit','formSelects','lovexian','laydate
             result.data = tranData;
             return result;
         },
-        /*success: function () {
-            formSelects.value('example6_3', sensors.sensorId.split(','));
-        },*/
         error: function (id, url, searchVal, err) {
             // console.error(err);
             lovexian.alert.error('获取角色列表失败');
         }
     })
-    /*form.on('select(SensorsType)', function(data){
-        var myselect=document.getElementById("SensorsType");
-        //2：拿到选中项的索引：
-        var index=myselect.selectedIndex ; // selectedIndex代表的是你所选中项的index
-        //3:拿到选中项options的value：
-        console.log(myselect.options[index].value);
-        //4:拿到选中项options的text：
-        console.log(myselect.options[index].text);
-        //console.log(data.othis); //得到美化后的DOM对象
-    })*/
+    Window.dtuSensorsAdd= layui.formSelects.value('example6_3');
 
-
-
-   // Window.dtuSensorsAdd= layui.formSelects.value('example6_3');
-/*
-    form.on('test', function (data){
-        url:proPath + '/admin/dtuSensor/selectCheckList?dtuId='+data5,
-        dataType:'json',
-        //type:'post',
-        success:function(data){
-
-            $.each(data,function(index,item){
-                console.log(item);
-                //option 第一个参数是页面显示的值，第二个参数是传递到后台的值
-                $('#selectId').append(new Option(item.typeId,item.sensorId));//往下拉菜单里添加元素
-                //设置value（这个值就可以是在更新的时候后台传递到前台的值）为2的值为默认选中
-                //$('#selectId').val(2);
-            })
-            form.render(); //更新全部表单内容
-            //form.render('select'); //刷新表单select选择框渲染
-        }
-    });*/
-
-   /* form.on('select(test)', function(data){
-        alert(123);
-    });*/
 
 
     form.on("submit(addNews)",function(data){
@@ -163,7 +63,7 @@ layui.define(['form','layer','admin','layedit','formSelects','lovexian','laydate
         var descInfo = $('.descInfo').val();
         var dtuType = $('.dtuType').val();
         var elcVolume = $('.elcVolume').val();
-        var status = $('.status').val();
+        var status = $('.status select').val();
         var disInfo = $('.disInfo').val();
 
         var dtudata = {
@@ -180,31 +80,26 @@ layui.define(['form','layer','admin','layedit','formSelects','lovexian','laydate
         };
         //window.dtuSensors=dtudata;
         lovexian.post(proPath + '/admin/dtus/saveOrUpdate',dtudata);
-        /*var dtudata1 = {
-            id:id,
-            dtuId:dtuId,
-            /!*sensorId:'1',*!/
-        };
-        lovexian.post(proPath + '/admin/dtuSensor/saveOrUpdate',dtudata1);
+
         layer.closeAll();
-        return false;*/
+        return false;
 
     });
-   /* form.on("submit(addNews)",function(data){
+    form.on("submit(addNews)",function(data){
 
         var id = $("input[name='id']").val();
         var dtuId = $('.dtuId').val();
-
+        var region = $("select[name='region']").val();
         var dtudata1 = {
             id:id,
             dtuId:dtuId,
-            sensorId:'1',
+            sensorId:Window.dtuSensorsAdd.sensorId,
         };
 
         lovexian.post(proPath + '/admin/dtuSensor/saveOrUpdate',dtudata1);
         layer.closeAll();
         return false;
-    });*/
+    });
 
 
 //取消按钮,直接关闭当前窗口

@@ -145,8 +145,6 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
 
 
 
-
-
    /* function gatewaydtuInfo(data,isEdit){//初始化界面
         var data3=window.gatewaydata;
 
@@ -195,6 +193,8 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
             layEvent = obj.event;
         window.gatewaydata = data;
 
+
+
         if (layEvent === 'del') {//删除景点信息
             //逻辑删除
             if(data.deleteState == '0'){
@@ -214,12 +214,9 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
                         $query.click();
                     });
                 });
-
-
-
             }
-
         }
+
 
         if (layEvent === 'edit') {
             //编辑也跳转到actionAdd，根据类型判断是添加还是编辑
@@ -237,8 +234,18 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
             });
         }
 
+        if (layEvent === 'destroy') {
+            //彻底删除
+            lovexian.modal.confirm('删除报警信息', '确定彻底删除这条报警记录吗？', function () {
+                lovexian.del(proPath + '/admin/alarmInfo/completelyDelete?id='+ obj.data.id, null, function () {
+                    console.log("success");
+                    lovexian.alert.success('删除该报警信息成功');
+                    $query.click();
+                });
+            });
+        }
 
-        if (layEvent = 'sel'){
+        if (layEvent == 'sel'){
             lovexian.get(proPath + "/admin/gatewayDtu/gatewayDtu",{"gateId":data.gateId},function (res) {
                 if (res.status = '200'){
                     admin.popup({
@@ -262,7 +269,11 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
                 }
             });
         }
+
     });//操作
+
+
+
 
 
     function deleteActions(gatewayIds) {//操作组件之一，删除
