@@ -91,7 +91,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
                     form.val("lawerForm",{
                         "id":data.id,
                         "command":data.command,
-                        "status":data.status,
+                        "cmdStatus":data.cmdStatus,
                         "sendTime":data.sendTime,
                         "receiveTime":data.receiveTime,
                         "count":data.count,
@@ -191,8 +191,8 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
 
     function getQueryParams() {
         return {
+            status: $searchForm.find("select[name='status']").val().trim(),//此处对应html里面的select框:<select name="status">
             command: $searchForm.find('input[name="command"]').val().trim(),//此处对应<input type="text" name="dtuName" autocomplete="off" class="layui-input">
-            status: $searchForm.find("select[name='status']").val(),//此处对应html里面的select框:<select name="status">
         };
     }
 
