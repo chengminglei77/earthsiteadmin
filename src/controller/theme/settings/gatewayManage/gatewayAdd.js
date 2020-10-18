@@ -1,4 +1,4 @@
-layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','baseSetting','rate'],function(exports){
+layui.define(['form','layer','admin','layedit','formSelects','lovexian','laydate','upload','baseSetting','rate'],function(exports){
     var form = layui.form,
         admin = layui.admin,
         layer = layui.layer,
@@ -6,6 +6,7 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
         laypage = layui.laypage,
         lovexian = layui.lovexian,
         setter = layui.setter,
+        formSelects = layui.formSelects,
         upload = layui.upload,
         layedit = layui.layedit,
         laydate = layui.laydate,
@@ -16,9 +17,52 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
     form.verify(validate);
     form.render();
 
+
+
+
+    formSelects.config('example6_3', {
+        searchUrl: proPath + '/admin/dtus/listByTypeId?',
+        response: {
+            statusCode: 200
+        },
+        header: {
+            Authentication :layui.data(setter.tableName)[setter.TOKENNAME]
+        },
+
+        beforeSuccess: function (id, url, searchVal, result) {
+            lovexian.alert.success('获取DTU列表成功');
+            var data = result.data.rows;
+            var tranData = [];
+            for (var i = 0; i < data.length; i++) {
+                tranData.push({
+                    name: data[i].dtuId,
+                    value: data[i].dtuId,
+                })
+            }
+            result.data = tranData;
+            return result;
+            window.dtu = result;
+        },
+        error: function (id, url, searchVal, err) {
+            // console.error(err);
+            lovexian.alert.error('获取角色列表失败');
+        },
+    })
+    Window.gatewayDtu= layui.formSelects.value('example6_3');
+
+
+    layui.use(['form'], function(){
+        var $ = layui.$
+            ,form = layui.form;
+
+        var region = $("select[name='dtuId']").val();
+        console.log(region);
+        // ap-chengdu
+    })
+
     form.on("submit(addNews)",function(data){
 
-       var id = $("input[name='id']").val();     //input[name='id']是访问input对象id属性
+        var id = $("input[name='id']").val();     //input[name='id']是访问input对象id属性
         var gateId = $('.gateId').val();
         var longitude = $('.longitude').val();
         var latitude = $('.latitude').val();
@@ -31,9 +75,12 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
         var updatedAt=$('.updatedAt').val();
         var disInfo= $('.disInfo ').val();
         var deleteState= $('.deleteState').val();
+        /*$.trim($("#status").val());  //获取val
+        $("#status option:selected").text();*/
+        window.status = data;
 
         //dtudata对象
-       var dtudata = {
+       var gatewaydata = {
             id:id,
             gateId:gateId,
             longitude:longitude,
@@ -48,13 +95,34 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
             disInfo:disInfo,
            deleteState:deleteState,
         };
-        lovexian.post(proPath + '/admin/gateways/saveOrUpdate',dtudata,function () {//存入数据的路径
+        lovexian.post(proPath + '/admin/gateways/saveOrUpdate',gatewaydata,function () {//存入数据的路径
                 lovexian.alert.success('保存成功');
             // $('#lovexian-job').find('#query').click();
         });
         layer.closeAll();
         return false;
     });
+
+    form.on("submit(relateDtus)",function (data) {
+        var gatewayId = $('.gateId').val();
+        var dtuId = $('.dtuId').val();
+        window.dtu = data;
+
+        var gatewayDtudata = {
+            gatewayId:gatewayId,
+            dtuId:dtuId,
+
+        };
+        lovexian.post(proPath + '/admin/gatewayDtu/saveOrUpdate',gatewayDtudata,function () {//存入数据的路径
+            lovexian.alert.success('关联成功');
+            // $('#lovexian-job').find('#query').click();
+        });
+        layer.closeAll();
+        return false;
+
+    });
+
+
 
 
     form.on("submit(cancelBtn)",function(data){
