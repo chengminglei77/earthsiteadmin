@@ -16,7 +16,18 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
     form.verify(validate);
     form.render();
 
+    form.on('select(State)',function (data)
+        {
 
+            var value = data.value;
+            window.value2=value;
+            //alert(value);
+            // var text = data.elem[data.elem.selectedIndex].text;
+            // alert(text);
+            //from.render('select');
+        }
+
+    );
 
 
     form.on("submit(addNews)",function(data){
@@ -35,7 +46,7 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
             typeId:typeId,
             longitude:longitude,
             latitude:latitude,
-            status:status,
+            status:window.value2,
             disInfo:disInfo,
         };
 

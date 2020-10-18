@@ -46,11 +46,24 @@ layui.define(['form','layer','admin','layedit','formSelects','lovexian','laydate
         error: function (id, url, searchVal, err) {
             // console.error(err);
             lovexian.alert.error('获取角色列表失败');
-        }
-    })
-    Window.dtuSensorsAdd= layui.formSelects.value('example6_3');
+        },
 
+           // layer.closeAll();
+    });
+    //Window.dtuSensorsAdd= layui.formSelects.value('example6_3');
 
+form.on('select(State)',function (data)
+    {
+
+        var value = data.value;
+        window.value=value;
+        //alert(value);
+        // var text = data.elem[data.elem.selectedIndex].text;
+        // alert(text);
+        //from.render('select');
+    }
+
+);
 
     form.on("submit(addNews)",function(data){
 
@@ -65,7 +78,7 @@ layui.define(['form','layer','admin','layedit','formSelects','lovexian','laydate
         var elcVolume = $('.elcVolume').val();
         var status = $('.status select').val();
         var disInfo = $('.disInfo').val();
-
+        var value=window.value;
         var dtudata = {
             id:id,
             dtuId:dtuId,
@@ -75,7 +88,7 @@ layui.define(['form','layer','admin','layedit','formSelects','lovexian','laydate
             descInfo:descInfo,
             dtuType: dtuType,
             elcVolume:elcVolume,
-            status:status,
+            status:value,
             disInfo:disInfo,
         };
         //window.dtuSensors=dtudata;
@@ -85,7 +98,7 @@ layui.define(['form','layer','admin','layedit','formSelects','lovexian','laydate
         return false;
 
     });
-    form.on("submit(addNews)",function(data){
+   /* form.on("submit(addNews)",function(data){
 
         var id = $("input[name='id']").val();
         var dtuId = $('.dtuId').val();
@@ -99,7 +112,7 @@ layui.define(['form','layer','admin','layedit','formSelects','lovexian','laydate
         lovexian.post(proPath + '/admin/dtuSensor/saveOrUpdate',dtudata1);
         layer.closeAll();
         return false;
-    });
+    });*/
 
 
 //取消按钮,直接关闭当前窗口

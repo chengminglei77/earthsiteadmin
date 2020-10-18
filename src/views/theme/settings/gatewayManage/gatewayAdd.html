@@ -75,7 +75,9 @@
                 <div class="layui-form-item openness">
                     <label class="layui-form-label lovexian-form-item-require"><i class="seraph icon-look"></i> 网关状态</label>
                     <div class="layui-input-block actionStatus" style="width: 300px ">
-                        <select id="status" name="status" lay-verify="required" onchange="changeLanguageType()">
+                        <select name="State"
+                                id="State"
+                                lay-filter="State" lay-verify="required" onchange="changeLanguageType()">
                             <option value>请选择状态</option>
                             <option value="0">在线</option>
                             <option value="1">离线</option>

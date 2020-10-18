@@ -22,6 +22,16 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
         form.render();
     });
 */
+    form.on('select(State)',function (data)
+        {
+
+            var value = data.value;
+            window.value3=value;
+            //alert(value);
+             var text = data.elem[data.elem.selectedIndex].text;
+             //alert(text);
+            //from.render('select');
+        });
 
     form.on("submit(addNews)",function(data){
 
@@ -40,7 +50,7 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
         var alarmdata = {
             id:id,
             alarmInfo:alarmInfo,
-            status:status,
+            status:window.value3,
             alarmTime:alarmTime,
             dealAdmin:dealAdmin,
             dealTime:dealTime,
