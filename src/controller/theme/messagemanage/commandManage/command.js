@@ -136,10 +136,10 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
     table.on('tool(commandInfoTable)', function (obj) {
         var data = obj.data,
         layEvent = obj.event;
-        console.log(data.cmdStatus);
+        console.log(data.status);
         if (layEvent === 'del') {//删除景点信息
             //逻辑删除
-            if(data.cmdStatus == 1) //已处理则删除
+            if(data.status == 1) //已处理则删除
                  {
                 lovexian.modal.confirm('删除物理信息', '确定删除这条物理记录吗？', function () {
                     lovexian.del(proPath + '/admin/commandInfo/completelyDelete?id=' + obj.data.id, null, function () {
@@ -209,5 +209,5 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
 
 
     //对外暴露的接口
-    exports('theme/settings/commandManage/command', {});
+    exports('theme/messagemanage/commandManage/command', {});
 });
