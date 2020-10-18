@@ -45,9 +45,9 @@
                     </div>&lt;!&ndash;同样需要修改变量名称&ndash;&gt;
                 </div>-->
                 <div class="layui-form-item openness">
-                    <label class="layui-form-label lovexian-form-item-require"><i class="seraph icon-look"></i> 关联DTU</label>
+                    <label class="layui-form-label "><i class="seraph icon-look"></i> 关联DTU</label>
                     <div class="layui-input-block actionStatus" style="width:300px ">
-                        <select name="dtuId" lay-verify="required" xm-select="example6_3" onchange="changeLanguageType()" lay-filter="test" id="dtuId" lay-search>
+                        <select name="dtuId"  xm-select="example6_3" onchange="changeLanguageType()" lay-filter="test" id="dtuId" lay-search>
                         </select>
                     </div>
                 </div>
@@ -83,6 +83,8 @@
                         </select>
                     </div>
                 </div>
+
+
 
                 <!--<div class="layui-form-item magt3">
                     <label class="layui-form-label">状态</label>
@@ -181,8 +183,18 @@
         form.render('select') // layui重新渲染select的方法
     }
 </script>
--->
 
+-->
+<script>
+    layui.use(['form'], function(){
+        var $ = layui.$
+            ,form = layui.form;
+
+        var status = $("select[name='status']").val();
+        console.log(status);
+        // ap-chengdu
+    })
+</script>
 
 <script>
     var starEle;

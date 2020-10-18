@@ -20,6 +20,7 @@ layui.define(['form','layer','admin','layedit','formSelects','lovexian','laydate
 
 
 
+
     formSelects.config('example6_3', {
         searchUrl: proPath + '/admin/dtus/listByTypeId?',
         response: {
@@ -55,10 +56,11 @@ layui.define(['form','layer','admin','layedit','formSelects','lovexian','laydate
         var $ = layui.$
             ,form = layui.form;
 
-        var region = $("select[name='dtuId']").val();
+        var region = $("select[name='status']").val();
         console.log(region);
         // ap-chengdu
     })
+
 
     form.on("submit(addNews)",function(data){
 
