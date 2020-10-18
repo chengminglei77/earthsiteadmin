@@ -10,6 +10,7 @@ layui.define(['form','layer','admin','layedit','formSelects','lovexian','laydate
         layedit = layui.layedit,
         laydate = layui.laydate,
         $ = layui.jquery,
+       // sensors = [[${sensors}]]
     formSelects = layui.formSelects,
     $ = layui.jquery,
 
@@ -91,10 +92,13 @@ layui.define(['form','layer','admin','layedit','formSelects','lovexian','laydate
         },
 
         beforeSuccess: function (id, url, searchVal, result) {
+            var data1=result.data;
             var data = result.data.rows;
+          //  var len=result.data.rows.item;
+         //alert(len);
             var tranData = [];
             for (var i = 0; i < data.length; i++) {
-                tranData.push({
+               tranData.push({
                     name: data[i].typeId,
                     value: data[i].sensorId
                 })
@@ -102,12 +106,28 @@ layui.define(['form','layer','admin','layedit','formSelects','lovexian','laydate
             result.data = tranData;
             return result;
         },
+        /*success: function () {
+            formSelects.value('example6_3', sensors.sensorId.split(','));
+        },*/
         error: function (id, url, searchVal, err) {
             // console.error(err);
             lovexian.alert.error('获取角色列表失败');
         }
     })
-    Window.dtuSensorsAdd= layui.formSelects.value('example6_3');
+    /*form.on('select(SensorsType)', function(data){
+        var myselect=document.getElementById("SensorsType");
+        //2：拿到选中项的索引：
+        var index=myselect.selectedIndex ; // selectedIndex代表的是你所选中项的index
+        //3:拿到选中项options的value：
+        console.log(myselect.options[index].value);
+        //4:拿到选中项options的text：
+        console.log(myselect.options[index].text);
+        //console.log(data.othis); //得到美化后的DOM对象
+    })*/
+
+
+
+   // Window.dtuSensorsAdd= layui.formSelects.value('example6_3');
 /*
     form.on('test', function (data){
         url:proPath + '/admin/dtuSensor/selectCheckList?dtuId='+data5,
@@ -160,26 +180,31 @@ layui.define(['form','layer','admin','layedit','formSelects','lovexian','laydate
         };
         //window.dtuSensors=dtudata;
         lovexian.post(proPath + '/admin/dtus/saveOrUpdate',dtudata);
-
+        /*var dtudata1 = {
+            id:id,
+            dtuId:dtuId,
+            /!*sensorId:'1',*!/
+        };
+        lovexian.post(proPath + '/admin/dtuSensor/saveOrUpdate',dtudata1);
         layer.closeAll();
-        return false;
+        return false;*/
 
     });
-    form.on("submit(addNews)",function(data){
+   /* form.on("submit(addNews)",function(data){
 
         var id = $("input[name='id']").val();
         var dtuId = $('.dtuId').val();
-        var region = $("select[name='region']").val();
+
         var dtudata1 = {
             id:id,
             dtuId:dtuId,
-            sensorId:Window.dtuSensorsAdd.sensorId,
+            sensorId:'1',
         };
 
         lovexian.post(proPath + '/admin/dtuSensor/saveOrUpdate',dtudata1);
         layer.closeAll();
         return false;
-    });
+    });*/
 
 
 //取消按钮,直接关闭当前窗口

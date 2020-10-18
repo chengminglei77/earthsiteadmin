@@ -143,14 +143,16 @@
     {{# }else{ }}
     {{# } }}
 
-    {{# if(hasPermission(['dtuInfo:list'])) { }}
+    {{# if(hasPermission(['dtuInfo:list'])&&d.delState==0) { }}
     <a lay-event="del" title="删除"><i class="layui-icon lovexian-edit-area lovexian-red">&#xe640;</i></a>
     {{# } }}
 
     {{# if(hasPermission(['dtuInfo:list'])) { }}
     <a lay-event="querySensors" title="查看相连的传感器"><i class="layui-icon lovexian-edit-area lovexian-purple">&#xe615;</i></a>
     {{# } }}
-
+    {{# if(d.delState==1) { }}
+    <a lay-event="destroy" title="彻底删除"><i class="layui-icon lovexian-edit-area lovexian-red">&#xe639;</i></a>
+    {{# } }}
 
 
 
