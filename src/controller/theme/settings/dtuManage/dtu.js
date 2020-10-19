@@ -86,7 +86,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
 
     function addDtuInfo(data,isEdit){
         // console.log(isEdit);
-        lovexian.popup("theme/settings/dtuManage/dtuAdd",isEdit?"编辑DTU信息":"添加DTU信息",$.extend(data,{isEdit:isEdit}),function () {
+        lovexian.popup("theme/settings/dtuManage/dtuAdd",isEdit?"编辑DTU信息":"添加DTU",$.extend(data,{isEdit:isEdit}),function () {
                 if(isEdit===1) {
                     window.formData3=data;
                     layui.use('theme/settings/dtuManage/dtuAdd', layui.factory('theme/settings/dtuManage/dtuAdd'));
@@ -116,7 +116,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
     }
     function  addSensors(data,isEdit)
     {
-        lovexian.popup("theme/settings/dtuManage/sensorsAdd",isEdit?"编辑DTU信息":"添加DTU信息",$.extend(data,{isEdit:isEdit}),function ()
+        lovexian.popup("theme/settings/dtuManage/sensorsAdd",isEdit?"编辑DTU信息":"添加律师",$.extend(data,{isEdit:isEdit}),function ()
         {  if(isEdit===1) {
             //alert("sdd");
             window.formData1=data;

@@ -75,11 +75,10 @@
                 <div class="layui-form-item openness">
                     <label class="layui-form-label"><i class="seraph icon-look"></i> 网关状态</label>
                     <div class="layui-input-block actionStatus" style="width: 300px ">
-                        <select name="status" id="State" lay-filter="State" lay-verify="required" onchange="changeLanguageType()">
-                            <!--<option value>请选择状态</option>-->
+                        <select name="status" id="status" lay-filter="status" lay-verify="required" onchange="changeLanguageType()">
+                            <option value>请选择状态</option>
                             <option value="0">在线</option>
                             <option value="1">离线</option>
-                            <option value="2" >未启用</option>
                         </select>
                     </div>
                 </div>
