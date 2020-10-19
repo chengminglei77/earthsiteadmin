@@ -126,34 +126,30 @@
 {{# } }}
 </script>
 <script type="text/html" id="action-option">
+
     {{# if(hasPermission(['gatewayInfo:list'])) { }}
     {{# } }}
-    {{# if(hasPermission(['gatewayInfo:list'])) { }}
+    {{# if(hasPermission(['gatewayInfo:add'])&&d.deleteState==0) { }}
     <a lay-event="edit" title=" 编辑"><i class="layui-icon lovexian-edit-area lovexian-blue" style="color: #2db7f5">&#xe642;</i></a>
     {{# }else{ }}
-
     {{# } }}
-
-    {{# if(hasPermission(['gatewayInfo:list'])) { }}
+    {{# if(hasPermission(['gatewayInfo:del'])&&d.deleteState==0) { }}
     <a lay-event="del" title="删除"><i class="layui-icon lovexian-edit-area lovexian-red">&#xe640;</i></a>
     {{# } }}
-    {{# if(lacksPermission(['gatewayInfo:list','gatewayInfo:update','gatewayInfo:del'])) { }}
-    <span>
-            <span class="layui-badge-dot lovexian-bg-orange"></span> 无权限
-    </span>
-    {{# } }}
-
     {{# if(hasPermission(['gatewayInfo:list'])) { }}
-    <a lay-event="sel" title="查找"><i class="layui-icon lovexian-edit-area lovexian-red">&#xe783;</i></a>
-    {{# } }}
-    {{# if(lacksPermission(['gatewayInfo:list','gatewayInfo:update','gatewayInfo:del'])) { }}
-    <span>
-            <span class="layui-badge-dot lovexian-bg-orange"></span> 无权限
-    </span>
+    <a lay-event="sel" title="查看相连的传感器"><i class="layui-icon lovexian-edit-area lovexian-purple">&#xe783;</i></a>
     {{# } }}
 
     {{# if(d.deleteState==1) { }}
     <a lay-event="restore" title="还原"><i class="layui-icon lovexian-edit-area lovexian-blue">&#xe603;</i></a>
+    {{# } }}
+    {{# if(d.deleteState==1) { }}
+    <a lay-event="del" title="彻底删除"><i class="layui-icon lovexian-edit-area lovexian-red">&#xe640;</i></a>
+    {{# } }}
+    {{# if(lacksPermission(['gatewayInfo:list','gatewayInfo:add','gatewayInfo:del'])) { }}
+    <span>
+            <span class="layui-badge-dot lovexian-bg-orange">无权限</span>
+    </span>
     {{# } }}
 </script>
 <script>

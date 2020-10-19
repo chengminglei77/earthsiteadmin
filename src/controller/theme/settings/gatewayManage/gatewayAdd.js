@@ -19,6 +19,18 @@ layui.define(['form','layer','admin','layedit','formSelects','lovexian','laydate
 
 
 
+    form.on('select(State)',function (data)
+        {
+
+            var value = data.value;
+            window.value1=value;
+            //alert(value);
+            // var text = data.elem[data.elem.selectedIndex].text;
+            // alert(text);
+            //from.render('select');
+        }
+
+    );
 
     formSelects.config('example6_3', {
         searchUrl: proPath + '/admin/dtus/listByTypeId?',
@@ -55,10 +67,11 @@ layui.define(['form','layer','admin','layedit','formSelects','lovexian','laydate
         var $ = layui.$
             ,form = layui.form;
 
-        var region = $("select[name='dtuId']").val();
+        var region = $("select[name='status']").val();
         console.log(region);
         // ap-chengdu
     })
+
 
     form.on("submit(addNews)",function(data){
 
@@ -86,7 +99,7 @@ layui.define(['form','layer','admin','layedit','formSelects','lovexian','laydate
             longitude:longitude,
             latitude:latitude,
             descInfo:descInfo,
-            status:status,
+            status:window.value1,
             elecCharge: elecCharge,
             serverIp:serverIp,
             serverPort:serverPort,

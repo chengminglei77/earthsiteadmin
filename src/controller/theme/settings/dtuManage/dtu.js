@@ -5,6 +5,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
         setter = layui.setter,
         $view = $('#lovexian-dtus'),//与对应html中id相同(html的第8行)
         laytpl = layui.laytpl,
+        viewDtu = layui.view,
         lovexian = layui.lovexian,
         dropdown = layui.dropdown,
         form = layui.form,
@@ -137,18 +138,8 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
     }
     function  querySensors(data,isEdit)
     {
-        lovexian.popup("theme/settings/dtuManage/querySensors",isEdit?"编辑DTU信息":"添加律师",$.extend(data,{isEdit:isEdit}),function ()
-        {  if(isEdit===1) {
-            window.formData2=data;
-            //alert(window.formData2.dtuId);
-            layui.use('theme/settings/dtuManage/querySensors', layui.factory('theme/settings/dtuManage/querySensors/${data.dtuId}'));
-            $('.thumbImg').attr("src",data.lawerHeadPhoto);
-        } else{
-            layui.use('theme/settings/dtuManage/querySensors/${data.dtuId}', layui.factory('theme/settings/dtuManage/querySensors/${data.dtuId}'));
-        }
-        },function () {
-            // $query.click();
-        });
+
+
     }
 
     function initTable() {//初始化界面（下面的表格）
@@ -191,7 +182,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
         if (layEvent === 'del') {//删除景点信息
 //逻辑删除
 
-            if(data.delState == '0'){
+
                 lovexian.modal.confirm('删除DTU信息', '确定删除这条DTU的记录吗？', function () {
                     lovexian.del(proPath + '/admin/dtus/deleteById?id='+ obj.data.id, null, function () {
                         console.log("success");
@@ -199,21 +190,31 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
                         $query.click();
                     });
                 });
+
+
+
+        }
+        if (layEvent === 'destroy') {//删除景点信息
 //物理删除
-            }else if(data.delState == '1'){
-                lovexian.modal.confirm('彻底删除DTU信息', '确定彻底删除这条DTU的记录吗？', function () {
-                    lovexian.del(proPath + '/admin/dtus/completelyDelete?id='+ obj.data.id, null, function () {
-                        console.log("success");
-                        lovexian.alert.success('彻底删除该dtu成功');
-                        $query.click();
-                    });
+
+
+            lovexian.modal.confirm('删除DTU信息', '确定删除这条DTU的记录吗？', function () {
+                lovexian.del(proPath + '/admin/dtus/completelyDelete?id='+ obj.data.id, null, function () {
+                    console.log("success");
+                    lovexian.alert.success('彻底删除该dtu成功');
+                    $query.click();
                 });
-
-
-
-            }
-
-
+            });
+        }
+        if (layEvent === 'restore') {
+            //还原
+            lovexian.modal.confirm('还原传感器信息', '确定还原这条传感器记录吗？', function () {
+                lovexian.post(proPath + '/admin/dtus/restoreById?id='+ obj.data.id, null, function () {
+                    console.log("success");
+                    lovexian.alert.success('还原传感器信息成功');
+                    $query.click();
+                });
+            });
         }
         if (layEvent === 'edit') {
             //编辑也跳转到actionAdd，根据类型判断是添加还是编辑
@@ -227,7 +228,29 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
         {
             //alert(data.dtuId);
 
-            querySensors(obj.data,1);
+            lovexian.get(proPath + "/admin/dtuSensor/selectCheckList",{"dtuId":data.dtuId},function (res) {
+                if (res.status = '200'){
+                    admin.popup({
+                        id: 'LAY-theme-action-check',
+                        area: ['400px','80%'],
+                        shadeClose: 0,
+                        title: '传感器关联信息',
+                        success:function () {
+                            console.log(res.data.sensorId);
+                            viewDtu(this.id).render('common/checkSensors',{
+                                history: res.data.rows,
+                            }).then(function () {
+                                //视图文件请求完毕，试图内容渲染回顾
+                            }).done(function () {
+                                //视图文件请求完毕和内容渲染完毕的回顾
+                            });
+                        }
+                    });
+                }else {
+                    lovexian.alert.error("获取关联传感器历史信息失败!");
+                }
+            });
+
         }
     });//操作
 

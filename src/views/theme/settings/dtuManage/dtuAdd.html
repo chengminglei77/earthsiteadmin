@@ -72,8 +72,10 @@
                 <div class="layui-form-item openness">
                     <label class="layui-form-label lovexian-form-item-require"><i class="seraph icon-look"></i> Dtu状态</label>
                     <div class="layui-input-block actionStatus" style="width:300px !important">
-                        <select name="languageType" lay-verify="required" onchange="changeLanguageType()">
-
+                        <select  name="State"
+                                 id="State"
+                                 lay-filter="State"lay-verify="required" onchange="changeLanguageType()">
+                            <option value>请选择状态</option>
                             <option value="0">在线</option>
                             <option value="1">离线</option>
                         </select>
@@ -84,7 +86,7 @@
                 <div class="layui-form-item openness">
                     <label class="layui-form-label lovexian-form-item-require"><i class="seraph icon-look"></i> 相连的传感器</label>
                     <div class="layui-input-block actionStatus" style="width:300px ">
-                        <select name="city" lay-verify="required" xm-select="example6_3" onchange="changeLanguageType()" lay-filter="test" id="SensorsType">
+                        <select name="city"  xm-select="example6_3" onchange="changeLanguageType()" lay-filter="test" id="SensorsType">
                         </select>
                     </div>
                 </div>
