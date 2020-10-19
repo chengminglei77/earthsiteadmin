@@ -83,7 +83,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
 
     function addSensorTypeInfo(data,isEdit){
         // console.log(isEdit);
-        lovexian.popup("theme/settings/sensorsTypeManage/sensorsTypeAdd",isEdit?"编辑律师":"添加律师",$.extend(data,{isEdit:isEdit}),function () {
+        lovexian.popup("theme/settings/sensorsTypeManage/sensorsTypeAdd",isEdit?"编辑传感器类型":"添加传感器类型",$.extend(data,{isEdit:isEdit}),function () {
                 if(isEdit===1) {
                     layui.use('theme/settings/sensorsTypeManage/sensorsTypeAdd', layui.factory('theme/settings/sensorsTypeManage/sensorsTypeAdd'));
                     form.val("lawerForm",{//此处显示修改时框内显示的内容.显示原来未修改时的信息
