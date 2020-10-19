@@ -16,7 +16,7 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
     form.verify(validate);
     form.render();
 
-    form.on('select(State)',function (data)
+    form.on('select(status)',function (data)
         {
 
             var value = data.value;
@@ -38,7 +38,6 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
         var typeId = $('.typeId').val();
         var longitude = $('.longitude').val();
         var latitude = $('.latitude').val();
-        var status = $('.status').val();
         var disInfo = $('.disInfo').val();
         var sensordata = {
             id:id,

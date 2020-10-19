@@ -52,7 +52,7 @@ layui.define(['form','layer','admin','layedit','formSelects','lovexian','laydate
     });
     //Window.dtuSensorsAdd= layui.formSelects.value('example6_3');
 
-form.on('select(State)',function (data)
+form.on('select(status)',function (data)
     {
 
         var value = data.value;
@@ -76,7 +76,6 @@ form.on('select(State)',function (data)
         var descInfo = $('.descInfo').val();
         var dtuType = $('.dtuType').val();
         var elcVolume = $('.elcVolume').val();
-        var status = $('.status select').val();
         var disInfo = $('.disInfo').val();
         var value=window.value;
         var dtudata = {
