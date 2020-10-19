@@ -1,15 +1,11 @@
 <!--#include virtual="lawerDetail.html" -->
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">;
-</head>
 <style>
     .layui-table-cell {
         height: 60px;
         max-width: 200px;
     }
 </style>
-<div class="layui-fluid layui-anim lovexian-anim" id="lovexian-command" lay-title="接口信息">
+<div class="layui-fluid layui-anim lovexian-anim" id="lovexian-dtus" lay-title="dtu信息">
     <div class="layui-row lovexian-container">
         <div class="layui-col-md12">
             <div class="layui-card">
@@ -19,26 +15,42 @@
                             <div class="layui-row">
                                 <div class="layui-col-md10">
                                     <div class="layui-form-item">
-
                                         <div class="layui-inline">
-                                            <label  class="layui-form-label layui-form-label-sm">接口信息</label>
+                                            <label  class="layui-form-label layui-form-label-sm">DTU名</label>
                                             <div class="layui-input-inline">
-                                                <input type="text" name="command" autocomplete="off" class="layui-input">
+                                                <input type="text" name="dtuName" autocomplete="off" class="layui-input">
                                             </div>
                                         </div>
-
-
+<!--                                        <div class="layui-inline">-->
+<!--                                            <label class="layui-form-label layui-form-label-sm">DTU类型</label>-->
+<!--                                            <div class="layui-input-inline">-->
+<!--                                                <input type="text" name="dtuType" autocomplete="off" class="layui-input">-->
+<!--                                            </div>-->
+<!--                                        </div>-->
                                         <div class="layui-inline">
-                                            <label class="layui-form-label layui-form-label-sm">处理状态</label>
+                                            <label class="layui-form-label layui-form-label-sm">DTU状态</label>
                                             <div class="layui-input-inline">
                                                 <select name="status">
                                                     <option value=""></option>
-                                                    <option value="1">已处理</option>
-                                                    <option value="0">未处理</option>
+                                                    <option value="0">在线</option>
+                                                    <option value="1">离线</option>
                                                 </select>
                                             </div>
                                         </div>
 
+                                        <div class="layui-inline">
+                                            <label class="layui-form-label layui-form-label-sm">删除状态</label>
+                                            <div class="layui-input-inline">
+                                                <select name="delState"
+                                                        id="delState"
+                                                        lay-filter="delState"
+                                                >
+                                                    <option value=""></option>
+                                                    <option value="1">已删除</option>
+                                                    <option value="0">未删除</option>
+                                                </select>
+                                            </div>
+                                        </div>
 
                                     </div>
                                 </div>
@@ -51,6 +63,8 @@
                                     </div>
 
                                     <span id="actionMoreContainer">
+
+
                                     </span>
 
                                 </div>
@@ -58,16 +72,19 @@
                         </form>
 
 
-                        <div class="layui-tab layui-tab-brief" lay-filter="commandTab">
+                        <div class="layui-tab layui-tab-brief" lay-filter="dtuTab">
                             <ul class="layui-tab-title">
-                                <li style="color: #2db7f5" class="layui-this" lay-id="1">接口信息</li>
+<!-- lay-id:两个列表,设置的值越小,那么小的就会率先出现下划线-->
+                                <li style="color: #2db7f5" class="layui-this" lay-id="1">DTU信息</li>
                             </ul>
+
+
                             <input hidden="hidden" id="actTypeId" value="">
-                            <!--景点信息开始-->
+                            <!--dtu信息列表展示开始-->
                             <div class="layui-tab-content"><!--景点信息-->
                                 <div class="layui-fluid layui-tab-item">
                                     <div class="layui-row"><!--表格展示-->
-                                        <table lay-filter="commandInfoTable" id="commandInfoTable" lay-data="{id: 'commandInfoTable'}">
+                                        <table lay-filter="dtusTable" id="dtusTable" lay-data="{id:'dtusTable'}">
                                         </table>
                                     </div>
                                 </div><!--景点信息结束-->
@@ -86,14 +103,18 @@
     </div>
 </div>
 
+
+<!--状态--><!--此处需要修改status和数据库字段一致,-->
+<!--注意:script中不要加注释,否则会错误--><!--注意:script中不要加注释,否则会错误--><!--注意:script中不要加注释,否则会错误--><!--注意:script中不要加注释,否则会错误-->
 <script type="text/html" id="check-state">
     {{#
     var status = {
-    0: {title: '未处理', color: 'blue'},
-    1: {title: '已处理', color: 'green'}
+    100: {title: '草稿状态', color: 'lime'},
+    0: {title: '在线', color: 'blue'},
+    1: {title: '离线', color: 'green'},
+    2: {title: '未启用', color: 'volcano'}
     }[d.status];
     }}
-
     <span class="layui-badge lovexian-tag-{{ status.color}}">{{ status.title }}</span>
 </script>
 
@@ -105,55 +126,45 @@
     {{# } }}
 </script>
 
-<script type="text/html" id="top-flag">
-    {{# if(d.isTop == 1){ }}
-    <input type="checkbox" value={{d.id}} name="isTop" lay-filter="isTop" lay-skin="switch" lay-text="置顶|不置顶" checked>
-    {{# }else{ }}
-    <input type="checkbox" value={{d.id}} name="isTop" lay-filter="isTop" lay-skin="switch" lay-text="置顶|不置顶">
-    {{# } }}
-</script>
 
-<script type="text/html" id="actionMoreTpl"><!--展示更多-->
-{{# if(hasAnyPermission(['commandInfo:add'])) { }}
+<!--展示更多:批量删除,新增按钮-->
+<script type="text/html" id="actionMoreDtuTpl">
+{{# if(hasAnyPermission(['dtuInfo:add'])) { }}
 <div class="layui-btn layui-btn-sm layui-btn-primary table-action action-more">
     <i class="layui-icon">&#xe875;</i>
 </div>
 {{# } }}
 </script>
 
+
 <script type="text/html" id="action-option">
-    {{# if(hasPermission(['commandInfo:list'])) { }}
+    {{# if(hasPermission(['dtuInfo:list'])) { }}
     {{# } }}
-
-
-    {{# if(hasPermission(['commandInfo:add'])) { }}
+    {{# if(hasPermission(['dtuInfo:add'])&&d.delState==0) { }}
     <a lay-event="edit" title=" 编辑"><i class="layui-icon lovexian-edit-area lovexian-blue" style="color: #2db7f5">&#xe642;</i></a>
     {{# }else{ }}
     {{# } }}
-
-
-    {{# if(hasPermission(['commandInfo:del'])) { }}
+    {{# if(hasPermission(['dtuInfo:del'])&&d.delState==0) { }}
     <a lay-event="del" title="删除"><i class="layui-icon lovexian-edit-area lovexian-red">&#xe640;</i></a>
     {{# } }}
+    {{# if(hasPermission(['gatewayInfo:list'])) { }}
+    <a lay-event="querySensors" title="查看相连的传感器"><i class="layui-icon lovexian-edit-area lovexian-purple">&#xe783;</i></a>
+    {{# } }}
 
-    {{# if(d.deleteState==1) { }}
+    {{# if(d.delState==1) { }}
     <a lay-event="restore" title="还原"><i class="layui-icon lovexian-edit-area lovexian-blue">&#xe603;</i></a>
     {{# } }}
-    {{# if(d.deleteState==1) { }}
-    <a lay-event="destroy" title="彻底删除"><i class="layui-icon lovexian-edit-area lovexian-red">&#xe639;</i></a>
+    {{# if(d.delState==1) { }}
+    <a lay-event="del" title="彻底删除"><i class="layui-icon lovexian-edit-area lovexian-red">&#xe640;</i></a>
     {{# } }}
-    {{# if(lacksPermission(['commandInfo:list','commandInfo:add','commandInfo:del'])) { }}
+    {{# if(lacksPermission(['dtuInfo:list','dtuInfo:add','dtuInfo:del'])) { }}
     <span>
             <span class="layui-badge-dot lovexian-bg-orange">无权限</span>
     </span>
     {{# } }}
 </script>
 
-
-
-
 <script>
-    layui.use('theme/messagemanage/commandManage/command', layui.factory('theme/messagemanage/commandManage/command'));
+    layui.use('theme/settings/dtuManage/dtu', layui.factory('theme/settings/dtuManage/dtu'));
 </script>
 
-</html>
