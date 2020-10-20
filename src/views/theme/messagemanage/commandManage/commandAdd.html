@@ -13,9 +13,15 @@
             <div class="layui-col-md9 layui-col-xs7">
 
                 <div class="layui-form-item magt3">
-                    <label class="layui-form-label lovexian-form-item-require">接口信息</label>
+                    <label class="layui-form-label lovexian-form-item-require">命令</label>
                     <div class="layui-input-block">
-                        <input type="text" style="width:400px !important" class="layui-input commandInfo" name="command"  lay-verify="command" placeholder="请输入报警信息">
+                        <select name="status">
+                            <option value=""></option>
+                            <option value="1">查询电量</option>
+                            <option value="2">查询数据</option>
+                            <option value="3">改变频率</option>
+                            <option value="4">系统复位</option>
+                        </select>
                     </div><!--actiontitle 需要改变变量名称-->
                 </div>
 
@@ -50,12 +56,12 @@
 <!--                </div>-->
 
 
-                <div class="layui-form-item magt3">
+               <!-- <div class="layui-form-item magt3">
                     <label class="layui-form-label lovexian-form-item-require">数量</label>
                     <div class="layui-input-block">
                         <input type="text" style="width:400px !important" class="layui-input count" name="count"  lay-verify="count" placeholder="请输入数量">
-                    </div><!--actiontitle 需要改变变量名称-->
-                </div>
+                    </div>&lt;!&ndash;actiontitle 需要改变变量名称&ndash;&gt;
+                </div>-->
 
 
 
@@ -73,7 +79,7 @@
     </div>
     <div class="layui-col-md3 layui-col-xs12">
         <div style="  width: 250px;position: relative;left: -850px; bottom: -300px" class="layui-right">
-            <a id="saveBtn" class="layui-btn layui-btn-normal" lay-filter="addNews" lay-submit><i class="layui-icon">&#xe621;</i>保存</a>
+            <a id="saveBtn" class="layui-btn layui-btn-normal" lay-filter="addNews" lay-submit><i class="layui-icon">&#xe621;</i>执行</a>
             <a class="layui-btn layui-btn-primary layui-btn-normal" lay-filter="cancelBtn" lay-submit><i class="layui-icon">&#xe669;</i>取消</a>
         </div>
     </div>

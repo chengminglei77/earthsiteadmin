@@ -23,7 +23,7 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
 
         var id = $("input[name='id']").val();     //input[name='id']是访问input对象id属性
         var command = $('.commandInfo').val();
-        var cmdStatus = $('.cmdStatus').val();
+        var status = $('.status').val();
         var count = $('.count').val();
         var sendTime = $('.sendTime').val();
         var receiveTime = $('.receiveTime').val();
@@ -33,7 +33,7 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
         var dtudata = {
             id:id,
             command:command,
-            cmdStatus:cmdStatus,
+            status:status,
             count:count,
             description:description,
         };

@@ -24,14 +24,12 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
     form.render();
     initTable();
     var typeId=1;
-    // layui.data('id',{key:'actionTypeId',value:1});
-    // alert(layui.data('id').actionTypeId);
 
-    element.on('tab(alarmInfoTable)',function (data) {
+    element.on('tab(alarmTab)',function (data) {
         var idvalue=data.index+1;//从0开始
-        // $searchForm.find('input[name="actTitle"]').val("");
         initTable();
     });
+    element.tabChange('alarmTab',0);
 
     //渲染权限
     var fakerData = ["faker"];
@@ -46,7 +44,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
         trigger: 'click',
         position: 'fixed'
     });
-    element.tabChange('alarmTab',1);
+
 
     dropdown.render({//添加删除小组件
         elem: $view.find('.action-more'),
@@ -113,14 +111,15 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
         }
     }
 
-    function initTable() {//初始化界面（下面的表格）
+    function initTable() {
+        console.log($(".layui-tab-title .layui-this").attr("lay-id"))
         tableIns = lovexian.table.init({
-            elem: $('#alarmInfoTable'),
-            id: 'alarmInfoTable',
-            url: proPath + '/admin/alarmInfo/listByTypeId?',//id根据组件而动，初始化表格
-            type:'GET',
-            headers:{
-                Authentication :layui.data(setter.tableName)[setter.TOKENNAME]
+            elem: $('#alarmInfoTable' + $(".layui-tab-title .layui-this").attr("lay-id")),
+            id: 'alarmInfoTable' + $(".layui-tab-title .layui-this").attr("lay-id"),
+            url: proPath + '/admin/alarmInfo/listByTypeId?status='+$(".layui-tab-title .layui-this").attr("lay-id"),
+            type: 'GET',
+            headers: {
+                Authentication: layui.data(setter.tableName)[setter.TOKENNAME]
             },
             cols: [[
                 {type: 'checkbox',fixed: 'lift'},
