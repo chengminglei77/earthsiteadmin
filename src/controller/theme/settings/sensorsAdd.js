@@ -28,25 +28,49 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
         }
 
     );
+    form.on('select(typeId)',function (data)
+        {
 
+            var value = data.value;
+            window.sensorsType=value;
+            //alert(value);
+            // var text = data.elem[data.elem.selectedIndex].text;
+            // alert(text);
+            //from.render('select');
+            if(value == '温度传感器')
+            {
+                window.sensorFrequency='10s'
+            }
+            if(value == '湿度传感器')
+            {
+                window.sensorFrequency='10s'
+            }
+            if(value == '风速传感器')
+            {
+                window.sensorFrequency='5s'
+            }
+        }
+
+    );
 
     form.on("submit(addNews)",function(data){
 
         //此处要和下方var dtudata =里面的数量类型一致
         var id = $("input[name='id']").val();
         var sensorId = $('.sensorId').val();
-        var typeId = $('.typeId').val();
+        //var typeId = $('.typeId').val();
         var longitude = $('.longitude').val();
         var latitude = $('.latitude').val();
         var disInfo = $('.disInfo').val();
         var sensordata = {
             id:id,
             sensorId: sensorId,
-            typeId:typeId,
+            typeId:window.sensorsType,
             longitude:longitude,
             latitude:latitude,
             status:window.value2,
             disInfo:disInfo,
+            sensorFrequency:window.sensorFrequency,
         };
 
         lovexian.post(proPath + '/admin/sensors/saveOrUpdate',sensordata);
