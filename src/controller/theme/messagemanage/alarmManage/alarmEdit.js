@@ -37,7 +37,7 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
 
         var id = $("input[name='id']").val();     //input[name='id']是访问input对象id属性
         var alarmInfo = $('.alarmInfo').val();
-        var status = $('select[name="status"] option:selected').val();
+        var status = $("select[name='status']").val();
         var alarmTime = $('.alarmTime').val();
         var dealAdmin = $('.dealAdmin').val();
         var dealTime = $('.dealTime').val();

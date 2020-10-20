@@ -156,6 +156,9 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
                 {field: 'dtuName', title: 'DTU名 ', minWidth: 120,align:'center',fixed: 'lift'},//field对应后台idea的字段
                 {field: 'dtuType', title: 'DTU类型', minWidth:130,align:'center'},
                 {title: 'DTU状态', templet: '#check-state',minWidth:120,align:'center'},
+                {title: '电量', templet: '#check-charge',minWidth:120,align:'center'},
+                /*{field: 'elecCharge', title: '电量', minWidth:120,align:'center'},*/
+                {field: 'batCapacity', title: '电池容量', minWidth:120,align:'center'},
                 //{field: 'longitude', title: '经度', minWidth:120,align:'center'},
                 //{field: 'latitude', title: '纬度', minWidth:120,align:'center'},
                 //{field: 'descInfo', title: '位置信息', minWidth:120,align:'center'},

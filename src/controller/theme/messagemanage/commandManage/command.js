@@ -72,11 +72,11 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
             }
 
         },
-        options: [{
+        options: [/*{
             name: 'add',
             title: '添加接口信息',
             perms: 'commandInfo:add'
-        }, {
+        },*/ {
             name: 'delete',
             title: '批量删除',
             perms: 'commandInfo:del'
@@ -123,17 +123,15 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
             cols: [[
                 {type: 'checkbox',fixed: 'lift'},
                 {field: 'command', title: '接口信息', minWidth: 120,align:'center',fixed: 'lift'},//对应后台idea的字段
-                {title: '处理状态',templet: '#check-state', minWidth: 180, align:'center'},
+                {title: '处理状态',templet: '#check-state', minWidth: 100, align:'center'},
                 {field: 'sendTime', title: '发送时间',minWidth: 180, align:'center'},
-                {field: 'receiveTime', title: '接收时间', minWidth:180,align:'center'},
-                {field: 'count', title: '数量', minWidth:120,align:'center'},
+                {field: 'receiveTime', title: '响应时间', minWidth:180,align:'center'},
                 {field: 'description', title: '描述', minWidth: 180, sort: true,align:'center'},
-                {title: '操作', toolbar: '#action-option', minWidth: 120, fixed: 'right'}
             ]],
         });
     }
 
-    table.on('tool(commandInfoTable)', function (obj) {
+    /*table.on('tool(commandInfoTable)', function (obj) {
         var data = obj.data,
         layEvent = obj.event;
         console.log(data.status);
@@ -177,7 +175,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
                 });
             });
         }
-    });//操作
+    });//操作*/
 
 
     function deleteActions(commandIds) {//操作组件之一，批量删除
@@ -190,6 +188,15 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
 
 
     function getQueryParams() {
+        var createTimeFrom='',
+            createTimeTo='',
+
+            createTime = $searchForm.find('input[name="createTime"]').val();
+        //alert(createTime);
+        if (createTime) {
+            createTimeFrom = createTime.split(' - ')[0];
+            createTimeTo = createTime.split(' - ')[1];
+        }
         return {
             //此处对应html里面的select框:<select name="status">
             command: $searchForm.find('input[name="command"]').val().trim(),//此处对应<input type="text" name="dtuName" autocomplete="off" class="layui-input">

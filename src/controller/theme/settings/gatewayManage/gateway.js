@@ -131,7 +131,8 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
             {type: 'checkbox',fixed: 'lift'},
             {field: 'gateId', title: '网关标识 ', minWidth: 120,align:'center',fixed: 'lift'},//对应后台idea的字段
             {title: '网关状态', templet: '#check-state',minWidth:120,align:'center'},
-            {field: 'elecCharge', title: '电量', minWidth:120,align:'center'},
+            {title: '电量', templet: '#check-charge',minWidth:120,align:'center'},
+            /*{field: 'elecCharge', title: '电量', minWidth:120,align:'center'},*/
             /*{field: 'longitude', title: '经度', minWidth:120,align:'center'},
             {field: 'latitude', title: '纬度', minWidth:180,align:'center'},*/
            /* {field: 'descInfo', title: '位置信息', minWidth:120,align:'center'},*/

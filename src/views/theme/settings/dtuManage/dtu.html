@@ -111,12 +111,23 @@
     var status = {
     100: {title: '草稿状态', color: 'lime'},
     0: {title: '在线', color: 'blue'},
-    1: {title: '离线', color: 'green'},
+    1: {title: '离线', color: 'red'},
     2: {title: '未启用', color: 'volcano'}
     }[d.status];
     }}
     <span class="layui-badge lovexian-tag-{{ status.color}}">{{ status.title }}</span>
 </script>
+
+<script type="text/html" id="check-charge">
+    <div>
+        {{# if (d.elecCharge <= 20) { }}
+        <span class="layui-badge-rim lovexian-tag-red">{{d.elecCharge }} %</span>
+        {{# } else if (d.elecCharge <= 100) { }}
+        <span class="layui-badge-rim lovexian-tag-green">{{d.elecCharge}} %</span>
+        {{# }}}
+    </div>
+</script>
+
 
 <script type="text/html" id="show-flag">
     {{# if(d.isShow == 1){ }}
