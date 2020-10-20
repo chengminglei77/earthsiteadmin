@@ -1,0 +1,93 @@
+<!--#include virtual="lawerDetail.html" -->
+<style>
+    .layui-table-cell {
+        height: 60px;
+        max-width: 200px;
+    }
+</style>
+<div class="layui-fluid layui-anim lovexian-anim" id="lovexian-dtus" lay-title="dtu信息">
+    <div class="layui-row lovexian-container">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body lovexian-table-full">
+                        <form class="layui-form layui-table-form" lay-filter="action-table-form">
+                            <div class="layui-row">
+                                <div class="layui-col-md10">
+                                    <div style="width:100%;height: 900px">
+                                        <iframe src="http://123.57.94.242:3000/d-solo/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603078849840&to=1603100449840&panelId=27" width="450" height="200" frameborder="0"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--状态--><!--此处需要修改status和数据库字段一致,-->
+<!--注意:script中不要加注释,否则会错误--><!--注意:script中不要加注释,否则会错误--><!--注意:script中不要加注释,否则会错误--><!--注意:script中不要加注释,否则会错误-->
+<script type="text/html" id="check-state">
+    {{#
+    var status = {
+    100: {title: '草稿状态', color: 'lime'},
+    0: {title: '在线', color: 'blue'},
+    1: {title: '离线', color: 'green'},
+    2: {title: '未启用', color: 'volcano'}
+    }[d.status];
+    }}
+    <span class="layui-badge lovexian-tag-{{ status.color}}">{{ status.title }}</span>
+</script>
+
+<script type="text/html" id="show-flag">
+    {{# if(d.isShow == 1){ }}
+    <input type="checkbox" value={{d.id}}  lay-filter="delState" name="delState" lay-skin="switch" lay-text="展示|不展示" checked>
+    {{# }else{ }}
+    <input type="checkbox" value={{d.id}} lay-filter="delState" name="delState" lay-skin="switch" lay-text="展示|不展示">
+    {{# } }}
+</script>
+
+
+<!--展示更多:批量删除,新增按钮-->
+<script type="text/html" id="actionMoreDtuTpl">
+{{# if(hasAnyPermission(['dtuInfo:add'])) { }}
+<div class="layui-btn layui-btn-sm layui-btn-primary table-action action-more">
+    <i class="layui-icon">&#xe875;</i>
+</div>
+{{# } }}
+</script>
+
+
+<script type="text/html" id="action-option">
+    {{# if(hasPermission(['dtuInfo:list'])) { }}
+    {{# } }}
+    {{# if(hasPermission(['dtuInfo:add'])&&d.delState==0) { }}
+    <a lay-event="edit" title=" 编辑"><i class="layui-icon lovexian-edit-area lovexian-blue" style="color: #2db7f5">&#xe642;</i></a>
+    {{# }else{ }}
+    {{# } }}
+    {{# if(hasPermission(['dtuInfo:del'])&&d.delState==0) { }}
+    <a lay-event="del" title="删除"><i class="layui-icon lovexian-edit-area lovexian-red">&#xe640;</i></a>
+    {{# } }}
+    {{# if(hasPermission(['gatewayInfo:list'])) { }}
+    <a lay-event="querySensors" title="查看相连的传感器"><i class="layui-icon lovexian-edit-area lovexian-purple">&#xe783;</i></a>
+    {{# } }}
+
+    {{# if(d.delState==1) { }}
+    <a lay-event="restore" title="还原"><i class="layui-icon lovexian-edit-area lovexian-blue">&#xe603;</i></a>
+    {{# } }}
+    {{# if(d.delState==1) { }}
+    <a lay-event="del" title="彻底删除"><i class="layui-icon lovexian-edit-area lovexian-red">&#xe640;</i></a>
+    {{# } }}
+    {{# if(lacksPermission(['dtuInfo:list','dtuInfo:add','dtuInfo:del'])) { }}
+    <span>
+            <span class="layui-badge-dot lovexian-bg-orange">无权限</span>
+    </span>
+    {{# } }}
+</script>
+
+<script>
+    layui.use('theme/settings/dtuManage/dtu', layui.factory('theme/settings/dtuManage/dtu'));
+</script>
+

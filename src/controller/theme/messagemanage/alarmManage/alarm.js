@@ -169,16 +169,6 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
                 });
             });
         }
-        if (layEvent === 'destroy') {
-            //彻底删除
-            lovexian.modal.confirm('删除报警信息', '确定彻底删除这条报警记录吗？', function () {
-                lovexian.del(proPath + '/admin/alarmInfo/completelyDelete?id='+ obj.data.id, null, function () {
-                    console.log("success");
-                    lovexian.alert.success('删除该报警信息成功');
-                    $query.click();
-                });
-            });
-        }
     });//操作
 
 

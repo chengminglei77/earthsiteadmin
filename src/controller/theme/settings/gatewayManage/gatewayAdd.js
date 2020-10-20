@@ -19,7 +19,7 @@ layui.define(['form','layer','admin','layedit','formSelects','lovexian','laydate
 
 
 
-    form.on('select(State)',function (data)
+    form.on('select(status)',function (data)
         {
 
             var value = data.value;
@@ -29,7 +29,6 @@ layui.define(['form','layer','admin','layedit','formSelects','lovexian','laydate
             // alert(text);
             //from.render('select');
         }
-
     );
 
     formSelects.config('example6_3', {
@@ -80,7 +79,6 @@ layui.define(['form','layer','admin','layedit','formSelects','lovexian','laydate
         var longitude = $('.longitude').val();
         var latitude = $('.latitude').val();
         var descInfo = $('.descInfo').val();
-        var status = $('.status').val();
         var elecCharge=$('.elecCharge').val();
         var serverIp=$('.serverIp').val();
         var serverPort=$('.serverPort').val();

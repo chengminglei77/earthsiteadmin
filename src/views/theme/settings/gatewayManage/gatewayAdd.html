@@ -73,15 +73,12 @@
                 </div>
 
                 <div class="layui-form-item openness">
-                    <label class="layui-form-label lovexian-form-item-require"><i class="seraph icon-look"></i> 网关状态</label>
+                    <label class="layui-form-label"><i class="seraph icon-look"></i> 网关状态</label>
                     <div class="layui-input-block actionStatus" style="width: 300px ">
-                        <select name="State"
-                                id="State"
-                                lay-filter="State" lay-verify="required" onchange="changeLanguageType()">
+                        <select name="status" id="status" lay-filter="status" lay-verify="required" onchange="changeLanguageType()">
                             <option value>请选择状态</option>
                             <option value="0">在线</option>
                             <option value="1">离线</option>
-                            <option value="2" >未启用</option>
                         </select>
                     </div>
                 </div>
@@ -148,7 +145,7 @@
                         <a id="saveBtn" class="layui-btn layui-btn-normal" lay-filter="addNews" lay-submit><i class="layui-icon">&#xe621;</i>保存</a>
                         <a id="relateDtus" class="layui-btn layui-btn-normal" lay-filter="relateDtus" lay-submit><i class="layui-icon">&#xe621;</i>关联</a>
                         <!--<a class="layui-btn layui-btn-primary layui-btn-normal" lay-filter="cancelBtn" lay-submit><i class="layui-icon">&#xe669;</i>取消</a>-->
-                        <a class="layui-btn layui-btn-primary layui-btn-sm" lay-filter="cancelBtn" lay-submit>取消</a>
+                        <a class="layui-btn layui-btn-primary layui-btn-normal" lay-filter="cancelBtn" lay-submit><i class="layui-icon">&#xe669;</i>取消</a>
                     </div>
                 </div>
 

@@ -28,7 +28,9 @@
                 <div class="layui-form-item openness">
                     <label class="layui-form-label lovexian-form-item-require"><i class="seraph icon-look"></i> 处理状态</label>
                     <div class="layui-input-block actionStatus" style="width:400px !important">
-                        <select name="languageType" lay-verify="required" onchange="changeLanguageType()">
+                        <select name="State"
+                                id="State"
+                                lay-filter="State" lay-verify="required" onchange="changeLanguageType()">
                             <option value="0">未处理</option>
                             <option value="1">已处理</option>
                         </select>

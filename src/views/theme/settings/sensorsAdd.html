@@ -23,17 +23,27 @@
                 </div>
 
 
+                <div class="layui-form-item openness">
+                    <label class="layui-form-label lovexian-form-item-require"><i class="seraph icon-look"></i>传感器类别</label>
+                    <div class="layui-input-block actionStatus" style="width:300px !important">
+                        <select name="typeId" id="typeId" lay-filter="typeId"lay-verify="required" onchange="changeLanguageType()">
+                            <option value="">请选择该传感器的类型</option>
+                            <option value="温度传感器">温度传感器</option>
+                            <option value="湿度传感器">湿度传感器</option>
+                            <option value="风速传感器">风速传感器</option>
+                        </select>
+                    </div>
+                </div>
 
 
 
-
-                <div class="layui-form-item magt3">
+              <!--  <div class="layui-form-item magt3">
                     <label class="layui-form-label ">传感器类型</label>
                     <div class="layui-input-block">
                         <input type="text" style="width:300px !important" class="layui-input typeId" name="typeId"  lay-verify="typeId" placeholder="请输入传感器类型">
-                    </div><!--actiontitle 需要改变变量名称-->
+                    </div>&lt;!&ndash;actiontitle 需要改变变量名称&ndash;&gt;
                 </div>
-
+-->
                 <div class="layui-form-item magt3">
                     <label class="layui-form-label ">经度</label>
                     <div class="layui-input-block">
@@ -51,9 +61,7 @@
                 <div class="layui-form-item openness">
                     <label class="layui-form-label lovexian-form-item-require"><i class="seraph icon-look"></i>传感器状态</label>
                     <div class="layui-input-block actionStatus" style="width:300px !important">
-                        <select name="State"
-                                id="State"
-                                lay-filter="State"lay-verify="required" onchange="changeLanguageType()">
+                        <select name="status" id="status" lay-filter="status"lay-verify="required" onchange="changeLanguageType()">
                             <option value="">请选择该传感器的状态</option>
                             <option value="0">在线</option>
                             <option value="1">离线</option>
@@ -76,7 +84,7 @@
     </div>
 
     <div class="layui-col-md3 layui-col-xs12">
-        <div style=" width: 250px;position: relative;left: -500px; bottom: -400px" class="layui-right">
+        <div style=" width: 250px;position: relative;left: -800px; bottom: -400px" class="layui-right">
             <a id="saveBtn" class="layui-btn layui-btn-normal" lay-filter="addNews" lay-submit><i class="layui-icon">&#xe621;</i>保存</a>
             <a class="layui-btn layui-btn-primary layui-btn-normal" lay-filter="cancelBtn" lay-submit><i class="layui-icon">&#xe669;</i>重置</a>
         </div>
