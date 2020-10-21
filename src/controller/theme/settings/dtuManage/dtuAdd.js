@@ -9,6 +9,8 @@ layui.define(['form','layer','admin','layedit','formSelects','lovexian','laydate
         upload = layui.upload,
         layedit = layui.layedit,
         laydate = layui.laydate,
+
+     //   xmSelect    = layui.xmSelect,
         $ = layui.jquery,
     formSelects = layui.formSelects,
     $ = layui.jquery,
@@ -19,11 +21,30 @@ layui.define(['form','layer','admin','layedit','formSelects','lovexian','laydate
     form.render();
 
 
+   /* xmSelect.render({
+        //...
+        paging: true,
+    })
+*/
+    /*formSelects.data('example6_3', 'server', {
+        url:  proPath + '/admin/sensors/listByTypeId?',
+    });*/
+    //佛曰, 格式不可变, 不喜欢 name,value 可以使用config重新定义
+    //同样适合剥去外皮, 同样可以使用config beforeSuccess处理数据, 不过你需要这么写
+    /*formSelects.config('example6_3', {
+        response: {
+            statusCode: 200
+        },
+        beforeSuccess: function(id, url, searchVal, result){
+            result = result.data;
+            console.log(result);
+        }
+    }).data('example6_3', 'server', {
+        url: proPath + '/admin/sensors/listByTypeId?'
+    });*/
 
-
-
-    formSelects.config('example6_3', {
-        searchUrl: proPath + '/admin/sensors/listByTypeId?',
+ formSelects.config('example6_3', {
+        searchUrl: proPath + '/admin/dtuSensor/querySensorsInfo',
         response: {
             statusCode: 200
         },
@@ -33,6 +54,7 @@ layui.define(['form','layer','admin','layedit','formSelects','lovexian','laydate
 
         beforeSuccess: function (id, url, searchVal, result) {
             var data = result.data.rows;
+           // var total=data.total;
             var tranData = [];
             for (var i = 0; i < data.length; i++) {
                 tranData.push({
@@ -40,6 +62,8 @@ layui.define(['form','layer','admin','layedit','formSelects','lovexian','laydate
                     value: data[i].sensorId
                 })
             }
+            console.log(data.total);
+            //console.log(total);
             result.data = tranData;
             return result;
         },
@@ -92,7 +116,17 @@ form.on('select(status)',function (data)
         };
         //window.dtuSensors=dtudata;
         lovexian.post(proPath + '/admin/dtus/saveOrUpdate',dtudata);
+        var value1 = layui.formSelects.value('example6_3',`val`);
+       // let value1 = layui.formSelects.value('example6_3',`val`);
+        //alert(value1.length);
 
+        for (var i = 0; i < value1.length; i++) {
+            var tranData = {
+                dtuId: dtudata.dtuId,
+                sensorId: value1[i]
+            };
+            lovexian.post(proPath + '/admin/dtuSensor/saveOrUpdate',tranData);
+        }
         layer.closeAll();
         return false;
 
@@ -116,6 +150,9 @@ form.on('select(status)',function (data)
 
 //取消按钮,直接关闭当前窗口
     form.on("submit(cancelBtn)",function(data){
+
+        alert( layui.formSelects.value('example6_3','val'));
+        alert(layui.formSelects.value('example6_3', 'name'));
         layer.closeAll();
     });
 
