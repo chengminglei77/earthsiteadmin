@@ -16,6 +16,48 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
     form.verify(validate);
     form.render();
 
+    element.on('tab(commandTab)',function (data) {
+        var idvalue=data.index+1;//从0开始
+        initTable();
+    });
+    element.tabChange('commandTab',1);
+
+
+    dropdown.render({//添加删除小组件
+        elem: $view.find('.action-more'),
+        click: function (name, elem, event) {
+            var checkStatus = table.checkStatus('commandInfoTable');
+            if (name === 'add') {
+                addcommandInfo("",0);
+                //跳转到actionAdd页面
+                // location.hash = search.redirect ? decodeURIComponent(search.redirect) : '/theme/life/actionAdd';
+            }
+            if (name === 'delete') {//批量删除
+                if (!checkStatus.data.length) {
+                    lovexian.alert.warn('请选择需要删除的报警信息');
+                } else {
+                    lovexian.modal.confirm('删除报警信息', '确定删除这些报警信息吗？', function () {
+                        var commandIds = [];
+                        layui.each(checkStatus.data, function (key, item) {
+                            commandIds.push(item.id)
+                        });
+                        deleteActions(commandIds.join(','));
+                    });
+                }
+            }
+
+        },
+        options: [{
+            name: 'add',
+            title: '添加接口信息',
+            perms: 'commandInfo:add'
+        }, {
+            name: 'delete',
+            title: '批量删除',
+            perms: 'commandInfo:del'
+        }]
+    });
+
 
 
 
@@ -24,7 +66,6 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
         var id = $("input[name='id']").val();     //input[name='id']是访问input对象id属性
         var command = $('.commandInfo').val();
         var status = $('.status').val();
-        var count = $('.count').val();
         var sendTime = $('.sendTime').val();
         var receiveTime = $('.receiveTime').val();
         var description=$('.commandReason').val();

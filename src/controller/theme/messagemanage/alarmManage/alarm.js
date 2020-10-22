@@ -112,7 +112,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
     }
 
     function initTable() {
-        console.log($(".layui-tab-title .layui-this").attr("lay-id"))
+
         tableIns = lovexian.table.init({
             elem: $('#alarmInfoTable' + $(".layui-tab-title .layui-this").attr("lay-id")),
             id: 'alarmInfoTable' + $(".layui-tab-title .layui-this").attr("lay-id"),
