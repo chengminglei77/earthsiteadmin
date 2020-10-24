@@ -8,6 +8,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
         lovexian = layui.lovexian,
         dropdown = layui.dropdown,
         form = layui.form,
+        viewDtu = layui.view,
         table = layui.table,
         router = layui.router(),
         search = router.search,
@@ -183,6 +184,35 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
                     $query.click();
                 });
             });
+        }
+
+        if (layEvent === 'queryDtu')
+        {
+            //alert(data.dtuId);
+
+            lovexian.get(proPath + "/admin/dtuSensor/selectDtuInfo",{"sensorId":data.sensorId},function (res) {
+                if (res.status = '200'){
+                    admin.popup({
+                        id: 'LAY-theme-action-check',
+                        area: ['400px','80%'],
+                        shadeClose: 0,
+                        title: 'Dtu关联信息',
+                        success:function () {
+                            console.log(res.data.dtuName);
+                            viewDtu(this.id).render('common/checkDtu',{
+                                history: res.data.rows,
+                            }).then(function () {
+                                //视图文件请求完毕，试图内容渲染回顾
+                            }).done(function () {
+                                //视图文件请求完毕和内容渲染完毕的回顾
+                            });
+                        }
+                    });
+                }else {
+                    lovexian.alert.error("获取关联传感器历史信息失败!");
+                }
+            });
+
         }
     });//操作
 

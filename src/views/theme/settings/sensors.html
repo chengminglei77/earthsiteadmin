@@ -141,6 +141,9 @@
     <a lay-event="del" title="删除"><i class="layui-icon lovexian-edit-area lovexian-red">&#xe640;</i></a>
     {{# } }}
 
+    {{# if(hasPermission(['sensorsInfo:list'])) { }}
+    <a lay-event="queryDtu" title="查看相连的DTU"><i class="layui-icon lovexian-edit-area lovexian-purple">&#xe783;</i></a>
+    {{# } }}
     {{# if(d.deleteState==1) { }}
     <a lay-event="restore" title="还原"><i class="layui-icon lovexian-edit-area lovexian-blue">&#xe603;</i></a>
     {{# } }}

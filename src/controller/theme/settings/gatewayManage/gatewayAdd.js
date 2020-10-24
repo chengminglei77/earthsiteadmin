@@ -32,9 +32,23 @@ layui.define(['form','layer','admin','layedit','formSelects','lovexian','laydate
     );
 
     formSelects.config('example6_3', {
-        searchUrl: proPath + '/admin/dtus/listByTypeId?',
+        searchUrl: proPath + '/admin/gatewayDtu/findDtusNotInGatewayDtu?',
+        type: 'get',                //请求方式: post, get, put, delete...
+        header: {},                 //自定义请求头
+        data: {},                   //自定义除搜索内容外的其他数据
+        searchName: 'dtuId',      //自定义搜索内容的key值
+        searchVal: '',              //自定义搜索内容, 搜素一次后失效, 优先级高于搜索框中的值
+        keyName: 'name',            //自定义返回数据中name的key, 默认 name
+        keyVal: 'value',            //自定义返回数据中value的key, 默认 value
+        keySel: 'selected',         //自定义返回数据中selected的key, 默认 selected
+        keyDis: 'disabled',         //自定义返回数据中disabled的key, 默认 disabled
+        keyChildren: 'children',    //联动多选自定义children
+        delay: 500,                 //搜索延迟时间, 默认停止输入500ms后开始搜索
         response: {
-            statusCode: 200
+            statusCode: 200,          //成功状态码
+            statusName: 'code',     //code key
+            msgName: 'msg',         //msg key
+            dataName: 'data'        //data key
         },
         header: {
             Authentication :layui.data(setter.tableName)[setter.TOKENNAME]
@@ -54,22 +68,24 @@ layui.define(['form','layer','admin','layedit','formSelects','lovexian','laydate
             return result;
             window.dtu = result;
         },
-        error: function (id, url, searchVal, err) {
+        success: function(id, url, searchVal, result){      //使用远程方式的success回调
+            console.log(id);        //组件ID xm-select
+            console.log(url);       //URL
+            console.log(searchVal); //搜索的value
+            console.log(result);    //返回的结果
+        },
+        error: function (id, url, searchVal,err) {
             // console.error(err);
             lovexian.alert.error('获取角色列表失败');
         },
     })
     Window.gatewayDtu= layui.formSelects.value('example6_3');
 
-
-    layui.use(['form'], function(){
-        var $ = layui.$
-            ,form = layui.form;
-
-        var region = $("select[name='status']").val();
-        console.log(region);
-        // ap-chengdu
+    formSelects.render({
+        //...
+        paging: true,
     })
+
 
 
     form.on("submit(addNews)",function(data){
@@ -110,11 +126,21 @@ layui.define(['form','layer','admin','layedit','formSelects','lovexian','laydate
                 lovexian.alert.success('保存成功');
             // $('#lovexian-job').find('#query').click();
         });
+
+        var value1 = layui.formSelects.value('example6_3',`val`);
+        for (var i = 0; i < value1.length; i++) {
+            var tranData = {
+                gatewayId: gatewaydata.gateId,
+                dtuId: value1[i]
+            };
+            lovexian.post(proPath + '/admin/gatewayDtu/saveOrUpdate', tranData);
+        }
+
         layer.closeAll();
         return false;
     });
 
-    form.on("submit(relateDtus)",function (data) {
+   /* form.on("submit(relateDtus)",function (data) {
         var gatewayId = $('.gateId').val();
         var dtuId = $('.dtuId').val();
         window.dtu = data;
@@ -131,7 +157,7 @@ layui.define(['form','layer','admin','layedit','formSelects','lovexian','laydate
         layer.closeAll();
         return false;
 
-    });
+    });*/
 
 
 
