@@ -64,9 +64,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
                         "count":data.count,
                         "description":data.description,
                         "delState":data.delState
-
                     });
-
                 } else{
                     layui.use('theme/messagemanage/commandManage/commandAdd', layui.factory('theme/messagemanage/commandManage/commandAdd'));
 

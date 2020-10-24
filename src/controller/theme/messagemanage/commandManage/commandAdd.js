@@ -20,46 +20,7 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
         var idvalue=data.index+1;//从0开始
         initTable();
     });
-    element.tabChange('commandTab',1);
-
-
-    dropdown.render({//添加删除小组件
-        elem: $view.find('.action-more'),
-        click: function (name, elem, event) {
-            var checkStatus = table.checkStatus('commandInfoTable');
-            if (name === 'add') {
-                addcommandInfo("",0);
-                //跳转到actionAdd页面
-                // location.hash = search.redirect ? decodeURIComponent(search.redirect) : '/theme/life/actionAdd';
-            }
-            if (name === 'delete') {//批量删除
-                if (!checkStatus.data.length) {
-                    lovexian.alert.warn('请选择需要删除的报警信息');
-                } else {
-                    lovexian.modal.confirm('删除报警信息', '确定删除这些报警信息吗？', function () {
-                        var commandIds = [];
-                        layui.each(checkStatus.data, function (key, item) {
-                            commandIds.push(item.id)
-                        });
-                        deleteActions(commandIds.join(','));
-                    });
-                }
-            }
-
-        },
-        options: [{
-            name: 'add',
-            title: '添加接口信息',
-            perms: 'commandInfo:add'
-        }, {
-            name: 'delete',
-            title: '批量删除',
-            perms: 'commandInfo:del'
-        }]
-    });
-
-
-
+    //element.tabChange('commandTab',1);
 
     form.on("submit(addNews)",function(data){
 
@@ -85,6 +46,31 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
         layer.closeAll();
         return false;
     });
+
+    dropdown.render({//添加删除小组件
+        elem: $view.find('.action-more'),
+        click: function (name, elem, event) {
+            if (name === 'history') {
+                commandHistory("",0);
+                //跳转到actionAdd页面
+                // location.hash = search.redirect ? decodeURIComponent(search.redirect) : '/theme/life/actionAdd';
+            }
+        },
+        options: [{
+            name: 'history',
+            title: '添加报警信息',
+            perms: 'alarmInfo:add'
+        }]
+    });
+
+    function commandHistory(data,history){
+        console.log(history);
+        lovexian.popup("theme/messagemanage/commandManage/command","历史报警信息",$.extend(data,{isEdit:isEdit}),
+            function () {
+                // $query.click();
+            });
+    }
+
     form.on("submit(cancelBtn)",function(data){
         layer.closeAll();
     });
@@ -94,6 +80,11 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
         ,type: 'datetime'
     });
 
+    $reset.on('click',function () {//重置
+        // $searchForm[0].reset();
+        initTable();
+    });
+
     //对外暴露的接口
-    exports('theme/settings/commandManage/commandAdd', {});
+    exports('theme/messagemanage/commandManage/commandAdd', {});
 });

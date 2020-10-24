@@ -21,7 +21,10 @@
                                 </div>
                                 <div class="layui-col-md2 layui-col-sm12 layui-col-xs12 table-action-area">
                                     <div class="layui-btn layui-btn-sm layui-btn-primary table-action" name="history" title="查看历史命令">
-                                        <i class="layui-icon">&#xe68d;</i>
+                                        <i class="layui-icon">&#xe60e;</i>
+                                    </div>
+                                    <div class="layui-btn layui-btn-sm layui-btn-primary table-action" name="reset" title="刷新">
+                                        <i class="layui-icon">&#xe669;</i>
                                     </div>
                                 </div>
                             </div>
@@ -39,8 +42,8 @@
                                     <form class="layui-form layui-table-form" lay-filter="action-table-form">
                                         <div class="layui-form-item magt3">
                                             <label class="layui-form-label lovexian-form-item-require">命令</label>
-                                            <div class="layui-input-block" style="width:400px !important">
-                                                <select name="status">
+                                            <div class="layui-input-block" style="width:200px !important">
+                                                <select name="command">
                                                     <option value=""></option>
                                                     <option value="1">查询电量</option>
                                                     <option value="2">查询数据</option>
@@ -51,7 +54,7 @@
                                         </div>
                                         <div class="layui-form-item openness">
                                             <label class="layui-form-label lovexian-form-item-require"><i class="seraph icon-look"></i>响应状态</label>
-                                            <div class="layui-input-block actionStatus" style="width:400px !important">
+                                            <div class="layui-input-block actionStatus" style="width:200px !important">
                                                 <select name="languageType" lay-verify="required" onchange="changeLanguageType()">
                                                     <option value=""></option>
                                                     <option value="0">未处理</option>
@@ -68,9 +71,9 @@
                                             </div><!--同样需要修改变量名称-->
                                         </div>
                                         <div class="layui-col-md3 layui-col-xs12">
-                                            <div style="  width: 250px;position: relative;left: -850px; bottom: -300px" class="layui-right">
-                                                <a id="saveBtn" class="layui-btn layui-btn-normal" lay-filter="addNews" lay-submit><i class="layui-icon">&#xe621;</i>执行</a>
-                                                <a class="layui-btn layui-btn-primary layui-btn-normal" lay-filter="cancelBtn" lay-submit><i class="layui-icon">&#xe669;</i>取消</a>
+                                            <div style="  width: 250px;position: relative;left: 350px; " class="layui-right">
+                                                <button id="saveBtn" class="layui-btn layui-btn-normal" lay-filter="execute" lay-submit><i class="layui-icon">&#xe621;</i>执行</button>
+                                                <button class="layui-btn layui-btn-primary layui-btn-normal" lay-filter="cancelBtn" lay-submit><i class="layui-icon">&#xe669;</i>取消</button>
                                             </div>
                                         </div>
                                     </form>
