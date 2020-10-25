@@ -16,30 +16,27 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
     form.verify(validate);
     form.render();
 
-    element.on('tab(commandTab)',function (data) {
+    /*element.on('tab(gatewayInfoTable)',function (data) {
         var idvalue=data.index+1;//从0开始
+        layui.data('id',{key:'gatewayTypeId',value:idvalue});
+        // $searchForm.find('input[name="actTitle"]').val("");
         initTable();
-    });
-    //element.tabChange('commandTab',1);
+    });*/
+/*    element.tabChange('commandTab',1);*/
 
-    form.on("submit(addNews)",function(data){
+    form.on("submit(execute)",function(data){
 
         var id = $("input[name='id']").val();     //input[name='id']是访问input对象id属性
         var command = $('.commandInfo').val();
-        var status = $('.status').val();
-        var sendTime = $('.sendTime').val();
-        var receiveTime = $('.receiveTime').val();
         var description=$('.commandReason').val();
         // var dealtime = new Date(dealTime);
         //dtudata对象
-        var dtudata = {
+        var commanddata = {
             id:id,
             command:command,
-            status:status,
-            count:count,
             description:description,
         };
-        lovexian.post(proPath + '/admin/commandInfo/saveOrUpdate',dtudata,function () {//存入数据的路径
+        lovexian.post(proPath + '/admin/commandInfo/saveOrUpdate',commanddata,function () {//存入数据的路径
             lovexian.alert.success('保存成功');
             // $('#lovexian-job').find('#query').click();
         });
@@ -70,6 +67,7 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
                 // $query.click();
             });
     }
+
 
     form.on("submit(cancelBtn)",function(data){
         layer.closeAll();
