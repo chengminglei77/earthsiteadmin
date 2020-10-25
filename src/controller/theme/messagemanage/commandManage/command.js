@@ -180,7 +180,32 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
         initTable();
     });
 
-
+    var btn = document.getElementById("btn");
+    function threeFn(){
+        alert("这是一次点击");
+    }
+    $(function(){
+        $('#btn').on('click', function(){
+            $.ajax({
+                type: "POST",
+                url:"http://127.0.0.1/command",
+                data:{
+                    "cmd":"240000000100fe21"
+                },
+                dataType:"json",
+                async: true,
+                success: function(data) {
+                    console.log(data);
+                    // if(data.status == 'success'){
+                    //   $('#btn')[0].reset();
+                    //   alert("提交成功")
+                    // }else if(data.status == 'fail'){
+                    //   $('#btn').html(data.msg)
+                    // }
+                },
+            });
+        });
+    })
     //对外暴露的接口
     exports('theme/messagemanage/commandManage/command', {});
 });
