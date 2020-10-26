@@ -16,14 +16,38 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
     form.verify(validate);
     form.render();
 
-    /*element.on('tab(gatewayInfoTable)',function (data) {
-        var idvalue=data.index+1;//从0开始
-        layui.data('id',{key:'gatewayTypeId',value:idvalue});
-        // $searchForm.find('input[name="actTitle"]').val("");
-        initTable();
-    });*/
-/*    element.tabChange('commandTab',1);*/
+    layui.use('table', function(){
+        var table = layui.table;
+        table.render({
+            elem: '#demo'
+            ,height: 312
+            ,url: '/demo/table/user/' //数据接口
+            ,page: true //开启分页
+            ,cols: [[ //表头
+                {field: 'KEY', title: '下发指令', width:350, sort: true, fixed: 'left'}
+                ,{field: 'value', title: '值', width:350}
+                ,{field: 'description', title: '描述信息', width:350}
+            ]]
+        });
 
+    });
+    var btn = document.getElementById("btn");
+    $(function(){
+        $('#btn').on('click', function(){
+            $.ajax({
+                type: "POST",
+                url:"http://127.0.0.1:5000/command",
+                data:{
+                    "cmd":"12"
+                },
+                dataType:"json",
+                async: true,
+                success: function(data) {
+                    console.log(data);
+                },
+            });
+        });
+    });
     form.on("submit(execute)",function(data){
 
         var id = $("input[name='id']").val();     //input[name='id']是访问input对象id属性
@@ -37,41 +61,14 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
             description:description,
         };
         lovexian.post(proPath + '/admin/commandInfo/saveOrUpdate',commanddata,function () {//存入数据的路径
-            lovexian.alert.success('保存成功');
+            lovexian.alert.success('执行成功');
             // $('#lovexian-job').find('#query').click();
         });
+        layui.use('theme/messagemanage/commandManage/command', layui.factory('theme/messagemanage/commandManage/command'));
         layer.closeAll();
         return false;
     });
 
-    dropdown.render({//添加删除小组件
-        elem: $view.find('.action-more'),
-        click: function (name, elem, event) {
-            if (name === 'history') {
-                commandHistory("",0);
-                //跳转到actionAdd页面
-                // location.hash = search.redirect ? decodeURIComponent(search.redirect) : '/theme/life/actionAdd';
-            }
-        },
-        options: [{
-            name: 'history',
-            title: '添加报警信息',
-            perms: 'commandInfo:add'
-        }]
-    });
-
-    function commandHistory(data,history){
-        console.log(history);
-        lovexian.popup("theme/messagemanage/commandManage/commandAdd","接口信息",$.extend(data,{isEdit:isEdit}),
-            function () {
-                // $query.click();
-            });
-    }
-
-
-    form.on("submit(cancelBtn)",function(data){
-        layer.closeAll();
-    });
     //国际版
     laydate.render({
         elem: '#test1-1'
