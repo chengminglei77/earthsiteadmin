@@ -56,13 +56,13 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
         options: [{
             name: 'history',
             title: '添加报警信息',
-            perms: 'alarmInfo:add'
+            perms: 'commandInfo:add'
         }]
     });
 
     function commandHistory(data,history){
         console.log(history);
-        lovexian.popup("theme/messagemanage/commandManage/command","历史报警信息",$.extend(data,{isEdit:isEdit}),
+        lovexian.popup("theme/messagemanage/commandManage/commandAdd","接口信息",$.extend(data,{isEdit:isEdit}),
             function () {
                 // $query.click();
             });
