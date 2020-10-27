@@ -16,27 +16,27 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
     form.verify(validate);
     form.render();
 
-    layui.use('table', function(){
-        var table = layui.table;
-        table.render({
-            elem: '#demo'
-            ,height: 312
-            ,url: '/demo/table/user/' //数据接口
-            ,page: true //开启分页
-            ,cols: [[ //表头
-                {field: 'KEY', title: '下发指令', width:350, sort: true, fixed: 'left'}
-                ,{field: 'value', title: '值', width:350}
-                ,{field: 'description', title: '描述信息', width:350}
-            ]]
-        });
-
-    });
+    // layui.use('table', function(){
+    //     var table = layui.table;
+    //     table.render({
+    //         elem: '#demo'
+    //         ,height: 312
+    //         ,url: '/demo/table/user/' //数据接口
+    //         ,page: true //开启分页
+    //         ,cols: [[ //表头
+    //             {field: 'KEY', title: '下发指令', width:350, sort: true, fixed: 'left'}
+    //             ,{field: 'value', title: '值', width:350}
+    //             ,{field: 'description', title: '描述信息', width:350}
+    //         ]]
+    //     });
+    //
+    // });
     var btn = document.getElementById("btn");
     $(function(){
         $('#btn').on('click', function(){
             $.ajax({
                 type: "POST",
-                url:"http://127.0.0.1:5000/command",
+                url:"http://192.168.1.113:5000/command",
                 data:{
                     "cmd":"12"
                 },
@@ -48,6 +48,15 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
             });
         });
     });
+    $(function () {
+        $('#btn').on('click',function () {
+            addCommandInfo();
+        })
+    });
+    function addCommandInfo(){
+        lovexian.popup("theme/messagemanage/commandManage/command");
+
+    }
     form.on("submit(execute)",function(data){
 
         var id = $("input[name='id']").val();     //input[name='id']是访问input对象id属性
@@ -67,6 +76,13 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
         layui.use('theme/messagemanage/commandManage/command', layui.factory('theme/messagemanage/commandManage/command'));
         layer.closeAll();
         return false;
+    });
+
+    form.on("submit(cancelBtn)",function(data){
+
+        alert( layui.formSelects.value('example6_3','val'));
+        alert(layui.formSelects.value('example6_3', 'name'));
+        layer.closeAll();
     });
 
     //国际版
