@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:asp="">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
@@ -12,69 +12,9 @@
 <body>
 <div id="allmap"></div>
 </body>
-</html>
-<!--
-<script type="text/javascript">
-    // 百度地图API功能
-    function loadJScript() {
-        var script = document.createElement("script");
-        script.type = "text/javascript";
-        script.src = "//api.map.baidu.com/api?v=2.0&ak=你的key&callback=init";
-        document.body.appendChild(script);
-    }
-    window.init = function() {
-        var map = new BMap.Map("allmap");            // 创建Map实例
-        var point = new BMap.Point(105.72, 34.58); // 创建点坐标
-        map.centerAndZoom(point,15);
-        map.enableScrollWheelZoom();                 //启用滚轮放大缩小
-    }
-    loadJScript()
-</script>-->
-<script type="text/javascript">
-    //新建三个地图上点
-    var points = [
-        {"lng":114.08,"lat":32.13,"url":"http://www.baidu.com","id":1,"name":"p1"},
-        {"lng":114.10,"lat":32.10,"url":"http://www.mi.com","id":2,"name":"p2"},
-        {"lng":114.08,"lat":32.08,"url":"http://www.csdn.com","id":3,"name":"p3"}
-    ];
-    //创建标注点并添加到地图中
-    function addMarker(points) {
-        //循环建立标注点
-        for(var i=0, pointsLen = points.length; i<pointsLen; i++) {
-            var point = new BMap.Point(points[i].lng, points[i].lat); //将标注点转化成地图上的点
-            var marker = new BMap.Marker(point); //将点转化成标注点
-            map.addOverlay(marker);  //将标注点添加到地图上
-            //添加监听事件
-            (function() {
-                var thePoint = points[i];
-                marker.addEventListener("click",
-                    function() {
-                        showInfo(this,thePoint);
-                    });
-            })();
-        }
-    }
-    function showInfo(thisMarker,point) {
-        //获取点的信息
-        var sContent =
-            '<ul style="margin:0 0 5px 0;padding:0.2em 0">'
-            +'<li style="line-height: 26px;font-size: 15px;">'
-            +'<span style="width: 50px;display: inline-block;">id：</span>' + point.id + '</li>'
-            +'<li style="line-height: 26px;font-size: 15px;">'
-            +'<span style="width: 50px;display: inline-block;">名称：</span>' + point.name + '</li>'
-            +'<li style="line-height: 26px;font-size: 15px;"><span style="width: 50px;display: inline-block;">查看：</span><a href="'+point.url+'">详情</a></li>'
-            +'</ul>';
-        var infoWindow = new BMap.InfoWindow(sContent); //创建信息窗口对象
-        thisMarker.openInfoWindow(infoWindow); //图片加载完后重绘infoWindow
-    }
-    //创建地图
-   /* var map = new BMap.Map("allmap");
-    map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 设置中心点
-    map.centerAndZoom( "衡阳");
-    map.setCurrentCity("衡阳");          //设置为衡阳
-    map.addControl(new BMap.MapTypeControl());
-    map.enableScrollWheelZoom(true);
-    addMarker(points);*/
+<script>
+    // An highlighted block
+    //百度地图API功能
 
     function loadJScript() {
         var script = document.createElement("script");
@@ -84,13 +24,175 @@
     }
     window.init = function() {
         var map = new BMap.Map("allmap");            // 创建Map实例
-        map.centerAndZoom(new BMap.Point(114.08, 32.13), 11);  // 设置中心点
-        map.centerAndZoom( "衡阳");
-        map.setCurrentCity("衡阳");          //设置为衡阳
+        //var point = new BMap.Point(109.18592,34.36912); // 创建点坐标
+        map.centerAndZoom(new BMap.Point(109.19708,34.36820), 20);  // 设置中心点,地图初始化
+        //map.centerAndZoom(points,20);
+        map.setCurrentCity("西安工程大学");          //设置为衡阳
+        map.clearOverlays();
         map.addControl(new BMap.MapTypeControl());
-        map.enableScrollWheelZoom(true);
-        addMarker(points);
-                        //启用滚轮放大缩小
+        map.enableScrollWheelZoom(true);                 //启用滚轮放大缩小
+        map.addEventListener('click', function(e) {
+            alert('点击的经纬度：' + e.latlng.lng + ', ' + e.latlng.lat);
+            var mercator = map.lnglatToMercator(e.latlng.lng, e.latlng.lat);
+            alert('点的墨卡托坐标：' + mercator[0] + ', ' + mercator[1]);
+        });
+        //向地图中添加缩放控件
+        var ctrlNav = new window.BMap.NavigationControl({
+            anchor: BMAP_ANCHOR_TOP_LEFT,
+            type: BMAP_NAVIGATION_CONTROL_LARGE
+        });
+        map.addControl(ctrlNav);
+
+
+
+        var myIcon =new BMap.Icon("http://api.map.baidu.com/img/markers.png", new BMap.Size(23, 25), {    //小车图片
+            offset: new BMap.Size(0, -5),    //相当于CSS精灵
+            imageOffset: new BMap.Size(0, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。
+        });
+
+        var points = [new BMap.Point(109.19474,34.36847),new BMap.Point(109.19435,34.37712),new BMap.Point(109.19261,34.37617),new BMap.Point(109.19701,34.37728),new BMap.Point(109.19702,34.37776),new BMap.Point(109.19784,34.37738),new BMap.Point(109.19784,34.376911),new BMap.Point(109.1987,34.37333),new BMap.Point(109.19705,34.36824),new BMap.Point(109.1836,34.37393)];   //10个坐标点
+
+        var marker1 =new BMap.Marker(points[1],{icon:myIcon});  // 创建10个标注
+        var marker2 =new BMap.Marker(points[2],{icon:myIcon});
+        var marker3 =new BMap.Marker(points[3],{icon:myIcon});
+        var marker4 =new BMap.Marker(points[4],{icon:myIcon});
+        var marker5 =new BMap.Marker(points[5],{icon:myIcon});
+        var marker6 =new BMap.Marker(points[6],{icon:myIcon});
+        var marker7 =new BMap.Marker(points[7],{icon:myIcon});
+        var marker8 =new BMap.Marker(points[8],{icon:myIcon});
+        var marker9 =new BMap.Marker(points[9],{icon:myIcon});
+        var marker0 =new BMap.Marker(points[0],{icon:myIcon});
+
+        map.addOverlay(marker1);              // 将标注添加到地图中
+        map.addOverlay(marker2);
+        map.addOverlay(marker3);
+        map.addOverlay(marker4);
+        map.addOverlay(marker5);
+        map.addOverlay(marker6);
+        map.addOverlay(marker7);
+        map.addOverlay(marker8);
+        map.addOverlay(marker9);
+        map.addOverlay(marker0);
+
+        map.setViewport(points);         //调整地图的最佳视野为显示标注数组point
+
+        var opts1 = {title : '<span style="font-size:14px;color:#0A8021">DTU01</span>'};
+        var opts2 = {title : '<span style="font-size:14px;color:#0A8021">DTU02</span>'};
+        var opts3 = {title : '<span style="font-size:14px;color:#0A8021">DTU03</span>'};
+        var opts4 = {title : '<span style="font-size:14px;color:#0A8021">DTU04</span>'};
+        var opts5 = {title : '<span style="font-size:14px;color:#0A8021">DTU05</span>'};
+        var opts6 = {title : '<span style="font-size:14px;color:#0A8021">DTU06</span>'};
+        var opts7 = {title : '<span style="font-size:14px;color:#0A8021">DTU07</span>'};
+        var opts8 = {title : '<span style="font-size:14px;color:#0A8021">DTU08</span>'};
+        var opts9 = {title : '<span style="font-size:14px;color:#0A8021">DTU09</span>'};
+        var opts0 = {title : '<span style="font-size:14px;color:#0A8021">DTU10</span>'};
+
+        var infoWindow1 =new BMap.InfoWindow("<div style='line-height:1.8em;font-size:12px;'><b>经度:</b1>09.19474</br><b>纬度:</b>34.36847</br><b>口碑：</b><img src='http://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png' /><img src='http://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png' /><img src='http://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png' /><img src='http://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png' /><img src='http://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png' /><a style='text-decoration:none;color:#2679BA;float:right' href='#'>详情>></a></div>", opts1);  // 创建信息窗口对象，引号里可以书写任意的html语句。
+        var infoWindow2 =new BMap.InfoWindow("<div style='line-height:1.8em;font-size:12px;'><b>经度:</b>109.19435</br><b>纬度:</b>34.37712</br><b>口碑：</b><img src='http://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png' /><img src='http://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png' /><img src='http://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png' /><img src='http://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png' /><a style='text-decoration:none;color:#2679BA;float:right' href='#'>详情>></a></div>", opts2);
+        var infoWindow3 =new BMap.InfoWindow("<div style='line-height:1.8em;font-size:12px;'><b>经度:</b>109.19261</br><b>纬度:</b>34.37617</br><b>口碑：</b><img src='http://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png' /><img src='http://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png' /><img src='http://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png' /><img src='http://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png' /><a style='text-decoration:none;color:#2679BA;float:right' href='#'>详情>></a></div>", opts3);
+        var infoWindow4 =new BMap.InfoWindow("<div style='line-height:1.8em;font-size:12px;'><b>经度:</b>109.19501</br><b>纬度:</b>34.37728</br><b>口碑：</b><img src='http://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png' /><img src='http://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png' /><img src='http://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png' /><img src='http://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png' /><a style='text-decoration:none;color:#2679BA;float:right' href='#'>详情>></a></div>", opts4);
+        var infoWindow5 =new BMap.InfoWindow("<div style='line-height:1.8em;font-size:12px;'><b>经度:</b>109.19601</br><b>纬度:</b>34.37628</br><b>口碑：</b><img src='http://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png' /><img src='http://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png' /><img src='http://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png' /><img src='http://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png' /><img src='http://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png' /><a style='text-decoration:none;color:#2679BA;float:right' href='#'>详情>></a></div>", opts5);
+        var infoWindow6 =new BMap.InfoWindow("<div style='line-height:1.8em;font-size:12px;'><b>经度:</b>109.19771</br><b>纬度:</b>34.37528</br><b>口碑：</b><img src='http://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png' /><img src='http://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png' /><img src='http://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png' /><img src='http://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png' /><img src='http://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png' /><a style='text-decoration:none;color:#2679BA;float:right' href='#'>详情>></a></div>", opts6);
+        var infoWindow7 =new BMap.InfoWindow("<div style='line-height:1.8em;font-size:12px;'><b>经度:</b>109.19761</br><b>纬度:</b>34.37428</br><b>口碑：</b><img src='http://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png' /><img src='http://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png' /><img src='http://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png' /><a style='text-decoration:none;color:#2679BA;float:right' href='#'>详情>></a></div>", opts7);
+        var infoWindow8 =new BMap.InfoWindow("<div style='line-height:1.8em;font-size:12px;'><b>经度:</b>109.19731</br><b>纬度:</b>34.37578</br><b>口碑：</b><img src='http://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png' /><img src='http://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png' /><img src='http://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png' /><a style='text-decoration:none;color:#2679BA;float:right' href='#'>详情>></a></div>", opts8);
+        var infoWindow9 =new BMap.InfoWindow("<div style='line-height:1.8em;font-size:12px;'><b>经度:</b>109.19741</br><b>纬度:</b>34.37598</br><b>口碑：</b><img src='http://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png' /><img src='http://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png' /><img src='http://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png' /><a style='text-decoration:none;color:#2679BA;float:right' href='#'>详情>></a></div>", opts9);
+        var infoWindow0 =new BMap.InfoWindow("<div style='line-height:1.8em;font-size:12px;'><b>经度:</b>109.19752</br><b>纬度:</b>34.37328</br><b>口碑：</b><img src='http://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png' /><img src='http://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png' /><img src='http://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png' /><a style='text-decoration:none;color:#2679BA;float:right' href='#'>详情>></a></div>", opts0);
+
+        marker1.addEventListener("click", function(){this.openInfoWindow(infoWindow1);});
+        marker2.addEventListener("click", function(){this.openInfoWindow(infoWindow2);});
+        marker3.addEventListener("click", function(){this.openInfoWindow(infoWindow3);});
+        marker4.addEventListener("click", function(){this.openInfoWindow(infoWindow4);});
+        marker5.addEventListener("click", function(){this.openInfoWindow(infoWindow5);});
+        marker6.addEventListener("click", function(){this.openInfoWindow(infoWindow6);});
+        marker7.addEventListener("click", function(){this.openInfoWindow(infoWindow7);});
+        marker8.addEventListener("click", function(){this.openInfoWindow(infoWindow8);});
+        marker9.addEventListener("click", function(){this.openInfoWindow(infoWindow9);});
+        marker0.addEventListener("click", function(){this.openInfoWindow(infoWindow0);});
+
+    }
+    loadJScript()
+</script>
+<script>
+    layui.use('theme/settings/earth', layui.factory('theme/settings/earth'));
+</script>
+
+<script type="text/javascript" src="js\jquery-2.1.1.min.js"></script>
+<script type="text/javascript">
+    //代码自动执行
+    $(function(){
+        var movies;
+        var movie ="";
+        /* 异步请求数据  */
+        $.ajax({
+            type : "get",
+            dataType : "json",
+            url : "/admin/dtus/listByTypeId",
+            error : function(){
+                alert("请求失败");
+            },
+            success : function(movies) {
+                //movie为json数据
+                //通过$.each遍历json数据
+                $.each(movies,function(key,obj){
+                    //拼接字符串
+                    movie +="<li><a><div><img src='"+obj.imagepath+"' width='150px' height='200px'><p><span>'"+obj.name+"'</span>&nbsp;&nbsp;<span class='grade'>'"+obj.average+"'</span></p></div></a></li>";
+                });
+            }
+        });
+        //这块我本是想等到上面函数执行完在执行下面的代码，但是上面获取数据以及拼接字符串太耗费时间，总是优先执行下面的代码
+        //所以暂时想出此方法来完成功能，往后在进行修改
+        setTimeout(function() {
+            //将拼接好的字符串加入到html代码中去
+            $("#movie ul").html(movie);
+        },1000);
+    })
+</script>
+
+</html>
+
+
+
+<!--<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+        body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+    </style>
+    <script type="text/javascript" src="//api.map.baidu.com/api?type=webgl&v=2.0&ak=d5Y5C26Xbhr3rBHo3GzzaA7xcXev6NL0"></script>
+    <title>设置地图3D视角</title>
+</head>
+<body>
+<div id="allmap"></div>
+</body>
+</html>
+<script type="text/javascript">
+
+    function loadJScript() {
+        var script = document.createElement("script");
+        script.type = "text/javascript";
+        script.src = "//api.map.baidu.com/api?v=2.0&ak=d5Y5C26Xbhr3rBHo3GzzaA7xcXev6NL0&callback=init";
+        document.body.appendChild(script);
+    }
+
+    window.init = function () {
+        // GL版命名空间为BMapGL
+        // 按住鼠标右键，修改倾斜角和角度
+        var map = new BMap.Map("allmap");    // 创建Map实例
+        map.centerAndZoom(new BMap.Point(109.19358,34.37220), 18);  // 初始化地图,设置中心点坐标和地图级别
+        map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+        map.setCurrentCity("西安工程大学");          //设置为衡阳
+        map.addControl(new BMap.MapTypeControl());
+        map.setHeading(64.5);
+        map.setTilt(73);
+
+        var marker1 = new BMap.Marker(new BMap.Point(109.19474,34.36847));
+        var marker2 = new BMap.Marker(new BMap.Point(109.19435,34.37712));
+
+        map.addOverlay(marker1);
+        map.addOverlay(marker2);
     }
     loadJScript();
-</script>
+
+</script>-->
