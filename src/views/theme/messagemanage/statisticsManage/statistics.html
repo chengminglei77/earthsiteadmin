@@ -9,7 +9,7 @@
         max-width: 200px;
     }
 </style>
-<div class="layui-fluid layui-anim lovexian-anim" id="lovexian-alarm" lay-title="报警信息">
+<div class="layui-fluid layui-anim lovexian-anim" id="lovexian-statistics" lay-title="dtu信息">
     <div class="layui-row lovexian-container">
         <div class="layui-col-md12">
             <div class="layui-card">
@@ -20,29 +20,9 @@
                                 <div class="layui-col-md10">
                                     <div class="layui-form-item">
                                         <div class="layui-inline">
-                                            <label class="layui-form-label layui-form-label-sm">创建时间</label>
+                                            <label class="layui-form-label layui-form-label-sm">设备型号</label>
                                             <div class="layui-input-inline">
-                                                <input type="text" name="createTime" id="createTime" class="layui-input">
-                                            </div>
-                                        </div>
-                                        <div class="layui-inline">
-                                            <label class="layui-form-label layui-form-label-sm">状态</label>
-                                            <div class="layui-input-inline">
-                                                <select name="status">
-                                                    <option value=""></option>
-                                                    <option value="1">已处理</option>
-                                                    <option value="0">未处理</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="layui-inline">
-                                            <label class="layui-form-label layui-form-label-sm">删除状态</label>
-                                            <div class="layui-input-inline">
-                                                <select name="delete_status">
-                                                    <option value=""></option>
-                                                    <option value="1">已删除</option>
-                                                    <option value="0">未删除</option>
-                                                </select>
+                                                <input type="text" name="settingId"  autocomplete="off"class="layui-input">
                                             </div>
                                         </div>
                                     </div>
@@ -54,44 +34,37 @@
                                     <div class="layui-btn layui-btn-sm layui-btn-primary table-action" name="reset" title="刷新">
                                         <i class="layui-icon">&#xe669;</i>
                                     </div>
-
-                                    <span id="actionMoreContainer">
-                                    </span>
+                                    <!--<span id="actionMoreContainer">
+                                    </span>-->
 
                                 </div>
                             </div>
                         </form>
-
-
-                        <div class="layui-tab layui-tab-brief" lay-filter="alarmTab">
+                        <div class="layui-tab layui-tab-brief" lay-filter="statisticsTab">
                             <ul class="layui-tab-title">
-                                <li style="color: #2db7f5" class="layui-this" lay-id="1">传感器信息统计</li>
-                                <li style="color: #2db7f5" class="layui-this" lay-id="2">dtu信息统计</li>
-                                <li style="color: #2db7f5" class="layui-this" lay-id="3">网关信息统计</li>
+                                <li class="layui-this" lay-id="0">传感器信息统计</li>
+                                <li  class="layui-this" lay-id="1">dtu信息统计</li>
+                                <li   class="layui-this"lay-id="2">网关信息统计</li>
                             </ul>
+                            <input hidden="hidden" id="actTypeId" value="">
                             <!--景点信息开始-->
                             <div class="layui-tab-content"><!--景点信息-->
-                                <div class="layui-fluid layui-tab-item">
-                                    <div class="layui-row"><!--表格展示-->
-                                        <table lay-filter="sensorsStaInfoTable" id="sensorsStaInfoTable" lay-data="{id: 'sensorsStaInfoTable'}">
+                                <div class="layui-tab-item">
+                                    <!--表格展示-->
+                                        <table lay-filter="DeviceStatistics" id="DeviceStatistics0" lay-data="{id: 'DeviceStatistics0'}">
                                         </table>
-                                    </div>
+
                                 </div><!--景点信息结束-->
-                            </div>
-                            <div class="layui-tab-content"><!--景点信息-->
-                                <div class="layui-fluid layui-tab-item">
-                                    <div class="layui-row"><!--表格展示-->
-                                        <table lay-filter="dtusStaInfoTable" id="dtusStaInfoTable" lay-data="{id: 'dtusStaInfoTable'}">
+                                <div class="layui-tab-item">
+                                   <!--表格展示-->
+                                        <table lay-filter="DeviceStatistics" id="DeviceStatistics1" lay-data="{id: 'DeviceStatistics1'}">
                                         </table>
-                                    </div>
+
                                 </div><!--景点信息结束-->
-                            </div>
-                            <div class="layui-tab-content"><!--景点信息-->
-                                <div class="layui-fluid layui-tab-item">
-                                    <div class="layui-row"><!--表格展示-->
-                                        <table lay-filter="gatewayStaInfoTable" id="gatewayStaInfoTable" lay-data="{id: 'gatewayStaInfoTable'}">
+                                <div class="layui-tab-item">
+                                   <!--表格展示-->
+                                        <table lay-filter="DeviceStatistics" id="DeviceStatistics2" lay-data="{id: 'DeviceStatistics2'}">
                                         </table>
-                                    </div>
                                 </div><!--景点信息结束-->
                             </div>
                         </div>
@@ -134,32 +107,32 @@
     {{# } }}
 </script>
 
-<script type="text/html" id="actionMoreTpl"><!--展示更多-->
-{{# if(hasAnyPermission(['alarmInfo:add'])) { }}
+<!--<script type="text/html" id="actionMoreTpl">&lt;!&ndash;展示更多&ndash;&gt;
+{{# if(hasAnyPermission(['statistics:list'])) { }}
 <div class="layui-btn layui-btn-sm layui-btn-primary table-action action-more">
     <i class="layui-icon">&#xe875;</i>
 </div>
 {{# } }}
-</script>
+</script>-->
 
 <script type="text/html" id="action-option">
-    {{# if(hasPermission(['alarmInfo:list'])) { }}
+    {{# if(hasPermission(['statistics:list'])) { }}
     {{# } }}
-    {{# if(hasPermission(['alarmInfo:add'])&&d.deleteState==0) { }}
+    <!--{{# if(hasPermission(['statistics:add'])) { }}
     <a lay-event="edit" title=" 编辑"><i class="layui-icon lovexian-edit-area lovexian-blue" style="color: #2db7f5">&#xe642;</i></a>
     {{# }else{ }}
-    {{# } }}
-    {{# if(hasPermission(['alarmInfo:del'])&&d.deleteState==0) { }}
+    {{# } }}-->
+    {{# if(hasPermission(['statistics:list'])) { }}
     <a lay-event="del" title="删除"><i class="layui-icon lovexian-edit-area lovexian-red">&#xe640;</i></a>
     {{# } }}
 
-    {{# if(d.deleteState==1) { }}
+   <!-- {{# if(d.deleteState==1) { }}
     <a lay-event="restore" title="还原"><i class="layui-icon lovexian-edit-area lovexian-blue">&#xe603;</i></a>
     {{# } }}
     {{# if(d.deleteState==1) { }}
     <a lay-event="destroy" title="彻底删除"><i class="layui-icon lovexian-edit-area lovexian-red">&#xe639;</i></a>
-    {{# } }}
-    {{# if(lacksPermission(['alarmInfo:list','alarmInfo:add','alarmInfo:del'])) { }}
+    {{# } }}-->
+    {{# if(lacksPermission(['statistics:list','statistics:add','statistics:del'])) { }}
     <span>
             <span class="layui-badge-dot lovexian-bg-orange">无权限</span>
     </span>
