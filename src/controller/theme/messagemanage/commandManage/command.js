@@ -3,7 +3,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
         admin = layui.admin,
         laydate = layui.laydate,
         setter = layui.setter,
-        $view = $('#lovexian-command'),//与html中id相同
+        $view = $('#lovexian-alarm'),//与html中id相同
         laytpl = layui.laytpl,
         lovexian = layui.lovexian,
         dropdown = layui.dropdown,
@@ -24,14 +24,12 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
     form.render();
     initTable();
     var typeId=1;
-    // layui.data('id',{key:'actionTypeId',value:1});
-    // alert(layui.data('id').actionTypeId);
 
-    element.on('tab(commandInfoTable)',function (data) {
+    element.on('tab(alarmTab)',function (data) {
         var idvalue=data.index+1;//从0开始
-        // $searchForm.find('input[name="actTitle"]').val("");
         initTable();
     });
+    element.tabChange('alarmTab',0);
 
     //渲染权限
     var fakerData = ["faker"];
@@ -46,84 +44,125 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
         trigger: 'click',
         position: 'fixed'
     });
-    element.tabChange('commandTab',1);
 
 
+    dropdown.render({//添加删除小组件
+        elem: $view.find('.action-more'),
+        click: function (name, elem, event) {
+            var checkStatus = table.checkStatus('alarmInfoTable');
+            if (name === 'add') {
+                addalarmInfo("",0);
+                //跳转到actionAdd页面
+                // location.hash = search.redirect ? decodeURIComponent(search.redirect) : '/theme/life/actionAdd';
+            }
+            if (name === 'delete') {//批量删除
+                if (!checkStatus.data.length) {
+                    lovexian.alert.warn('请选择需要删除的报警信息');
+                } else {
+                    lovexian.modal.confirm('删除报警信息', '确定删除这些报警信息吗？', function () {
+                        var alarmIds = [];
+                        layui.each(checkStatus.data, function (key, item) {
+                            alarmIds.push(item.id)
+                        });
+                        deleteActions(alarmIds.join(','));
+                    });
+                }
+            }
 
-    function addcommandInfo(data,isEdit){
+        },
+        options: [{
+            name: 'add',
+            title: '添加报警信息',
+            perms: 'alarmInfo:add'
+        }, {
+            name: 'delete',
+            title: '批量删除',
+            perms: 'alarmInfo:del'
+        }]
+    });
+
+    function addalarmInfo(data,isEdit){
         // console.log(isEdit);
-        lovexian.popup("theme/messagemanage/commandManage/commandAdd",isEdit?"编辑接口信息":"添加接口信息",$.extend(data,{isEdit:isEdit}),function () {
-                if(isEdit===1) {
-                    layui.use('theme/messagemanage/commandManage/commandAdd', layui.factory('theme/messagemanage/commandManage/commandAdd'));
+        if(isEdit===1){
+            lovexian.popup("theme/messagemanage/alarmManage/alarmEdit",isEdit?"编辑报警信息":"添加报警信息",$.extend(data,{isEdit:isEdit}),function () {
+                    layui.use('theme/messagemanage/alarmManage/alarmEdit', layui.factory('theme/messagemanage/alarmManage/alarmEdit'));
                     form.val("lawerForm",{
                         "id":data.id,
-                        "command":data.command,
-                        "cmdStatus":data.cmdStatus,
-                        "sendTime":data.sendTime,
-                        "receiveTime":data.receiveTime,
-                        "count":data.count,
-                        "description":data.description,
-                        "delState":data.delState
+                        "alarmInfo":data.alarmInfo,
+                        "status":data.status,
+                        "alarmTime":data.alarmTime,
+                        "dealAdmin":data.dealAdmin,
+                        "dealTime":data.dealTime,
+                        "alarmReason":data.alarmReason,
+                        "deletestatus":data.deletestatus,
                     });
-                } else{
-                    layui.use('theme/messagemanage/commandManage/commandAdd', layui.factory('theme/messagemanage/commandManage/commandAdd'));
+                },
+                function () {
+                    // $query.click();
+                });}
+        else{
+            lovexian.popup("theme/messagemanage/alarmManage/alarmAdd",isEdit?"编辑报警信息":"添加报警信息",$.extend(data,{isEdit:isEdit}),function () {
+                    layui.use('theme/messagemanage/alarmManage/alarmAdd', layui.factory('theme/messagemanage/alarmManage/alarmAdd'));
+                },
+                function () {
+                    // $query.click();
+                });
 
-                }
-
-            },
-            function () {
-                // $query.click();
-            });
+        }
     }
 
-    function initTable() {//初始化界面（下面的表格）
+    function initTable() {
+        console.log($(".layui-tab-title .layui-this").attr("lay-id"))
         tableIns = lovexian.table.init({
-            elem: $('#commandInfoTable'),
-            id: 'commandInfoTable',
-            url: proPath + '/admin/commandInfo/listByTypeId?',//id根据组件而动，初始化表格
-            type:'GET',
-            headers:{
-                Authentication :layui.data(setter.tableName)[setter.TOKENNAME]
+            elem: $('#alarmInfoTable' + $(".layui-tab-title .layui-this").attr("lay-id")),
+            id: 'alarmInfoTable' + $(".layui-tab-title .layui-this").attr("lay-id"),
+            url: proPath + '/admin/alarmInfo/listByTypeId?status='+$(".layui-tab-title .layui-this").attr("lay-id"),
+            type: 'GET',
+            headers: {
+                Authentication: layui.data(setter.tableName)[setter.TOKENNAME]
             },
             cols: [[
                 {type: 'checkbox',fixed: 'lift'},
-                {field: 'command', title: '接口信息', minWidth: 120,align:'center',fixed: 'lift'},//对应后台idea的字段
-                {title: '处理状态',templet: '#check-state', minWidth: 100, align:'center'},
-                {field: 'sendTime', title: '发送时间',minWidth: 180, align:'center'},
-                {field: 'receiveTime', title: '响应时间', minWidth:180,align:'center'},
-                {field: 'description', title: '描述', minWidth: 180, sort: true,align:'center'},
+                {field: 'alarmInfo', title: '报警信息 ', minWidth: 120,align:'center',fixed: 'lift'},//对应后台idea的字段
+                {title: '处理状态', templet: '#check-state',minWidth:120,align:'center'},
+                {field: 'alarmTime', title: '报警时间', minWidth:180,align:'center'},
+                {field: 'dealAdmin', title: '处理人', minWidth: 120, sort: true,align:'center'},
+                {field: 'dealTime', title: '处理时间',minWidth: 180, sort: true,align:'center'},
+                {field: 'alarmReason', title: '报警原因', minWidth: 180, sort: true,align:'center'},
+                {title: '操作', toolbar: '#action-option', minWidth: 120, fixed: 'right'}
             ]],
         });
     }
 
-    /*table.on('tool(commandInfoTable)', function (obj) {
+    table.on('tool(alarmInfoTable)', function (obj) {
         var data = obj.data,
-        layEvent = obj.event;
-        console.log(data.status);
-        if (layEvent === 'del') {//删除景点信息
+            layEvent = obj.event;
+        console.log(data.status)
+        if (layEvent === 'del') {
             //逻辑删除
             if(data.status == 1) //已处理则删除
-                 {
-                lovexian.modal.confirm('删除物理信息', '确定删除这条物理记录吗？', function () {
-                    lovexian.del(proPath + '/admin/commandInfo/completelyDelete?id=' + obj.data.id, null, function () {
+            {
+                lovexian.modal.confirm('删除报警信息', '确定删除这条报警记录吗？', function () {
+                    lovexian.del(proPath + '/admin/alarmInfo/deleteById?id=' + obj.data.id, null, function () {
                         console.log("success");
-                        lovexian.alert.success('删除该物理信息成功');
+                        lovexian.alert.success('删除该报警信息成功');
                         $query.click();
                     });
                 });
             }
             else {
-                lovexian.alert.warn('该物理信息未处理，不能删除');
+                lovexian.alert.warn('该报警信息未处理，不能删除');
             }
         }
         if (layEvent === 'edit') {
             //编辑也跳转到actionAdd，根据类型判断是添加还是编辑
-            addcommandInfo(obj.data,1);
+            addalarmInfo(obj.data,1);
         }
+
         if (layEvent === 'restore') {
             //还原
             lovexian.modal.confirm('还原报警信息', '确定还原这条报警记录吗？', function () {
-                lovexian.del(proPath + '/admin/commandInfo/restoreById?id='+ obj.data.id, null, function () {
+                lovexian.post(proPath + '/admin/alarmInfo/restoreById?id='+ obj.data.id, null, function () {
                     console.log("success");
                     lovexian.alert.success('还原该报警信息成功');
                     $query.click();
@@ -133,18 +172,18 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
         if (layEvent === 'destroy') {
             //彻底删除
             lovexian.modal.confirm('删除报警信息', '确定彻底删除这条报警记录吗？', function () {
-                lovexian.del(proPath + '/admin/commandInfo/completelyDelete?id='+ obj.data.id, null, function () {
+                lovexian.del(proPath + '/admin/alarmInfo/completelyDelete?id='+ obj.data.id, null, function () {
                     console.log("success");
                     lovexian.alert.success('删除该报警信息成功');
                     $query.click();
                 });
             });
         }
-    });//操作*/
+    });//操作
 
 
-    function deleteActions(commandIds) {//操作组件之一，批量删除
-        lovexian.del(proPath + '/admin/commandInfo/BatchDelete/' + commandIds, null, function () {
+    function deleteActions(alarmIds) {//操作组件之一，删除
+        lovexian.del(proPath + '/admin/alarmInfo/BatchDelete/' + alarmIds, null, function () {
             console.log("success");
             lovexian.alert.success('删除选中报警信息');
             $query.click();
@@ -152,20 +191,22 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
     }
 
 
-    function getQueryParams() {
-        var createTimeFrom='',
-            createTimeTo='',
+    function getQueryParams() { var createTimeFrom='',
+        createTimeTo='',
 
-            createTime = $searchForm.find('input[name="createTime"]').val();
+        createTime = $searchForm.find('input[name="createTime"]').val();
         //alert(createTime);
         if (createTime) {
             createTimeFrom = createTime.split(' - ')[0];
             createTimeTo = createTime.split(' - ')[1];
         }
+        /*     alert(createTimeFrom);
+             alert(createTimeTo);*/
         return {
-            //此处对应html里面的select框:<select name="status">
-            command: $searchForm.find('input[name="command"]').val().trim(),//此处对应<input type="text" name="dtuName" autocomplete="off" class="layui-input">
+            createTimeFrom: createTimeFrom,
+            createTimeTo: createTimeTo,
             status: $searchForm.find('select[name="status"]').val(),
+            deleteState: $searchForm.find('select[name="delete_status"]').val(),
         };
     }
 
@@ -176,11 +217,36 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
     });
 
     $reset.on('click',function () {//重置
-        // $searchForm[0].reset();
+        $searchForm[0].reset();
         initTable();
     });
 
-
+    var btn = document.getElementById("btn");
+    function threeFn(){
+        alert("这是一次点击");
+    }
+    $(function(){
+        $('#btn').on('click', function(){
+            $.ajax({
+                type: "POST",
+                url:"http://127.0.0.1/command",
+                data:{
+                    "cmd":"240000000100fe21"
+                },
+                dataType:"json",
+                async: true,
+                success: function(data) {
+                    console.log(data);
+                    // if(data.status == 'success'){
+                    //   $('#btn')[0].reset();
+                    //   alert("提交成功")
+                    // }else if(data.status == 'fail'){
+                    //   $('#btn').html(data.msg)
+                    // }
+                },
+            });
+        });
+    })
     //对外暴露的接口
-    exports('theme/messagemanage/commandManage/command', {});
+    exports('theme/messagemanage/alarmManage/alarm', {});
 });

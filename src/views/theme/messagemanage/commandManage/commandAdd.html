@@ -1,115 +1,87 @@
-<html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">;
-    <link rel="stylesheet" href="//src/lib/layui-v2.5.5/css/layui.css"  media="all">
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  ;
+  <link rel="stylesheet" href="//src/lib/layui-v2.5.5/css/layui.css" media="all">
 </head>
 <script type="text/html" template lay-done="layui.data.sendParams(d.params)">
-    <input type="text" style="display: none;" name="id" value="{{d.params.id||''}}">
+  <input type="text" style="display: none;" name="id" value="{{d.params.id||''}}">
 </script>
 
-<div class="layui-fluid layui-anim lovexian-anim" id="lovexian-command" lay-title="接口信息">
-    <div class="layui-row lovexian-container">
-        <div class="layui-col-md12">
-            <div class="layui-card">
-                <div class="layui-card-body lovexian-table-full">
-                    <div class="layui-row">
-                        <form class="layui-form layui-table-form" lay-filter="action-table-form">
-                            <div class="layui-row">
-                                <div class="layui-col-md10">
-                                    <div class="layui-form-item">
-                                    </div>
-                                </div>
-                                <div class="layui-col-md2 layui-col-sm12 layui-col-xs12 table-action-area">
-                                    <div class="layui-btn layui-btn-sm layui-btn-primary table-action" name="history" title="查看历史命令">
-                                        <i class="layui-icon">&#xe60e;</i>
-                                    </div>
-                                    <div class="layui-btn layui-btn-sm layui-btn-primary table-action" name="reset" title="刷新">
-                                        <i class="layui-icon">&#xe669;</i>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-
-
-                        <div class="layui-tab layui-tab-brief" lay-filter="commandTab">
-                            <ul class="layui-tab-title">
-                                <li class="layui-this" lay-id="1">下发命令</li>
-                            </ul>
-                            <input hidden="hidden" id="actTypeId" value="">
-                            <!--景点信息开始-->
-                            <div class="layui-tab-content"><!--景点信息-->
-                                <div class="layui-fluid layui-tab-item" id="sendCommand">
-                                    <form class="layui-form layui-table-form" lay-filter="action-table-form">
-                                        <div class="layui-form-item magt3">
-                                            <label class="layui-form-label lovexian-form-item-require">命令</label>
-                                            <div class="layui-input-block" style="width:200px !important">
-                                                <select name="command">
-                                                    <option value=""></option>
-                                                    <option value="1">查询电量</option>
-                                                    <option value="2">查询数据</option>
-                                                    <option value="3">改变频率</option>
-                                                    <option value="4">系统复位</option>
-                                                </select>
-                                            </div><!--actiontitle 需要改变变量名称-->
-                                        </div>
-                                        <div class="layui-form-item openness">
-                                            <label class="layui-form-label lovexian-form-item-require"><i class="seraph icon-look"></i>响应状态</label>
-                                            <div class="layui-input-block actionStatus" style="width:200px !important">
-                                                <select name="languageType" lay-verify="required" onchange="changeLanguageType()">
-                                                    <option value=""></option>
-                                                    <option value="0">未处理</option>
-                                                    <option value="1">已处理</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="layui-form-item magt3">
-                                            <label class="layui-form-label lovexian-form-item-require">描述</label>
-                                            <div class="layui-input-block">
-                                                <div class="layui-input-inline">
-                                                    <textarea style="width: 400px;height: 100px" placeholder="请输入描述" class="layui-textarea commandReason" name="description"></textarea>
-                                                </div>
-                                            </div><!--同样需要修改变量名称-->
-                                        </div>
-                                        <div class="layui-col-md3 layui-col-xs12">
-                                            <div style="  width: 250px;position: relative;left: 350px; " class="layui-right">
-                                                <button id="saveBtn" class="layui-btn layui-btn-normal" lay-filter="execute" lay-submit><i class="layui-icon">&#xe621;</i>执行</button>
-                                                <button class="layui-btn layui-btn-primary layui-btn-normal" lay-filter="cancelBtn" lay-submit><i class="layui-icon">&#xe669;</i>取消</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+<div class="layui-fluid layui-anim lovexian-anim" id="lovexian-command" lay-title="接口管理">
+  <div class="layui-row lovexian-container">
+    <div class="layui-col-md12">
+      <div class="layui-card">
+        <div class="layui-card-body lovexian-table-full">
+          <div class="layui-row">
+            <form class="layui-form layui-table-form" lay-filter="action-table-form">
+              <div class="layui-row">
+                <div class="layui-col-md10">
+                  <div class="layui-form-item">
+                    <label class="layui-form-label lovexian-form-item-require">下发命令</label>
+                    <div class="layui-inline" style="width:200px !important">
+                      <select name="command">
+                        <option value=""></option>
+                        <option value="1">查询电量</option>
+                        <option value="2">查询数据</option>
+                        <option value="3">改变频率</option>
+                        <option value="4">系统复位</option>
+                      </select>
+                    </div><!--actiontitle 需要改变变量名称-->
+                    <div class="layui-inline">
+                      <label class="layui-form-label layui-form-label-sm">值</label>
+                      <div class="layui-input-inline">
+                        <input type="text" name="value" autocomplete="off" class="layui-input">
+                      </div>
                     </div>
+                    <div class="layui-form-item magt3">
+                      <label class="layui-form-label lovexian-form-item-require">描述</label>
+                      <div class="layui-input-block">
+                        <div class="layui-input-inline">
+                          <textarea style="width: 500px;height: 100px" placeholder="请输入描述"
+                                    class="layui-textarea commandReason" name="description"></textarea>
+                        </div>
+                      </div><!--同样需要修改变量名称-->
+                    </div>
+                  </div>
+                  <button class="layui-btn layui-btn-normal" id="btn" onclick="threeFn() " lay-filter="execute" lay-submit><i
+                          class="layui-icon">&#xe621;</i>执行
+                  </button>
+                  <button class="layui-btn layui-btn-primary layui-btn-normal" lay-filter="cancelBtn" lay-submit><i
+                          class="layui-icon">&#xe669;</i>取消
+                  </button>
                 </div>
-            </div>
+              </div>
+            </form>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 
 
-
-
-
 <script>
-    var starEle;
-    var starNum = 0;
-    layui.data.sendParams = function(params){
-        if(params.isEdit){
-            starNum = params.star;
+  var starEle;
+  var starNum = 0;
+  layui.data.sendParams = function (params) {
+    if (params.isEdit) {
+      starNum = params.star;
+    }
+    layui.use('rate', function () {
+      var rate = layui.rate;
+      //渲染
+      starEle = rate.render({
+        elem: '#test2',  //绑定元素,
+        length: 5,
+        value: starNum
+        , choose: function (value) {
+          starNum = value;
         }
-        layui.use('rate', function(){
-            var rate = layui.rate;
-            //渲染
-            starEle = rate.render({
-                elem: '#test2',  //绑定元素,
-                length: 5,
-                value: starNum
-                ,choose: function(value){
-                    starNum = value;
-                }
-            });
-        });
-    };
+      });
+    });
+  };
+
 </script>
-</html>
+<script>
+  layui.use('theme/messagemanage/commandManage/commandAdd', layui.factory('theme/messagemanage/commandManage/commandAdd'));
+</script>
