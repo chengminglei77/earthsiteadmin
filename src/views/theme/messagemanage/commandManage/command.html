@@ -9,7 +9,7 @@
         max-width: 200px;
     }
 </style>
-<div class="layui-fluid layui-anim lovexian-anim" id="lovexian-alarm" lay-title="报警信息">
+<div class="layui-fluid layui-anim lovexian-anim" id="lovexian-alarm" lay-title="命令历史信息">
     <div class="layui-row lovexian-container">
         <div class="layui-col-md12">
             <div class="layui-card">
@@ -20,18 +20,20 @@
                                 <div class="layui-col-md10">
                                     <div class="layui-form-item">
                                         <div class="layui-inline">
-                                            <label class="layui-form-label layui-form-label-sm">创建时间</label>
+                                            <label class="layui-form-label layui-form-label-sm">发送时间</label>
                                             <div class="layui-input-inline">
-                                                <input type="text" name="createTime" id="createTime" class="layui-input">
+                                                <input type="text" name="sendTime" id="sendTime" class="layui-input">
                                             </div>
                                         </div>
                                         <div class="layui-inline">
-                                            <label class="layui-form-label layui-form-label-sm">删除状态</label>
+                                            <label class="layui-form-label layui-form-label-sm">命令信息</label>
                                             <div class="layui-input-inline">
-                                                <select name="delete_status">
+                                                <select name="command">
                                                     <option value=""></option>
-                                                    <option value="1">已删除</option>
-                                                    <option value="0">未删除</option>
+                                                    <option value="1">查询电量</option>
+                                                    <option value="2">查询数据</option>
+                                                    <option value="3">改变频率</option>
+                                                    <option value="4">系统复位</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -44,32 +46,28 @@
                                     <div class="layui-btn layui-btn-sm layui-btn-primary table-action" name="reset" title="刷新">
                                         <i class="layui-icon">&#xe669;</i>
                                     </div>
-
-                                    <span id="actionMoreContainer">
-                                    </span>
-
                                 </div>
                             </div>
                         </form>
 
 
-                        <div class="layui-tab layui-tab-brief" lay-filter="alarmTab">
+                        <div class="layui-tab layui-tab-brief" lay-filter="commandTab">
                             <ul class="layui-tab-title">
-                                <li class="layui-this" lay-id="0">未处理</li>
-                                <li lay-id="1">已处理</li>
+                                <li class="layui-this" lay-id="1">已执行</li>
+                                <li lay-id="0">未执行</li>
                             </ul>
                             <input hidden="hidden" id="actTypeId" value="">
                             <!--景点信息开始-->
                             <div class="layui-tab-content"><!--景点信息-->
                                 <div class="layui-fluid layui-tab-item">
                                     <div class="layui-row"><!--表格展示-->
-                                        <table lay-filter="alarmInfoTable" id="alarmInfoTable0" lay-data="{id: 'alarmInfoTable0'}">
+                                        <table lay-filter="commandInfoTable" id="commandInfoTable1" lay-data="{id: 'commandInfoTable1'}">
                                         </table>
                                     </div>
                                 </div><!--景点信息结束-->
                                 <div class="layui-fluid layui-tab-item">
                                     <div class="layui-row"><!--表格展示-->
-                                        <table lay-filter="alarmInfoTable" id="alarmInfoTable1" lay-data="{id: 'alarmInfoTable1'}">
+                                        <table lay-filter="commandInfoTable" id="commandInfoTable0" lay-data="{id: 'commandInfoTable0'}">
                                         </table>
                                     </div>
                                 </div><!--景点信息结束-->
@@ -91,66 +89,15 @@
 <script type="text/html" id="check-state">
     {{#
     var status = {
-    1: {title: '已处理', color: 'blue'},
-    0: {title: '未处理', color: 'green'},
+    1: {title: '已执行', color: 'blue'},
+    0: {title: '未执行', color: 'green'},
     }[d.status];
     }}
     <span class="layui-badge lovexian-tag-{{ status.color}}">{{ status.title }}</span>
 </script>
 
-<script type="text/html" id="show-flag">
-    {{# if(d.isShow == 1){ }}
-    <input type="checkbox" value={{d.id}}  lay-filter="delState" name="delState" lay-skin="switch" lay-text="展示|不展示" checked>
-    {{# }else{ }}
-    <input type="checkbox" value={{d.id}} lay-filter="delState" name="delState" lay-skin="switch" lay-text="展示|不展示">
-    {{# } }}
-</script>
-
-<script type="text/html" id="top-flag">
-    {{# if(d.isTop == 1){ }}
-    <input type="checkbox" value={{d.id}} name="isTop" lay-filter="isTop" lay-skin="switch" lay-text="置顶|不置顶" checked>
-    {{# }else{ }}
-    <input type="checkbox" value={{d.id}} name="isTop" lay-filter="isTop" lay-skin="switch" lay-text="置顶|不置顶">
-    {{# } }}
-</script>
-
-<script type="text/html" id="actionMoreTpl"><!--展示更多-->
-{{# if(hasAnyPermission(['alarmInfo:add'])) { }}
-<div class="layui-btn layui-btn-sm layui-btn-primary table-action action-more">
-    <i class="layui-icon">&#xe875;</i>
-</div>
-{{# } }}
-</script>
-
-<script type="text/html" id="action-option">
-    {{# if(hasPermission(['alarmInfo:list'])) { }}
-    {{# } }}
-    {{# if(hasPermission(['alarmInfo:add'])&&d.deleteState==0) { }}
-    <a lay-event="edit" title=" 编辑"><i class="layui-icon lovexian-edit-area lovexian-blue" style="color: #2db7f5">&#xe642;</i></a>
-    {{# }else{ }}
-    {{# } }}
-    {{# if(hasPermission(['alarmInfo:del'])&&d.deleteState==0) { }}
-    <a lay-event="del" title="删除"><i class="layui-icon lovexian-edit-area lovexian-red">&#xe640;</i></a>
-    {{# } }}
-
-    {{# if(d.deleteState==1) { }}
-    <a lay-event="restore" title="还原"><i class="layui-icon lovexian-edit-area lovexian-blue">&#xe603;</i></a>
-    {{# } }}
-    {{# if(d.deleteState==1) { }}
-    <a lay-event="destroy" title="彻底删除"><i class="layui-icon lovexian-edit-area lovexian-red">&#xe639;</i></a>
-    {{# } }}
-    {{# if(lacksPermission(['alarmInfo:list','alarmInfo:add','alarmInfo:del'])) { }}
-    <span>
-            <span class="layui-badge-dot lovexian-bg-orange">无权限</span>
-    </span>
-    {{# } }}
-</script>
-
-
-
-
 <script>
-    layui.use('theme/messagemanage/alarmManage/alarm', layui.factory('theme/messagemanage/alarmManage/alarm'));
+    layui.use('theme/messagemanage/commandManage/command', layui.factory('theme/messagemanage/commandManage/command'));
 </script>
 
 </html>
