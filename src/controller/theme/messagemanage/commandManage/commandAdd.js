@@ -38,16 +38,21 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
                 type: "POST",
                 url:"http://192.168.1.113:5000/command",
                 data:{
-                    "cmd":"12"
+                    cmd:"12"
                 },
                 dataType:"json",
                 async: true,
                 success: function(data) {
-                    console.log(data);
+                    alert("服务器返回的数据是"+data);
+                    var cmd=data.cmd;
+                    console.log(cmd);
+                    var cmdToHexadecimal=cmd.toString(16);
+                    console.log(cmdToHexadecimal);
                 },
             });
         });
     });
+
     $(function () {
         $('#btn').on('click',function () {
             addCommandInfo();
@@ -55,8 +60,11 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
     });
     function addCommandInfo(){
         lovexian.popup("theme/messagemanage/commandManage/command");
-
     }
+
+
+
+
     form.on("submit(execute)",function(data){
 
         var id = $("input[name='id']").val();     //input[name='id']是访问input对象id属性
