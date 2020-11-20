@@ -1,139 +1,93 @@
 <!--#include virtual="lawerDetail.html" -->
 <style>
-    .layui-table-cell {
-        height: 60px;
-        max-width: 200px;
-    }
+  .layui-table-cell {
+    height: 60px;
+    max-width: 200px;
+  }
 </style>
-<div class="layui-fluid layui-anim lovexian-anim" id="lovexian-dtus" lay-title="总体展示">
-    <div>
-        <iframe src="http://123.57.94.242:3000/d/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603258925959&to=1603280525959" frameborder="0" width="100%" height="800px"></iframe>
+<div class="layui-fluid layui-anim lovexian-anim" id="lovexian-dispalyAll" lay-title="总体展示">
+  <!--    <div>-->
+  <!--        <iframe src="http://123.57.94.242:3000/d/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603258925959&to=1603280525959" frameborder="0" width="100%" height="800px"></iframe>-->
+  <!--    </div>-->
+
+
+  <!--    <div>-->
+  <!--        <iframe src="http://123.57.94.242:3000/d-solo/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603179999198&to=1603201599198&panelId=4" width="150" height="150" frameborder="0"></iframe>-->
+  <!--        <iframe src="http://123.57.94.242:3000/d-solo/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603180529589&to=1603202129589&panelId=8" width="149" height="150" frameborder="0"></iframe>-->
+  <!--        <iframe src="http://123.57.94.242:3000/d-solo/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603180565267&to=1603202165268&panelId=9" width="149" height="150" frameborder="0"></iframe>-->
+  <!--        <iframe src="http://123.57.94.242:3000/d-solo/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603199561334&to=1603203161334&panelId=10" width="149" height="150" frameborder="0"></iframe>-->
+  <!--        <iframe src="http://123.57.94.242:3000/d-solo/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603199803658&to=1603203403658&panelId=24" width="149" height="150" frameborder="0"></iframe>-->
+  <!--        <iframe src="http://123.57.94.242:3000/d-solo/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603199831271&to=1603203431271&panelId=25" width="149" height="150" frameborder="0"></iframe>-->
+  <!--        <iframe src="http://123.57.94.242:3000/d-solo/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603199851153&to=1603203451153&panelId=19" width="149" height="150" frameborder="0"></iframe>-->
+  <!--        <iframe src="http://123.57.94.242:3000/d-solo/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603199869383&to=1603203469383&panelId=21" width="149" height="150" frameborder="0"></iframe>-->
+  <!--    </div>-->
+
+  <!--    <div>-->
+  <!--        <iframe src="http://123.57.94.242:3000/d-solo/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603179953952&to=1603201553953&panelId=2" width="610" height="400" frameborder="0"></iframe>-->
+  <!--        <iframe src="http://123.57.94.242:3000/d-solo/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603199174151&to=1603202774151&panelId=6" width="610" height="400" frameborder="0"></iframe>-->
+  <!--    </div>-->
+
+  <div>
+    <div class="layui-row" id="All">
+
     </div>
+  </div>
 
-
-
-<!--    <div>-->
-<!--        <iframe src="http://123.57.94.242:3000/d-solo/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603179999198&to=1603201599198&panelId=4" width="150" height="150" frameborder="0"></iframe>-->
-<!--        <iframe src="http://123.57.94.242:3000/d-solo/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603180529589&to=1603202129589&panelId=8" width="149" height="150" frameborder="0"></iframe>-->
-<!--        <iframe src="http://123.57.94.242:3000/d-solo/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603180565267&to=1603202165268&panelId=9" width="149" height="150" frameborder="0"></iframe>-->
-<!--        <iframe src="http://123.57.94.242:3000/d-solo/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603199561334&to=1603203161334&panelId=10" width="149" height="150" frameborder="0"></iframe>-->
-<!--        <iframe src="http://123.57.94.242:3000/d-solo/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603199803658&to=1603203403658&panelId=24" width="149" height="150" frameborder="0"></iframe>-->
-<!--        <iframe src="http://123.57.94.242:3000/d-solo/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603199831271&to=1603203431271&panelId=25" width="149" height="150" frameborder="0"></iframe>-->
-<!--        <iframe src="http://123.57.94.242:3000/d-solo/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603199851153&to=1603203451153&panelId=19" width="149" height="150" frameborder="0"></iframe>-->
-<!--        <iframe src="http://123.57.94.242:3000/d-solo/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603199869383&to=1603203469383&panelId=21" width="149" height="150" frameborder="0"></iframe>-->
-<!--    </div>-->
-
-<!--    <div>-->
-<!--        <iframe src="http://123.57.94.242:3000/d-solo/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603179953952&to=1603201553953&panelId=2" width="610" height="400" frameborder="0"></iframe>-->
-<!--        <iframe src="http://123.57.94.242:3000/d-solo/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603199174151&to=1603202774151&panelId=6" width="610" height="400" frameborder="0"></iframe>-->
-<!--    </div>-->
-
-
-
-<!--    <div>-->
-<!--        <div class="layui-row">-->
-<!--            <div class="layui-col-md6">-->
-<!--                <div class="layui-col-md3">-->
-<!--                    <iframe src="http://123.57.94.242:3000/d-solo/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603179999198&to=1603201599198&panelId=4" width="100%" height="100%" frameborder="0"></iframe>-->
-<!--                </div>-->
-<!--                <div class="layui-col-md3">-->
-<!--                    <iframe src="http://123.57.94.242:3000/d-solo/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603180529589&to=1603202129589&panelId=8" width="100%" height="150" frameborder="0"></iframe>-->
-<!--                </div>-->
-<!--                <div class="layui-col-md3">-->
-<!--                    <iframe src="http://123.57.94.242:3000/d-solo/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603180565267&to=1603202165268&panelId=9" width="100%" height="150" frameborder="0"></iframe>-->
-<!--                </div>-->
-<!--                <div class="layui-col-md3">-->
-<!--                    <iframe src="http://123.57.94.242:3000/d-solo/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603199561334&to=1603203161334&panelId=10" width="100%" height="150" frameborder="0"></iframe>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="layui-col-md6">-->
-<!--                <div class="layui-col-md3">-->
-<!--                    <iframe src="http://123.57.94.242:3000/d-solo/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603199803658&to=1603203403658&panelId=24" width="100%" height="150" frameborder="0"></iframe>-->
-<!--                </div>-->
-<!--                <div class="layui-col-md3">-->
-<!--                    <iframe src="http://123.57.94.242:3000/d-solo/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603199831271&to=1603203431271&panelId=25" width="100%" height="150" frameborder="0"></iframe>-->
-<!--                </div>-->
-<!--                <div class="layui-col-md3">-->
-<!--                    <iframe src="http://123.57.94.242:3000/d-solo/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603199851153&to=1603203451153&panelId=19" width="100%" height="150" frameborder="0"></iframe>-->
-<!--                </div>-->
-<!--                <div class="layui-col-md3">-->
-<!--                    <iframe src="http://123.57.94.242:3000/d-solo/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603199869383&to=1603203469383&panelId=21" width="100%" height="150" frameborder="0"></iframe>-->
-
-<!--                </div>-->
-<!--            </div>-->
-<!--    </div>-->
-<!--        <div class="layui-row layui-col-space5">-->
-<!--            <div class="layui-col-md6">-->
-<!--                 <iframe src="http://123.57.94.242:3000/d-solo/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603179953952&to=1603201553953&panelId=2" width="100%" height="400px" frameborder="0"></iframe>-->
-<!--            </div>-->
-<!--            <div class="layui-col-md6">-->
-<!--                <iframe src="http://123.57.94.242:3000/d-solo/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603199174151&to=1603202774151&panelId=6" width="100%" height="400px" frameborder="0"></iframe>-->
-<!--            </div>-->
+  <div>
+    <div class="layui-row">
+      <div class="layui-col-md6" id="add">
+<!--        <div class="layui-col-md3">-->
+<!--          <iframe src="http://123.57.94.242:3000/d-solo/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603179999198&to=1603201599198&panelId=4"-->
+<!--                  width="100%" height="100%" frameborder="0"></iframe>-->
+<!--        </div>-->
+<!--        <div class="layui-col-md3">-->
+<!--          <iframe src="http://123.57.94.242:3000/d-solo/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603180529589&to=1603202129589&panelId=8"-->
+<!--                  width="100%" height="150" frameborder="0"></iframe>-->
+<!--        </div>-->
+<!--        <div class="layui-col-md3">-->
+<!--          <iframe src="http://123.57.94.242:3000/d-solo/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603180565267&to=1603202165268&panelId=9"-->
+<!--                  width="100%" height="150" frameborder="0"></iframe>-->
+<!--        </div>-->
+<!--        <div class="layui-col-md3">-->
+<!--          <iframe src="http://123.57.94.242:3000/d-solo/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603199561334&to=1603203161334&panelId=10"-->
+<!--                  width="100%" height="150" frameborder="0"></iframe>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="layui-col-md6">-->
+<!--        <div class="layui-col-md3">-->
+<!--          <iframe src="http://123.57.94.242:3000/d-solo/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603199803658&to=1603203403658&panelId=24"-->
+<!--                  width="100%" height="150" frameborder="0"></iframe>-->
+<!--        </div>-->
+<!--        <div class="layui-col-md3">-->
+<!--          <iframe src="http://123.57.94.242:3000/d-solo/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603199831271&to=1603203431271&panelId=25"-->
+<!--                  width="100%" height="150" frameborder="0"></iframe>-->
+<!--        </div>-->
+<!--        <div class="layui-col-md3">-->
+<!--          <iframe src="http://123.57.94.242:3000/d-solo/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603199851153&to=1603203451153&panelId=19"-->
+<!--                  width="100%" height="150" frameborder="0"></iframe>-->
+<!--        </div>-->
+<!--        <div class="layui-col-md3">-->
+<!--          <iframe src="http://123.57.94.242:3000/d-solo/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603199869383&to=1603203469383&panelId=21"-->
+<!--                  width="100%" height="150" frameborder="0"></iframe>-->
 
 <!--        </div>-->
+      </div>
+    </div>
+<!--    <div class="layui-row layui-col-space5">-->
+<!--      <div class="layui-col-md6">-->
+<!--        <iframe src="http://123.57.94.242:3000/d-solo/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603179953952&to=1603201553953&panelId=2"-->
+<!--                width="100%" height="400px" frameborder="0"></iframe>-->
+<!--      </div>-->
+<!--      <div class="layui-col-md6">-->
+<!--        <iframe src="http://123.57.94.242:3000/d-solo/y7Vpa9FMz/tu-yi-zhi?orgId=1&from=1603199174151&to=1603202774151&panelId=6"-->
+<!--                width="100%" height="400px" frameborder="0"></iframe>-->
+<!--      </div>-->
+
 <!--    </div>-->
-
-<!--状态--><!--此处需要修改status和数据库字段一致,-->
-<!--注意:script中不要加注释,否则会错误--><!--注意:script中不要加注释,否则会错误--><!--注意:script中不要加注释,否则会错误--><!--注意:script中不要加注释,否则会错误-->
-<script type="text/html" id="check-state">
-    {{#
-    var status = {
-    100: {title: '草稿状态', color: 'lime'},
-    0: {title: '在线', color: 'blue'},
-    1: {title: '离线', color: 'green'},
-    2: {title: '未启用', color: 'volcano'}
-    }[d.status];
-    }}
-    <span class="layui-badge lovexian-tag-{{ status.color}}">{{ status.title }}</span>
-</script>
-
-<script type="text/html" id="show-flag">
-    {{# if(d.isShow == 1){ }}
-    <input type="checkbox" value={{d.id}}  lay-filter="delState" name="delState" lay-skin="switch" lay-text="展示|不展示" checked>
-    {{# }else{ }}
-    <input type="checkbox" value={{d.id}} lay-filter="delState" name="delState" lay-skin="switch" lay-text="展示|不展示">
-    {{# } }}
-</script>
-
-
-<!--展示更多:批量删除,新增按钮-->
-<script type="text/html" id="actionMoreDtuTpl">
-{{# if(hasAnyPermission(['dtuInfo:add'])) { }}
-<div class="layui-btn layui-btn-sm layui-btn-primary table-action action-more">
-    <i class="layui-icon">&#xe875;</i>
+  </div>
 </div>
-{{# } }}
-</script>
 
-
-<script type="text/html" id="action-option">
-    {{# if(hasPermission(['dtuInfo:list'])) { }}
-    {{# } }}
-    {{# if(hasPermission(['dtuInfo:add'])&&d.delState==0) { }}
-    <a lay-event="edit" title=" 编辑"><i class="layui-icon lovexian-edit-area lovexian-blue" style="color: #2db7f5">&#xe642;</i></a>
-    {{# }else{ }}
-    {{# } }}
-    {{# if(hasPermission(['dtuInfo:del'])&&d.delState==0) { }}
-    <a lay-event="del" title="删除"><i class="layui-icon lovexian-edit-area lovexian-red">&#xe640;</i></a>
-    {{# } }}
-    {{# if(hasPermission(['gatewayInfo:list'])) { }}
-    <a lay-event="querySensors" title="查看相连的传感器"><i class="layui-icon lovexian-edit-area lovexian-purple">&#xe783;</i></a>
-    {{# } }}
-
-    {{# if(d.delState==1) { }}
-    <a lay-event="restore" title="还原"><i class="layui-icon lovexian-edit-area lovexian-blue">&#xe603;</i></a>
-    {{# } }}
-    {{# if(d.delState==1) { }}
-    <a lay-event="del" title="彻底删除"><i class="layui-icon lovexian-edit-area lovexian-red">&#xe640;</i></a>
-    {{# } }}
-    {{# if(lacksPermission(['dtuInfo:list','dtuInfo:add','dtuInfo:del'])) { }}
-    <span>
-            <span class="layui-badge-dot lovexian-bg-orange">无权限</span>
-    </span>
-    {{# } }}
-</script>
-
-<script>
-    layui.use('theme/settings/dtuManage/dtu', layui.factory('theme/settings/dtuManage/dtu'));
-</script>
+  <script>
+    layui.use('theme/dataDisplay/displayAll', layui.factory('theme/dataDisplay/displayAll'));
+  </script>
 

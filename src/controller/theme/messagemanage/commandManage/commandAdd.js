@@ -36,7 +36,7 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
         $('#btn').on('click', function(){
             $.ajax({
                 type: "POST",
-                url:"http://192.168.1.113:5000/command",
+                url:"http://192.168.1.109:5000/command",
                 data:{
                     cmd:"12"
                 },
@@ -61,8 +61,6 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
     function addCommandInfo(){
         lovexian.popup("theme/messagemanage/commandManage/command");
     }
-
-
 
 
     form.on("submit(execute)",function(data){
