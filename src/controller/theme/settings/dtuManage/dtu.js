@@ -299,6 +299,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
         tableIns.reload({where: params});
     });
     $reset.on('click',function () {//刷新
+        $searchForm[0].reset();
         initTable();
     });
 

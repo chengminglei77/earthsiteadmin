@@ -151,8 +151,8 @@ form.on('select(status)',function (data)
 //取消按钮,直接关闭当前窗口
     form.on("submit(cancelBtn)",function(data){
 
-        alert( layui.formSelects.value('example6_3','val'));
-        alert(layui.formSelects.value('example6_3', 'name'));
+        /*alert( layui.formSelects.value('example6_3','val'));
+        alert(layui.formSelects.value('example6_3', 'name'));*/
         layer.closeAll();
     });
 
