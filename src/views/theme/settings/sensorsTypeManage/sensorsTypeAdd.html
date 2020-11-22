@@ -65,10 +65,12 @@
                     </div><!--actiontitle 需要改变变量名称-->
                 </div>
 
-                <div class="layui-form-item">
+                <div class="layui-form-item magt3">
                     <label class="layui-form-label">传感器描述</label>
                     <div class="layui-input-block" style="width:400px !important">
-                        <textarea placeholder="请输入传感器描述信息" class="layui-textarea disInfo" name="disInfo" ></textarea>
+                        <div class="layui-input-inline">
+                            <textarea style="width: 400px;height: 100px" placeholder="请输入传感器描述信息" class="layui-textarea sensorDesc" name="sensorDesc" ></textarea>
+                        </div>
                     </div><!--同样需要修改变量名称-->
                 </div>
 
@@ -82,7 +84,7 @@
     <div class="layui-col-md3 layui-col-xs12">
         <div style=" width: 250px;position: relative;left: -800px; bottom: -400px" class="layui-right">
             <a id="saveBtn" class="layui-btn layui-btn-normal" lay-filter="addNews" lay-submit><i class="layui-icon">&#xe621;</i>保存</a>
-            <a class="layui-btn layui-btn-primary layui-btn-normal" lay-filter="cancelBtn" lay-submit><i class="layui-icon">&#xe669;</i>重置</a>
+            <a class="layui-btn layui-btn-primary layui-btn-normal" lay-filter="cancelBtn" lay-submit><i class="layui-icon">&#xe669;</i>取消</a>
         </div>
     </div>
 </form>
