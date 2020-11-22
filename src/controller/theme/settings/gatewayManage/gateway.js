@@ -118,7 +118,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
             });
     }
 
-    function initTable() {//初始化界面（下面的表格）
+    function initTable(data) {//初始化界面（下面的表格）
         tableIns = lovexian.table.init({
         elem: $('#gatewayInfoTable'),
         id: 'gatewayInfoTable',
@@ -323,6 +323,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
     });
 
     $reset.on('click',function () {//重置
+        $searchForm[0].reset();
         initTable();
     });
 
