@@ -195,8 +195,6 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
                     });
                 });
 
-
-
         }
         if (layEvent === 'destroy') {//删除景点信息
 //物理删除
