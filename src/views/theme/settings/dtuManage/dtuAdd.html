@@ -18,7 +18,7 @@
 
                 <div class="layui-form-item magt3">
                     <label class="layui-form-label">DTU标识</label>
-                    <div class="layui-input-block">
+                    <div class="layui-input-block" style="width:300px !important">
                         <input type="text" class="layui-input dtuId" name="dtuId"  lay-verify="dtuId" placeholder="请输入DTU的名称">
                     </div><!--actiontitle 需要改变变量名称-->
                 </div>
@@ -26,9 +26,28 @@
 
                 <div class="layui-form-item magt3">
                     <label class="layui-form-label">DTU名称</label>
-                    <div class="layui-input-block">
+                    <div class="layui-input-block" style="width:300px !important">
                         <input type="text" class="layui-input dtuName" name="dtuName"  lay-verify="dtuName" placeholder="请输入DTU的名称">
                     </div><!--actiontitle 需要改变变量名称-->
+                </div>
+
+               <!-- <div class="layui-form-item magt3">
+                    <label class="layui-form-label">DTU类型</label>
+                    <div class="layui-input-block" style="width:300px !important">
+                        <input type="dtuType" class="layui-input dtuType" name="dtuType"  lay-verify="dtuType" placeholder="请输入DTU的类型">
+                    </div>&lt;!&ndash;actiontitle 需要改变变量名称&ndash;&gt;
+                </div>-->
+
+                <div class="layui-form-item openness">
+                    <label class="layui-form-label lovexian-form-item-require"><i class="seraph icon-look"></i> DTU类型</label>
+                    <div class="layui-input-block actionStatus" style="width:300px !important">
+                        <select  name="dtuType" id="dtuType" lay-filter="dtuType" lay-verify="required" onchange="changeLanguageType()">
+                            <option value="0" selected="selected">请选择该DTU的类型</option>
+                            <option value="工业级">工业级</option>
+                            <option value="民用级">民用级</option>
+                            <option value="商用级">商用级</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="layui-form-item magt3">
@@ -59,13 +78,21 @@
                         <input type="text" style="width:300px !important" class="layui-input dtuType" lay-verify="dtuType" name="dtuType" placeholder="请输入dtu类型">
                     </div>&lt;!&ndash;同样需要修改变量名称&ndash;&gt;
                 </div>-->
-
                 <div class="layui-form-item magt3">
+                    <label class="layui-form-label">当前电量</label>
+                    <div class="layui-input-block">
+                        <div class="layui-input-inline">
+                            <input type="text" style="width:300px !important" name="elecCharge" id="elecCharge" class="layui-input elecCharge" placeholder="请输入当前电量">
+                        </div>
+                    </div>
+                </div>
+
+                <!--<div class="layui-form-item magt3">
                     <label class="layui-form-label">电池容量</label>
                     <div class="layui-input-block">
                         <input type="text" style="width:300px !important" class="layui-input elcVolume" lay-verify="elcVolume" name="elcVolume" placeholder="请输入电池容量">
-                    </div><!--同样需要修改变量名称-->
-                </div>
+                    </div>&lt;!&ndash;同样需要修改变量名称&ndash;&gt;
+                </div>-->
 
 
 
