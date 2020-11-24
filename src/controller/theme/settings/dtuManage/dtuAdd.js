@@ -100,6 +100,7 @@ form.on('select(status)',function (data)
         var descInfo = $('.descInfo').val();
         var dtuType = $('.dtuType').val();
         var elcVolume = $('.elcVolume').val();
+        var elecCharge = $('.elcCharge').val();
         var disInfo = $('.disInfo').val();
         var value=window.value;
         var dtudata = {
@@ -111,6 +112,7 @@ form.on('select(status)',function (data)
             descInfo:descInfo,
             dtuType: dtuType,
             elcVolume:elcVolume,
+            elecCharge:elecCharge,
             status:value,
             disInfo:disInfo,
         };
