@@ -25,7 +25,7 @@
     window.init = function() {
         var map = new BMap.Map("allmap");            // 创建Map实例
         //var point = new BMap.Point(109.18592,34.36912); // 创建点坐标
-        map.centerAndZoom(new BMap.Point(109.19708,34.36820), 20);  // 设置中心点,地图初始化
+        map.centerAndZoom(new BMap.Point(109.19708,34.36820), 15);  // 设置中心点,地图初始化
         //map.centerAndZoom(points,20);
         map.setCurrentCity("西安工程大学");          //设置为衡阳
         map.clearOverlays();
@@ -112,41 +112,12 @@
     }
     loadJScript()
 </script>
+
 <script>
     layui.use('theme/settings/earth', layui.factory('theme/settings/earth'));
 </script>
 
-<script type="text/javascript" src="js\jquery-2.1.1.min.js"></script>
-<script type="text/javascript">
-    //代码自动执行
-    $(function(){
-        var movies;
-        var movie ="";
-        /* 异步请求数据  */
-        $.ajax({
-            type : "get",
-            dataType : "json",
-            url : "/admin/dtus/listByTypeId",
-            error : function(){
-                alert("请求失败");
-            },
-            success : function(movies) {
-                //movie为json数据
-                //通过$.each遍历json数据
-                $.each(movies,function(key,obj){
-                    //拼接字符串
-                    movie +="<li><a><div><img src='"+obj.imagepath+"' width='150px' height='200px'><p><span>'"+obj.name+"'</span>&nbsp;&nbsp;<span class='grade'>'"+obj.average+"'</span></p></div></a></li>";
-                });
-            }
-        });
-        //这块我本是想等到上面函数执行完在执行下面的代码，但是上面获取数据以及拼接字符串太耗费时间，总是优先执行下面的代码
-        //所以暂时想出此方法来完成功能，往后在进行修改
-        setTimeout(function() {
-            //将拼接好的字符串加入到html代码中去
-            $("#movie ul").html(movie);
-        },1000);
-    })
-</script>
+<!--<script type="text/javascript" src="js\jquery-2.1.1.min.js"></script>-->
 
 </html>
 
