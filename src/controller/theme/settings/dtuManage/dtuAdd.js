@@ -89,7 +89,7 @@ form.on('select(status)',function (data)
 
 );
 
-    form.on('select(dtuType)',function (data)
+    /*form.on('select(dtuType)',function (data)
         {
 
             var value = data.value;
@@ -100,7 +100,7 @@ form.on('select(status)',function (data)
             //from.render('select');
         }
 
-    );
+    );*/
 
     form.on("submit(addNews)",function(data){
 
@@ -114,7 +114,6 @@ form.on('select(status)',function (data)
         var dtuType = $('.dtuType').val();
         var elecCharge = $('.elecCharge').val();
         var elcVolume = $('.elcVolume').val();
-        var elecCharge = $('.elcCharge').val();
         var disInfo = $('.disInfo').val();
         var value=window.value;
         var dtudata = {
@@ -124,10 +123,9 @@ form.on('select(status)',function (data)
             longitude:longitude,
             latitude:latitude,
             descInfo:descInfo,
-            dtuType:window.dtuType,
+            dtuType:dtuType,
             elecCharge:elecCharge,
             elcVolume:elcVolume,
-            elecCharge:elecCharge,
             status:value,
             disInfo:disInfo,
         };
