@@ -46,16 +46,17 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
     });
 
 
-    dropdown.render({//添加删除小组件
+    dropdown.render({//添加和删除小组件
         elem: $view.find('.action-more'),
         click: function (name, elem, event) {
-            var checkStatus = table.checkStatus('alarmInfoTable');
+            var checkStatus = table.checkStatus('alarmInfoTable'+$(".layui-tab-title .layui-this").attr("lay-id"))
             if (name === 'add') {
                 addalarmInfo("",0);
                 //跳转到actionAdd页面
                 // location.hash = search.redirect ? decodeURIComponent(search.redirect) : '/theme/life/actionAdd';
             }
             if (name === 'delete') {//批量删除
+                console.log(checkStatus.data.length);
                 if (!checkStatus.data.length) {
                     lovexian.alert.warn('请选择需要删除的报警信息');
                 } else {
@@ -179,6 +180,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
                 });
             });
         }
+
     });//操作
 
 
@@ -191,7 +193,8 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
     }
 
 
-    function getQueryParams() { var createTimeFrom='',
+    function getQueryParams() {
+        var createTimeFrom='',
         createTimeTo='',
 
         createTime = $searchForm.find('input[name="createTime"]').val();
@@ -200,9 +203,9 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
             createTimeFrom = createTime.split(' - ')[0];
             createTimeTo = createTime.split(' - ')[1];
         }
-    /*     alert(createTimeFrom);
-         alert(createTimeTo);*/
         return {
+            pageSize: 10,
+            pageNum: 1,
             createTimeFrom: createTimeFrom,
             createTimeTo: createTimeTo,
             status: $searchForm.find('select[name="status"]').val(),

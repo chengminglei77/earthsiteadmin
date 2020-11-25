@@ -299,7 +299,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
             ifr_author.html(author_str);
             //设置正文
             var content_str = data.introduction;
-            var tickets=data.tickets
+            var tickets=data.tickets;
             var ifr_content = $(ifr_document).find(".article-content");
             ifr_content.html("introduction:"+content_str+"</br>"+tickets);
             //设置图片
@@ -310,6 +310,8 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
     }
     function getQueryParams() {
         return {
+            pageSize: 10,
+            pageNum: 1,
             gateId: $searchForm.find('input[name="gateId"]').val().trim(),
             status: $searchForm.find('select[name="status"]').val(),
             deleteState: $searchForm.find('select[name="deleteState"]').val(),
