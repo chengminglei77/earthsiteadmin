@@ -55,7 +55,7 @@ layui.define(['form','layer','admin','layedit','formSelects','lovexian','laydate
         },
 
         beforeSuccess: function (id, url, searchVal, result) {
-            lovexian.alert.success('获取DTU列表成功');
+            //lovexian.alert.success('获取DTU列表成功');
             var data = result.data.rows;
             var tranData = [];
             for (var i = 0; i < data.length; i++) {

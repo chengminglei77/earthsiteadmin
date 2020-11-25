@@ -19,7 +19,7 @@
                 <div class="layui-form-item magt3">
                     <label class="layui-form-label">DTU标识</label>
                     <div class="layui-input-block">
-                        <input type="text" class="layui-input dtuId" name="dtuId"  lay-verify="dtuId" placeholder="请输入DTU的名称">
+                        <input type="text" style="width:300px !important" class="layui-input dtuId" name="dtuId"  lay-verify="dtuId" placeholder="请输入DTU的名称">
                     </div><!--actiontitle 需要改变变量名称-->
                 </div>
 
@@ -27,15 +27,28 @@
                 <div class="layui-form-item magt3">
                     <label class="layui-form-label">DTU名称</label>
                     <div class="layui-input-block">
-                        <input type="text" class="layui-input dtuName" name="dtuName"  lay-verify="dtuName" placeholder="请输入DTU的名称">
+                        <input type="text" style="width:300px !important" class="layui-input dtuName" name="dtuName"  lay-verify="dtuName" placeholder="请输入DTU的名称">
                     </div><!--actiontitle 需要改变变量名称-->
                 </div>
 
                 <div class="layui-form-item magt3">
-                    <label class="layui-form-label ">经度</label>
+                    <label class="layui-form-label ">DTU类型</label>
                     <div class="layui-input-block">
-                        <input type="text" style="width:300px !important" class="layui-input longitude" name="longitude"  lay-verify="longitude" placeholder="请输入经度">
+                        <input type="text" style="width:300px !important" class="layui-input dtuType" name="dtuType"  lay-verify="dtuType" placeholder="请输入DTU类型">
                     </div><!--actiontitle 需要改变变量名称-->
+                </div>
+
+                <!--<div class="layui-form-item magt3">
+                    <label class="layui-form-label">电池容量</label>
+                    <div class="layui-input-block">
+                        <input type="text" style="width:300px !important" class="layui-input elcVolume" lay-verify="elcVolume" name="elcVolume" placeholder="请输入电池容量">
+                    </div>&lt;!&ndash;同样需要修改变量名称&ndash;&gt;
+                </div>-->
+                <div class="layui-form-item magt3">
+                    <label class="layui-form-label">经度</label>
+                    <div class="layui-input-block">
+                        <input type="text" style="width:300px !important" class="layui-input longitude" lay-verify="longitude" name="longitude" placeholder="请输入经度">
+                    </div><!--同样需要修改变量名称-->
                 </div>
 
                 <div class="layui-form-item magt3">
@@ -61,9 +74,9 @@
                 </div>-->
 
                 <div class="layui-form-item magt3">
-                    <label class="layui-form-label">电池容量</label>
+                    <label class="layui-form-label">电量</label>
                     <div class="layui-input-block">
-                        <input type="text" style="width:300px !important" class="layui-input elcVolume" lay-verify="elcVolume" name="elcVolume" placeholder="请输入电池容量">
+                        <input type="text" style="width:300px !important" class="layui-input elecCharge" lay-verify="elecCharge" name="elecCharge" placeholder="请输入电量">
                     </div><!--同样需要修改变量名称-->
                 </div>
 
@@ -101,8 +114,8 @@
                     <div style=" width: 500px;left: -200px;height: 10px; bottom: -500px" class="layui-right">
                         <a id="saveBtn" class="layui-btn layui-btn-normal" lay-filter="addNews" lay-submit><i class="layui-icon">&#xe621;</i>保存</a>
                         <!--<a class="layui-btn layui-btn-primary layui-btn-normal" lay-filter="cancelBtn" lay-submit><i class="layui-icon">&#xe669;</i>取消</a>-->
-
-                        <a class="layui-btn layui-btn-primary layui-btn-normal" lay-filter="cancelBtn" lay-submit>取消</a>
+                        <a class="layui-btn layui-btn-primary layui-btn-normal" lay-filter="cancelBtn" lay-submit><i class="layui-icon">&#xe669;</i>取消</a>
+                        <!--<a class="layui-btn layui-btn-primary layui-btn-normal" lay-filter="cancelBtn" lay-submit>取消</a>-->
                     </div>
                 </div>
 
