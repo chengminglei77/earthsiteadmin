@@ -17,12 +17,25 @@
                             <div class="layui-row">
                                 <div class="layui-col-md10">
                                     <div class="layui-form-item">
-                                        <div class="layui-inline">
+                                        <!--<div class="layui-inline">
                                             <label class="layui-form-label layui-form-label-sm">传感器类别</label>
                                             <div class="layui-input-inline">
                                                 <input type="text" name="typeId" autocomplete="off" class="layui-input">
                                             </div>
+                                        </div>-->
+
+                                        <div class="layui-inline">
+                                            <label class="layui-form-label layui-form-label-sm">传感器类别</label>
+                                            <div class="layui-input-inline">
+                                                <select name="typeId">
+                                                    <option value=""></option>
+                                                    <option value="温度传感器">温度传感器</option>
+                                                    <option value="湿度传感器">湿度传感器</option>
+                                                    <option value="风速传感器">风速传感器</option>
+                                                </select>
+                                            </div>
                                         </div>
+
                                         <div class="layui-inline">
                                             <label class="layui-form-label layui-form-label-sm">传感器状态</label>
                                             <div class="layui-input-inline">
@@ -129,7 +142,7 @@
 <script type="text/html" id="action-option">
     {{# if(hasPermission(['sensorsInfo:list'])) { }}
     {{# } }}
-    {{# if(hasPermission(['sensorsInfo:list'])) { }}
+    {{# if(hasPermission(['sensorsInfo:list'])&&d.deleteState==0) { }}
 
     <a lay-event="edit" title=" 编辑"><i class="layui-icon lovexian-edit-area lovexian-blue" style="color: #2db7f5">&#xe642;</i></a>
     {{# }else{ }}
@@ -148,7 +161,7 @@
     <a lay-event="restore" title="还原"><i class="layui-icon lovexian-edit-area lovexian-blue">&#xe603;</i></a>
     {{# } }}
     {{# if(d.deleteState==1) { }}
-    <a lay-event="destroy" title="彻底删除"><i class="layui-icon lovexian-edit-area lovexian-red">&#xe639;</i></a>
+    <a lay-event="destroy" title="彻底删除"><i class="layui-icon lovexian-edit-area lovexian-red">&#xe640;</i></a>
     {{# } }}
 
 

@@ -89,6 +89,19 @@ form.on('select(status)',function (data)
 
 );
 
+    /*form.on('select(dtuType)',function (data)
+        {
+
+            var value = data.value;
+            window.dtuType=value;
+            //alert(value);
+            // var text = data.elem[data.elem.selectedIndex].text;
+            // alert(text);
+            //from.render('select');
+        }
+
+    );*/
+
     form.on("submit(addNews)",function(data){
 
         //此处要和下方var dtudata =里面的数量类型一致
@@ -99,6 +112,7 @@ form.on('select(status)',function (data)
         var latitude = $('.latitude').val();
         var descInfo = $('.descInfo').val();
         var dtuType = $('.dtuType').val();
+        var elecCharge = $('.elecCharge').val();
         var elcVolume = $('.elcVolume').val();
         var disInfo = $('.disInfo').val();
         var value=window.value;
@@ -109,13 +123,16 @@ form.on('select(status)',function (data)
             longitude:longitude,
             latitude:latitude,
             descInfo:descInfo,
-            dtuType: dtuType,
+            dtuType:dtuType,
+            elecCharge:elecCharge,
             elcVolume:elcVolume,
             status:value,
             disInfo:disInfo,
         };
         //window.dtuSensors=dtudata;
-        lovexian.post(proPath + '/admin/dtus/saveOrUpdate',dtudata);
+        lovexian.post(proPath + '/admin/dtus/saveOrUpdate',dtudata,function () {
+            lovexian.alert.success('保存成功');
+        });
         var value1 = layui.formSelects.value('example6_3',`val`);
        // let value1 = layui.formSelects.value('example6_3',`val`);
         //alert(value1.length);
@@ -151,8 +168,8 @@ form.on('select(status)',function (data)
 //取消按钮,直接关闭当前窗口
     form.on("submit(cancelBtn)",function(data){
 
-        alert( layui.formSelects.value('example6_3','val'));
-        alert(layui.formSelects.value('example6_3', 'name'));
+        /*alert( layui.formSelects.value('example6_3','val'));
+        alert(layui.formSelects.value('example6_3', 'name'));*/
         layer.closeAll();
     });
 

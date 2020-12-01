@@ -99,6 +99,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
                         "descInfo":data.descInfo,
                         "dtuType":data.dtuType,
                         "elcVolume":data.elcVolume,
+                        "elecCharge":data.elecCharge,
                         "status":data.status,
                         "disInfo":data.disInfo,
                         "delState":data.delState,
@@ -157,8 +158,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
                 {field: 'dtuType', title: 'DTU类型', minWidth:130,align:'center'},
                 {title: 'DTU状态', templet: '#check-state',minWidth:120,align:'center'},
                 {title: '电量', templet: '#check-charge',minWidth:120,align:'center'},
-                /*{field: 'elecCharge', title: '电量', minWidth:120,align:'center'},*/
-                {field: 'batCapacity', title: '电池容量', minWidth:120,align:'center'},
+                {field: 'elcVolume', title: '电池容量', minWidth:120,align:'center'},
                 //{field: 'longitude', title: '经度', minWidth:120,align:'center'},
                 //{field: 'latitude', title: '纬度', minWidth:120,align:'center'},
                 //{field: 'descInfo', title: '位置信息', minWidth:120,align:'center'},
@@ -301,6 +301,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
         tableIns.reload({where: params});
     });
     $reset.on('click',function () {//刷新
+        $searchForm[0].reset();
         initTable();
     });
 

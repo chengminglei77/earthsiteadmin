@@ -53,21 +53,21 @@
 
                         <div class="layui-tab layui-tab-brief" lay-filter="commandTab">
                             <ul class="layui-tab-title">
-                                <li class="layui-this" lay-id="1">已执行</li>
-                                <li lay-id="0">未执行</li>
+                                <li class="layui-this" lay-id="0">未执行</li>
+                                <li lay-id="1">已执行</li>
                             </ul>
                             <input hidden="hidden" id="actTypeId" value="">
                             <!--景点信息开始-->
                             <div class="layui-tab-content"><!--景点信息-->
                                 <div class="layui-fluid layui-tab-item">
                                     <div class="layui-row"><!--表格展示-->
-                                        <table lay-filter="commandInfoTable" id="commandInfoTable1" lay-data="{id: 'commandInfoTable1'}">
+                                        <table lay-filter="commandInfoTable" id="commandInfoTable0" lay-data="{id: 'commandInfoTable0'}">
                                         </table>
                                     </div>
                                 </div><!--景点信息结束-->
                                 <div class="layui-fluid layui-tab-item">
                                     <div class="layui-row"><!--表格展示-->
-                                        <table lay-filter="commandInfoTable" id="commandInfoTable0" lay-data="{id: 'commandInfoTable0'}">
+                                        <table lay-filter="commandInfoTable" id="commandInfoTable1" lay-data="{id: 'commandInfoTable1'}">
                                         </table>
                                     </div>
                                 </div><!--景点信息结束-->
@@ -95,6 +95,26 @@
     }}
     <span class="layui-badge lovexian-tag-{{ status.color}}">{{ status.title }}</span>
 </script>
+
+<script type="text/html" id="commandName">
+    {{#
+    var command = {
+    1: {title: '查询电量', color: 'purple'},
+    2: {title: '查询数据', color: 'magenta'},
+    3: {title: '改变频率', color: 'red'},
+    4: {title: '系统复位', color: 'orange'},
+    }[d.command];
+    }}
+    <span class="layui-badge lovexian-tag-{{command.color}}">{{ command.title }}</span>
+</script>
+
+<!--<script type="text/html" id="commandName">
+    {{#if (d.sex == 1) { }}
+    <span>男</span>
+    {{# }else if(d.sex == 2){ }}
+    <span>女</span>
+    {{# } }}
+</script>-->
 
 <script>
     layui.use('theme/messagemanage/commandManage/command', layui.factory('theme/messagemanage/commandManage/command'));

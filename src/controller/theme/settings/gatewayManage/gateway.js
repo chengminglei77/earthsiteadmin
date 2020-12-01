@@ -118,7 +118,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
             });
     }
 
-    function initTable() {//初始化界面（下面的表格）
+    function initTable(data) {//初始化界面（下面的表格）
         tableIns = lovexian.table.init({
         elem: $('#gatewayInfoTable'),
         id: 'gatewayInfoTable',
@@ -230,7 +230,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
             lovexian.modal.confirm('还原网关信息', '确定还原这条网关记录吗？', function () {
                 lovexian.post(proPath + '/admin/gateways/restoreById?id='+ obj.data.id, null, function () {
                     console.log("success");
-                    lovexian.alert.success('还原该报警信息成功');
+                    lovexian.alert.success('还原该网关信息成功');
                     $query.click();
                 });
             });
@@ -299,7 +299,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
             ifr_author.html(author_str);
             //设置正文
             var content_str = data.introduction;
-            var tickets=data.tickets
+            var tickets=data.tickets;
             var ifr_content = $(ifr_document).find(".article-content");
             ifr_content.html("introduction:"+content_str+"</br>"+tickets);
             //设置图片
@@ -310,6 +310,8 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
     }
     function getQueryParams() {
         return {
+            pageSize: 10,
+            pageNum: 1,
             gateId: $searchForm.find('input[name="gateId"]').val().trim(),
             status: $searchForm.find('select[name="status"]').val(),
             deleteState: $searchForm.find('select[name="deleteState"]').val(),
@@ -323,6 +325,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
     });
 
     $reset.on('click',function () {//重置
+        $searchForm[0].reset();
         initTable();
     });
 
