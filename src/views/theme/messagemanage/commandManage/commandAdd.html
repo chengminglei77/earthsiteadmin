@@ -19,8 +19,8 @@
                   <div class="layui-form-item">
                     <label class="layui-form-label lovexian-form-item-require">下发命令</label>
                     <div class="layui-inline" style="width:200px !important">
-                      <select name="command">
-                        <option value=""></option>
+                      <select name="command" id="selectid" onclick="getValue()">
+                        <option value="">请选择</option>
                         <option value="1">0x0A01</option>
                         <option value="2">0x0A02</option>
                         <option value="3">0x0A03</option>
@@ -35,7 +35,12 @@
                     <div class="layui-inline">
                       <label class="layui-form-label layui-form-label-sm">Device_ID</label>
                       <div class="layui-input-inline">
-                        <input type="text" name="value" autocomplete="off" class="layui-input">
+<!--                        <input type="text" name="value" autocomplete="off" class="layui-input">-->
+                        <select name="deviceid" id="deviceid">
+                          <option value="">请选择</option>
+                          <option value="1">传感器ID</option>
+                          <option value="2">DTUID</option>
+                        </select>
                       </div>
                     </div>
                     <div class="layui-form-item magt3">

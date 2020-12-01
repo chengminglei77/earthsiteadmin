@@ -32,13 +32,14 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
     //
     // });
     var btn = document.getElementById("btn");
-    $(function(){
+    $(function getValue(){
+        var str=$("selectid option:selected").val();
         $('#btn').on('click', function(){
             $.ajax({
                 type: "POST",
                 url:"http://192.168.1.109:5000/command",
                 data:{
-                    cmd:"12"
+                    'select':str,
                 },
                 dataType:"json",
                 async: true,
