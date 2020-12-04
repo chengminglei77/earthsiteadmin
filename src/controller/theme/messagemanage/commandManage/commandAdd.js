@@ -36,21 +36,22 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
         var str=$("selectid option:selected").val();
         $('#btn').on('click', function(){
             $.ajax({
-                type: "POST",
-                url:"http://192.168.1.109:5000/command",
-                data:{
-                    'select':str,
+                type: "GET",
+                url:"http://192.168.43.87:5000/command",
+                data: {
+                    cmd: 'AA55'
                 },
                 dataType:"json",
                 async: true,
                 success: function(data) {
-                    alert("服务器返回的数据是"+data);
+                   /* alert("服务器返回的数据是"+data);
                     var cmd=data.cmd;
                     console.log(cmd);
                     var cmdToHexadecimal=cmd.toString(16);
-                    console.log(cmdToHexadecimal);
+                    console.log(cmdToHexadecimal);*/
                 },
             });
+
         });
     });
 
@@ -98,10 +99,10 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
         ,type: 'datetime'
     });
 
-    $reset.on('click',function () {//重置
-        // $searchForm[0].reset();
-        initTable();
-    });
+    // $reset.on('click',function () {//重置
+    //     // $searchForm[0].reset();
+    //     initTable();
+    // });
 
     //对外暴露的接口
     exports('theme/messagemanage/commandManage/commandAdd', {});
