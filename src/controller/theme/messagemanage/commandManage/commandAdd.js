@@ -70,8 +70,15 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
 
     $(function () {
         $('#btn').on('click',function () {
-            var params =getQueryParams();
-            console.log(params);
+           var command=$("#command").val();
+           var deviceId=$("#deviceId").val();
+           var sensorSerialNum=$("#sensorSerialNum").val();
+           var sensorNum=$("#sensorNum").val();
+           var sensorType=$("#sensorType").val();
+           var createTime=$("#createTime").val();
+           var sensorAddr=$("#sensorAddr").val();
+           alert(command+","+deviceId+","+sensorSerialNum+","+sensorNum+","+sensorType+","+createTime+","+sensorAddr);
+
         });
     });
     function getQueryParams(){
