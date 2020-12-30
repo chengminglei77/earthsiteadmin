@@ -124,12 +124,12 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
             },
             cols: [[
                 {type: 'checkbox',fixed: 'lift'},
-                {field: 'alarmInfo', title: '报警信息 ', minWidth: 120,align:'center',fixed: 'lift'},//对应后台idea的字段
-                {title: '处理状态', templet: '#check-state',minWidth:120,align:'center'},
+                {field: 'alarmInfo', title: '报警原因 ', minWidth: 120,align:'center',fixed: 'lift'},//对应后台idea的字段
                 {field: 'alarmTime', title: '报警时间', minWidth:180,align:'center'},
+                {field: 'alarmReason', title: '报警信息', minWidth: 180, sort: true,align:'center'},
+                {title: '处理状态', templet: '#check-state',minWidth:120,align:'center'},
                 {field: 'dealAdmin', title: '处理人', minWidth: 120, sort: true,align:'center'},
-                {field: 'dealTime', title: '处理时间',minWidth: 180, sort: true,align:'center'},
-                {field: 'alarmReason', title: '报警原因', minWidth: 180, sort: true,align:'center'},
+                // {field: 'dealTime', title: '处理时间',minWidth: 180, sort: true,align:'center'},
                 {title: '操作', toolbar: '#action-option', minWidth: 120, fixed: 'right'}
             ]],
         });
