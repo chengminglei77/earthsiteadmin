@@ -16,21 +16,33 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
     form.verify(validate);
     form.render();
 
-    // layui.use('table', function(){
-    //     var table = layui.table;
-    //     table.render({
-    //         elem: '#demo'
-    //         ,height: 312
-    //         ,url: '/demo/table/user/' //数据接口
-    //         ,page: true //开启分页
-    //         ,cols: [[ //表头
-    //             {field: 'KEY', title: '下发指令', width:350, sort: true, fixed: 'left'}
-    //             ,{field: 'value', title: '值', width:350}
-    //             ,{field: 'description', title: '描述信息', width:350}
-    //         ]]
-    //     });
-    //
-    // });
+
+    laydate.render({
+        elem: '#createTime',
+        range: true,
+        trigger: 'click',
+        position: 'fixed'
+    });
+    function getQueryParams() {
+        var createTimeFrom='',
+            createTimeTo='',
+
+            createTime = $searchForm.find('input[name="createTime"]').val();
+        //alert(createTime);
+        if (createTime) {
+            createTimeFrom = createTime.split(' - ')[0];
+            createTimeTo = createTime.split(' - ')[1];
+        }
+        return {
+            pageSize: 10,
+            pageNum: 1,
+            createTimeFrom: createTimeFrom,
+            createTimeTo: createTimeTo,
+            status: $searchForm.find('select[name="status"]').val(),
+            deleteState: $searchForm.find('select[name="delete_status"]').val(),
+        };
+    }
+
     var btn = document.getElementById("btn");
     $(function getValue(){
         var str=$("selectid option:selected").val();
@@ -55,13 +67,24 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
         });
     });
 
+
     $(function () {
         $('#btn').on('click',function () {
-            addCommandInfo();
-        })
+            var params =getQueryParams();
+            console.log(params);
+        });
     });
-    function addCommandInfo(){
-        lovexian.popup("theme/messagemanage/commandManage/command");
+    function getQueryParams(){
+            return {//根据find不同,调用不同的方法,其中dtuName对应queryDtuInfo,而status对应listByTypeId
+                deviceId: $searchForm.find('input[name="deviceId"]').val().trim(),//此处对应<input type="text" name="dtuName" autocomplete="off" class="layui-input">
+                command: $searchForm.find('select[name="command"]').val(),//此处对应html里面的select框:<select name="status">
+                sensorType: $searchForm.find('select[name="sensorType"]').val(),//此处对应html里面的select框:<select name="status">
+                sensorSerialNum:$searchForm.find('input[name="sensorSerialNum"]').val().trim(),
+                sensorNum:$searchForm.find('input[name="sensorNum"]').val().trim(),
+                sensorAddr:$searchForm.find('input[name="sensorAddr"]').val().trim(),
+
+            };
+        // lovexian.popup("theme/messagemanage/commandManage/command");
     }
 
 
@@ -99,10 +122,7 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
         ,type: 'datetime'
     });
 
-    // $reset.on('click',function () {//重置
-    //     // $searchForm[0].reset();
-    //     initTable();
-    // });
+
 
     //对外暴露的接口
     exports('theme/messagemanage/commandManage/commandAdd', {});

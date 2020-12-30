@@ -2,10 +2,12 @@
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
   ;
   <link rel="stylesheet" href="//src/lib/layui-v2.5.5/css/layui.css" media="all">
+
 </head>
 <script type="text/html" template lay-done="layui.data.sendParams(d.params)">
   <input type="text" style="display: none;" name="id" value="{{d.params.id||''}}">
 </script>
+
 
 <div class="layui-fluid layui-anim lovexian-anim" id="lovexian-command" lay-title="接口管理">
   <div class="layui-row lovexian-container">
@@ -13,36 +15,70 @@
       <div class="layui-card">
         <div class="layui-card-body lovexian-table-full">
           <div class="layui-row">
-            <form class="layui-form layui-table-form" lay-filter="action-table-form">
+            <form name="messageForm" class="layui-form layui-table-form" lay-filter="action-table-form">
               <div class="layui-row">
-                <div class="layui-col-md10">
-                  <div class="layui-form-item">
+                <div class="layui-col-md12">
+                  <div class="layui-form layui-form-item">
+                    <div class="layui-inline">
                     <label class="layui-form-label lovexian-form-item-require">下发命令</label>
                     <div class="layui-inline" style="width:200px !important">
-                      <select name="command" id="selectid" onclick="getValue()">
-                        <option value="">请选择</option>
-                        <option value="1">0x0A01</option>
-                        <option value="2">0x0A02</option>
-                        <option value="3">0x0A03</option>
-                        <option value="4">0x0A04</option>
-                        <option value="5">0x0A05</option>
-                        <option value="6">0x0A06</option>
-                        <option value="7">0x0A07</option>
-                        <option value="8">0x0A08</option>
-                        <option value="9">0x0A09</option>
+                      <select name="command" id="command" lay-filter="category" OnChange="messageReveal()">
+                        <option value="0">请选择</option>
+                        <option value="1">A1</option>
+                        <option value="2">A2</option>
+                        <option value="3">A3</option>
+                        <option value="4">A4</option>
+                        <option value="5">A5</option>
+                        <option value="7">A7</option>
+                        <option value="9">A9</option>
                       </select>
-                    </div><!--actiontitle 需要改变变量名称-->
+                    </div>
+                    </div>
                     <div class="layui-inline">
-                      <label class="layui-form-label layui-form-label-sm">Device_ID</label>
+                      <label  class="layui-form-label  lovexian-form-item-require layui-form-label-md ">设备ID</label>
                       <div class="layui-input-inline">
-<!--                        <input type="text" name="value" autocomplete="off" class="layui-input">-->
-                        <select name="deviceid" id="deviceid">
-                          <option value="">请选择</option>
-                          <option value="1">传感器ID</option>
-                          <option value="2">DTUID</option>
+                        <input type="text" id="deviceId" name="deviceId" autocomplete="off" class="layui-input">
+                      </div>
+                    </div>
+                    <div class="layui-inline">
+                      <label  class="layui-form-label layui-form-label-sm">传感器编号</label>
+                      <div class="layui-input-inline">
+                        <input type="text" id="sensorSerialNum" name="sensorSerialNum" autocomplete="off" class="layui-input">
+                      </div>
+                    </div>
+                    <div class="layui-inline">
+                      <label  class="layui-form-label layui-form-label-sm">传感器个数</label>
+                      <div class="layui-input-inline">
+                        <input type="text" id="sensorNum" name="sensorNum" autocomplete="off" class="layui-input">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="layui-form layui-form-item">
+                    <div class="layui-inline">
+                      <label class="layui-form-label lovexian-form-item-require">传感器类型</label>
+                      <div class="layui-inline" style="width:200px !important">
+                        <select name="sensorType" id="sensorType">
+                          <option value="0">请选择</option>
+                          <option value="1">01</option>
+                          <option value="2">02</option>
                         </select>
                       </div>
                     </div>
+
+                    <div class="layui-inline">
+                      <label  class="layui-form-label layui-form-label-md ">下发时间</label>
+                      <div class="layui-input-inline">
+                        <input type="text" name="createTime" id="createTime" class="layui-input">
+                      </div>
+                    </div>
+                    <div class="layui-inline">
+                      <label  class="layui-form-label layui-form-label-sm">传感器地址</label>
+                      <div class="layui-input-inline">
+                        <input type="text" name="sensorAddr" autocomplete="off" class="layui-input">
+                      </div>
+                    </div>
+                  </div>
+
                     <div class="layui-form-item magt3">
                       <label class="layui-form-label lovexian-form-item-require">描述</label>
                       <div class="layui-input-block">
@@ -51,6 +87,13 @@
                                     class="layui-textarea commandReason" name="description"></textarea>
                         </div>
                       </div><!--同样需要修改变量名称-->
+                    </div>
+                  <div class="layui-form layui-form-item">
+                    <div class="layui-inline">
+                      <label class="layui-form-label lovexian-form-item-require">数据</label>
+                      <div class="layui-inline" style="width:500px !important">
+                        <input type="text" name="data" autocomplete="off" class="layui-input">
+                      </div>
                     </div>
                   </div>
                   <button class="layui-btn layui-btn-normal" id="btn" onclick="threeFn() " lay-filter="execute" lay-submit><i
@@ -71,6 +114,8 @@
 
 
 <script>
+
+
   var starEle;
   var starNum = 0;
   layui.data.sendParams = function (params) {
