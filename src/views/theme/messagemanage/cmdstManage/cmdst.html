@@ -1,0 +1,118 @@
+<!--#include virtual="lawerDetail.html" -->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">;
+</head>
+<style>
+    .layui-table-cell {
+        height: 60px;
+        max-width: 200px;
+    }
+</style>
+<div class="layui-fluid layui-anim lovexian-anim" id="lovexian-alarm" lay-title="命令上报统计">
+    <div class="layui-row lovexian-container">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body lovexian-table-full">
+                    <div class="layui-row">
+                        <form class="layui-form layui-table-form" lay-filter="action-table-form">
+                            <div class="layui-row">
+                                <div class="layui-col-md10">
+                                    <div class="layui-form-item">
+                                        <div class="layui-inline">
+                                            <label class="layui-form-label layui-form-label-sm">设备名</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" name="createTime" id="createTime" class="layui-input">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-col-md2 layui-col-sm12 layui-col-xs12 table-action-area">
+                                    <div class="layui-btn layui-btn-sm layui-btn-primary table-action" name="query" title="搜索">
+                                        <i class="layui-icon">&#xe615;</i>
+                                    </div>
+                                    <div class="layui-btn layui-btn-sm layui-btn-primary table-action" name="reset" title="刷新">
+                                        <i class="layui-icon">&#xe669;</i>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+
+                        <div class="layui-tab layui-tab-brief" lay-filter="cmdstatisticsTab">
+                            <ul class="layui-tab-title">
+                                <li class="layui-this" lay-id="FS">风速传感器</li>
+                                <li lay-id="SD">湿度传感器</li>
+                                <li lay-id="A8">电量上报</li>
+                            </ul>
+                            <input hidden="hidden" id="actTypeId" value="">
+                            <!--景点信息开始-->
+                            <div class="layui-tab-content"><!--景点信息-->
+                                <div class="layui-fluid layui-tab-item">
+                                    <div class="layui-row"><!--表格展示-->
+                                        <table lay-filter="cmdstatisticsTable" id="cmdstatisticsTableFS" lay-data="{id: 'cmdstatisticsTableInfoTableFS'}">
+                                        </table>
+                                    </div>
+                                </div><!--景点信息结束-->
+                                <div class="layui-fluid layui-tab-item">
+                                    <div class="layui-row"><!--表格展示-->
+                                        <table lay-filter="cmdstatisticsTable" id="cmdstatisticsTableSD" lay-data="{id: 'cmdstatisticsTableInfoTableSD'}">
+                                        </table>
+                                    </div>
+                                </div><!--景点信息结束-->
+                                <div class="layui-fluid layui-tab-item">
+                                    <div class="layui-row"><!--表格展示-->
+                                        <table lay-filter="cmdstatisticsTable" id="cmdstatisticsTableA8" lay-data="{id: 'cmdstatisticsTableInfoTableA8'}">
+                                        </table>
+                                    </div>
+                                </div><!--景点信息结束-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="preview-layer">
+    <div class="preview-bg"></div>
+    <div class="preview-phone" id="previewPhone">
+        <iframe id="preview-html" name="preview-html" src="#/preview/preview-h5"></iframe>
+    </div>
+</div>
+
+<script type="text/html" id="check-state">
+    {{#
+    var status = {
+    1: {title: '已执行', color: 'blue'},
+    0: {title: '未执行', color: 'green'},
+    }[d.status];
+    }}
+    <span class="layui-badge lovexian-tag-{{ status.color}}">{{ status.title }}</span>
+</script>
+
+<script type="text/html" id="commandName">
+    {{#
+    var command = {
+    1: {title: '查询电量', color: 'purple'},
+    2: {title: '查询数据', color: 'magenta'},
+    3: {title: '改变频率', color: 'red'},
+    4: {title: '系统复位', color: 'orange'},
+    }[d.command];
+    }}
+    <span class="layui-badge lovexian-tag-{{command.color}}">{{ command.title }}</span>
+</script>
+
+<!--<script type="text/html" id="commandName">
+    {{#if (d.sex == 1) { }}
+    <span>男</span>
+    {{# }else if(d.sex == 2){ }}
+    <span>女</span>
+    {{# } }}
+</script>-->
+
+<script>
+    layui.use('theme/messagemanage/cmdstManage/cmdst', layui.factory('theme/messagemanage/cmdstManage/cmdst'));
+</script>
+
+</html>
