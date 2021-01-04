@@ -28,13 +28,7 @@
                                         <div class="layui-inline">
                                             <label class="layui-form-label layui-form-label-sm">命令信息</label>
                                             <div class="layui-input-inline">
-                                                <select name="command">
-                                                    <option value=""></option>
-                                                    <option value="1">查询电量</option>
-                                                    <option value="2">查询数据</option>
-                                                    <option value="3">改变频率</option>
-                                                    <option value="4">系统复位</option>
-                                                </select>
+                                                <input type="text" name="sendTime" id="command" class="layui-input">
                                             </div>
                                         </div>
                                     </div>
@@ -53,21 +47,28 @@
 
                         <div class="layui-tab layui-tab-brief" lay-filter="commandTab">
                             <ul class="layui-tab-title">
-                                <li class="layui-this" lay-id="0">未执行</li>
-                                <li lay-id="1">已执行</li>
+                                <li class="layui-this" lay-id="00">成功</li>
+                                <li lay-id="01">失败</li>
+                                <li lay-id="02">CRC失败</li>
                             </ul>
                             <input hidden="hidden" id="actTypeId" value="">
                             <!--景点信息开始-->
                             <div class="layui-tab-content"><!--景点信息-->
                                 <div class="layui-fluid layui-tab-item">
                                     <div class="layui-row"><!--表格展示-->
-                                        <table lay-filter="commandInfoTable" id="commandInfoTable0" lay-data="{id: 'commandInfoTable0'}">
+                                        <table lay-filter="commandInfoTable" id="commandInfoTable00" lay-data="{id: 'commandInfoTable00'}">
                                         </table>
                                     </div>
                                 </div><!--景点信息结束-->
                                 <div class="layui-fluid layui-tab-item">
                                     <div class="layui-row"><!--表格展示-->
-                                        <table lay-filter="commandInfoTable" id="commandInfoTable1" lay-data="{id: 'commandInfoTable1'}">
+                                        <table lay-filter="commandInfoTable" id="commandInfoTable01" lay-data="{id: 'commandInfoTable01'}">
+                                        </table>
+                                    </div>
+                                </div><!--景点信息结束-->
+                                <div class="layui-fluid layui-tab-item">
+                                    <div class="layui-row"><!--表格展示-->
+                                        <table lay-filter="commandInfoTable" id="commandInfoTable02" lay-data="{id: 'commandInfoTable02'}">
                                         </table>
                                     </div>
                                 </div><!--景点信息结束-->
@@ -89,23 +90,12 @@
 <script type="text/html" id="check-state">
     {{#
     var status = {
-    1: {title: '已执行', color: 'blue'},
-    0: {title: '未执行', color: 'green'},
+    00: {title: '成功', color: 'green'},
+    01: {title: '失败', color: 'blue'},
+    02: {title: 'CRC校验失败', color: 'orange'},
     }[d.status];
     }}
     <span class="layui-badge lovexian-tag-{{ status.color}}">{{ status.title }}</span>
-</script>
-
-<script type="text/html" id="commandName">
-    {{#
-    var command = {
-    1: {title: '查询电量', color: 'purple'},
-    2: {title: '查询数据', color: 'magenta'},
-    3: {title: '改变频率', color: 'red'},
-    4: {title: '系统复位', color: 'orange'},
-    }[d.command];
-    }}
-    <span class="layui-badge lovexian-tag-{{command.color}}">{{ command.title }}</span>
 </script>
 
 <!--<script type="text/html" id="commandName">
