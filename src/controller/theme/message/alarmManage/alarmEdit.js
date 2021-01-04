@@ -95,5 +95,5 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
         });
     //}
     //对外暴露的接口
-    exports('theme/messagemanage/alarmManage/alarmEdit', {});
+    exports('theme/message/alarmManage/alarmEdit', {});
 });

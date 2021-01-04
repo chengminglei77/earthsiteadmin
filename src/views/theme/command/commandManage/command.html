@@ -1,0 +1,113 @@
+<!--#include virtual="lawerDetail.html" -->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">;
+</head>
+<style>
+    .layui-table-cell {
+        height: 60px;
+        max-width: 200px;
+    }
+</style>
+<div class="layui-fluid layui-anim lovexian-anim" id="lovexian-alarm" lay-title="命令历史信息">
+    <div class="layui-row lovexian-container">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body lovexian-table-full">
+                    <div class="layui-row">
+                        <form class="layui-form layui-table-form" lay-filter="action-table-form">
+                            <div class="layui-row">
+                                <div class="layui-col-md10">
+                                    <div class="layui-form-item">
+                                        <div class="layui-inline">
+                                            <label class="layui-form-label layui-form-label-sm">发送时间</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" name="sendTime" id="sendTime" class="layui-input">
+                                            </div>
+                                        </div>
+                                        <div class="layui-inline">
+                                            <label class="layui-form-label layui-form-label-sm">命令信息</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" name="sendTime" id="command" class="layui-input">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-col-md2 layui-col-sm12 layui-col-xs12 table-action-area">
+                                    <div class="layui-btn layui-btn-sm layui-btn-primary table-action" name="query" title="搜索">
+                                        <i class="layui-icon">&#xe615;</i>
+                                    </div>
+                                    <div class="layui-btn layui-btn-sm layui-btn-primary table-action" name="reset" title="刷新">
+                                        <i class="layui-icon">&#xe669;</i>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+
+                        <div class="layui-tab layui-tab-brief" lay-filter="commandTab">
+                            <ul class="layui-tab-title">
+                                <li class="layui-this" lay-id="00">成功</li>
+                                <li lay-id="01">失败</li>
+                                <li lay-id="02">CRC失败</li>
+                            </ul>
+                            <input hidden="hidden" id="actTypeId" value="">
+                            <!--景点信息开始-->
+                            <div class="layui-tab-content"><!--景点信息-->
+                                <div class="layui-fluid layui-tab-item">
+                                    <div class="layui-row"><!--表格展示-->
+                                        <table lay-filter="commandInfoTable" id="commandInfoTable00" lay-data="{id: 'commandInfoTable00'}">
+                                        </table>
+                                    </div>
+                                </div><!--景点信息结束-->
+                                <div class="layui-fluid layui-tab-item">
+                                    <div class="layui-row"><!--表格展示-->
+                                        <table lay-filter="commandInfoTable" id="commandInfoTable01" lay-data="{id: 'commandInfoTable01'}">
+                                        </table>
+                                    </div>
+                                </div><!--景点信息结束-->
+                                <div class="layui-fluid layui-tab-item">
+                                    <div class="layui-row"><!--表格展示-->
+                                        <table lay-filter="commandInfoTable" id="commandInfoTable02" lay-data="{id: 'commandInfoTable02'}">
+                                        </table>
+                                    </div>
+                                </div><!--景点信息结束-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="preview-layer">
+    <div class="preview-bg"></div>
+    <div class="preview-phone" id="previewPhone">
+        <iframe id="preview-html" name="preview-html" src="#/preview/preview-h5"></iframe>
+    </div>
+</div>
+
+<script type="text/html" id="check-state">
+    {{#
+    var status = {
+    00: {title: '成功', color: 'green'},
+    01: {title: '失败', color: 'blue'},
+    02: {title: 'CRC校验失败', color: 'orange'},
+    }[d.status];
+    }}
+    <span class="layui-badge lovexian-tag-{{ status.color}}">{{ status.title }}</span>
+</script>
+
+<!--<script type="text/html" id="commandName">
+    {{#if (d.sex == 1) { }}
+    <span>男</span>
+    {{# }else if(d.sex == 2){ }}
+    <span>女</span>
+    {{# } }}
+</script>-->
+
+<script>
+    layui.use('theme/command/commandManage/command', layui.factory('theme/command/commandManage/command'));
+</script>
+
+</html>

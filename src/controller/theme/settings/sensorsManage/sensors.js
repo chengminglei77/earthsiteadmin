@@ -84,9 +84,9 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
 
     function addSensorInfo(data,isEdit){
         // console.log(isEdit);
-        lovexian.popup("theme/settings/sensorsAdd",isEdit?"编辑传感器信息":"添加传感器信息",$.extend(data,{isEdit:isEdit}),function () {
+        lovexian.popup("theme/settings/sensorsManage/sensorsAdd",isEdit?"编辑传感器信息":"添加传感器信息",$.extend(data,{isEdit:isEdit}),function () {
                 if(isEdit===1) {
-                    layui.use('theme/settings/sensorsAdd', layui.factory('theme/settings/sensorsAdd'));
+                    layui.use('theme/settings/sensorsManage/sensorsAdd', layui.factory('theme/settings/sensorsManage/sensorsAdd'));
                     form.val("lawerForm",{//此处显示修改时框内显示的内容.显示原来未修改时的信息
                         "id":data.id,
                         "sensorId":data.sensorId,
@@ -98,7 +98,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
                     });
                     $('.thumbImg').attr("src",data.lawerHeadPhoto);
                 } else{
-                    layui.use('theme/settings/sensorsAdd', layui.factory('theme/settings/sensorsAdd'));
+                    layui.use('theme/settings/sensorsManage/sensorsAdd', layui.factory('theme/settings/sensorsManage/sensorsAdd'));
                 }
             },
             function () {
@@ -272,5 +272,5 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
 
 
     //对外暴露的接口
-    exports('theme/settings/sensors', {});
+    exports('theme/settings/sensorsManage/sensors', {});
 });

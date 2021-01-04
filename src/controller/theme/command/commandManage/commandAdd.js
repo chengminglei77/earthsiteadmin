@@ -115,7 +115,7 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
             lovexian.alert.success('执行成功');
             // $('#lovexian-job').find('#query').click();
         });
-        layui.use('theme/messagemanage/commandManage/command', layui.factory('theme/messagemanage/commandManage/command'));
+        layui.use('theme/command/commandManage/command', layui.factory('theme/command/commandManage/command'));
         layer.closeAll();
         return false;
     });
@@ -136,5 +136,5 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
 
 
     //对外暴露的接口
-    exports('theme/messagemanage/commandManage/commandAdd', {});
+    exports('theme/command/commandManage/commandAdd', {});
 });
