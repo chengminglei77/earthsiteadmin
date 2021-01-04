@@ -42,7 +42,11 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
             deleteState: $searchForm.find('select[name="delete_status"]').val(),
         };
     }
-
+    $("#command").on("change",function () {
+        if ($('#command option:selected').val()=="A1"){
+            
+        }
+    })
     var btn = document.getElementById("btn");
     $(function getValue(){
         var str=$("selectid option:selected").val();
@@ -94,7 +98,7 @@ layui.define(['form','layer','admin','layedit','lovexian','laydate','upload','ba
         // lovexian.popup("theme/messagemanage/commandManage/command");
     }
 
-
+    
     form.on("submit(execute)",function(data){
 
         var id = $("input[name='id']").val();     //input[name='id']是访问input对象id属性
