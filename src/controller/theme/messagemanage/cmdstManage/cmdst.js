@@ -3,7 +3,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
         admin = layui.admin,
         laydate = layui.laydate,
         setter = layui.setter,
-        $view = $('#lovexian-alarm'),//与html中id相同
+        $view = $('#lovexian-cmdst'),//与html中id相同
         laytpl = layui.laytpl,
         lovexian = layui.lovexian,
         dropdown = layui.dropdown,
@@ -52,14 +52,21 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
                 Authentication: layui.data(setter.tableName)[setter.TOKENNAME]
             },
             cols: [[
-                {field: 'frameNum', title: '帧序号', minWidth: 100,align:'center',fixed: 'lift'},
-                {field: 'settingID', title: '设备名', minWidth: 100,align:'center'},
-                {field: 'data', title: '数据帧',minWidth: 250, sort: true,align:'center'},
-                {field: 'colTime', title: '采集时间', minWidth:180,align:'center'},
+                {field: 'frameNum', title: '帧序号', Width: 50,align:'center',fixed: 'lift'},
+                {field: 'settingID', title: '设备名', Width: 80,align:'center'},
+                {field: 'data', title: '数据帧',Width: 300, sort: true,align:'center'},
+                {field: 'colTime', title: '采集时间', Width:180,align:'center'},
             ]],
         });
     }
 
+    function getQueryParams() {
+        return {
+            pageSize: 10,
+            pageNum: 1,
+            frameNum: $searchForm.find('input[name="settingID"]').val(),
+        };
+    }
 
     $query.on('click',function () {
         var params = getQueryParams();
