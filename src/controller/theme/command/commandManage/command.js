@@ -94,5 +94,5 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
     });
 
     //对外暴露的接口
-    exports('theme/messagemanage/commandManage/command', {});
+    exports('theme/command/commandManage/command', {});
 });

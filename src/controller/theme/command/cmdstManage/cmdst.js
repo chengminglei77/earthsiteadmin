@@ -80,5 +80,5 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
     });
 
     //对外暴露的接口
-    exports('theme/messagemanage/cmdstManage/cmdst', {});
+    exports('theme/command/cmdstManage/cmdst', {});
 });
