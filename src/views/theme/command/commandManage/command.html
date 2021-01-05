@@ -90,9 +90,9 @@
 <script type="text/html" id="check-state">
     {{#
     var status = {
-    00: {title: '成功', color: 'green'},
-    01: {title: '失败', color: 'blue'},
-    02: {title: 'CRC校验失败', color: 'orange'},
+    '00': {title: '成功', color: 'green'},
+    '01': {title: '失败', color: 'blue'},
+    '02': {title: 'CRC校验失败', color: 'orange'},
     }[d.status];
     }}
     <span class="layui-badge lovexian-tag-{{ status.color}}">{{ status.title }}</span>
