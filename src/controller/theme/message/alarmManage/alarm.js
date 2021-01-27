@@ -124,7 +124,6 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
             },
             cols: [[
                 {type: 'checkbox',fixed: 'lift'},
-                {field: 'alarmInfo', title: '报警', minWidth: 120,align:'center',fixed: 'lift'},//对应后台idea的字段
                 {field: 'alarmTime', title: '报警时间', minWidth:180,align:'center'},
                 {field: 'alarmReason', title: '报警原因', minWidth: 180, sort: true,align:'center'},
                 {title: '处理状态', templet: '#check-state',minWidth:120,align:'center'},
