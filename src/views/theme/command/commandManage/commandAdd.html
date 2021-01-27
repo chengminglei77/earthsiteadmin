@@ -22,7 +22,7 @@
                     <div class="layui-inline">
                     <label class="layui-form-label lovexian-form-item-require">下发命令</label>
                     <div class="layui-inline" style="width:200px !important">
-                      <select name="command" id="command" lay-filter="category">
+                      <select name="command" id="command" lay-filter="category" onchange="changeType()">
                         <option value="0">请选择</option>
                         <option value="A1">A1</option>
                         <option value="A2">A2</option>
@@ -59,20 +59,15 @@
                       <div class="layui-inline" style="width:200px !important">
                         <select name="sensorType" id="sensorType">
                           <option value="0">请选择</option>
-                          <option value="1">01</option>
-                          <option value="2">02</option>
+                          <option value="01">湿度传感器</option>
+                          <option value="02">风速传感器</option>
+                          <option value="03">水盐传感器</option>
                         </select>
                       </div>
                     </div>
 
                     <div class="layui-inline">
-                      <label  class="layui-form-label layui-form-label-md ">下发时间</label>
-                      <div class="layui-input-inline">
-                        <input type="text" name="createTime" id="createTime" class="layui-input">
-                      </div>
-                    </div>
-                    <div class="layui-inline">
-                      <label  class="layui-form-label layui-form-label-sm">传感器地址</label>
+                      <label  class="layui-form-label layui-form-label-md ">传感器地址</label>
                       <div class="layui-input-inline">
                         <input type="text" id="sensorAddr" name="sensorSerialNum" autocomplete="off" class="layui-input">
                       </div>
@@ -89,10 +84,13 @@
                       </div><!--同样需要修改变量名称-->
                     </div>
                   <div class="layui-form layui-form-item">
+                    <button class="layui-btn layui-btn-normal" id="crc" onclick="crc() " lay-filter="execute" lay-submit><i
+                            class="layui-icon">&#xe621;</i>CRC校验
+                    </button>
                     <div class="layui-inline">
                       <label class="layui-form-label lovexian-form-item-require">数据</label>
                       <div class="layui-inline" style="width:500px !important">
-                        <input type="text" name="data" autocomplete="off" class="layui-input">
+                        <input type="text" id="crcData" name="data" autocomplete="off" class="layui-input">
                       </div>
                     </div>
                   </div>
@@ -114,9 +112,17 @@
 
 
 <script>
+  function changeType() {
+    if ($('#command option:selected').val()=="A1"){
+            $('#sensorNum').style.display=="none";
+        }
+    else if ($('#command option:selected').val()=="A2"){
+      $('#sensorNum').style.display=="none";
+    }
+  }
 
 
-  var starEle;
+var starEle;
   var starNum = 0;
   layui.data.sendParams = function (params) {
     if (params.isEdit) {

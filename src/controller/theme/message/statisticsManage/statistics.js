@@ -125,10 +125,8 @@ var typeId=1;
                 {field: 'eqDuration', title: '工作时间 ', minWidth: 120,align:'center'},//对应后台idea的字段
                 //{field: 'recordNms', title: '记录数', minWidth:180,align:'center'},
                 {field: 'packetSize', title: '信息包总量', minWidth: 120, sort: true,align:'center'},
-                {field: 'breakdownNms', title: '故障次数',minWidth: 120, sort: true,align:'center'},
-                {field: 'gatewayRecords', title: '网关记录数', minWidth: 120, sort: true,align:'center'},
                 {field: 'infoTotal', title: '信息总量', minWidth: 120, sort: true,align:'center'},
-                {field: 'updatedAt', title: '报警时间', minWidth: 120, sort: true,align:'center'},
+                {field: 'updatedAt', title: '更新时间', minWidth: 120, sort: true,align:'center'},
                 //{field: 'type', title: '设备类型', minWidth: 180, sort: true,align:'center'},
                 {title: '操作', toolbar: '#action-option', minWidth: 120, fixed: 'right'}
             ]],
