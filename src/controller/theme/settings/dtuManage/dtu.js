@@ -255,6 +255,31 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
             });
 
         }
+
+        if (layEvent == 'alarmInfo'){
+            lovexian.get(proPath + "/admin/alarmInfo/dtuAlarmInfoHistory",{"dtuId":data.dtuId},function (res) {
+                if (res.status = '200'){
+                    admin.popup({
+                        id: 'LAY-theme-action-check',
+                        area: ['400px','80%'],
+                        shadeClose: 0,
+                        title: '历史报警信息',
+                        success:function () {
+                            console.log(res.data.dtuName);
+                            viewDtu(this.id).render('common/dtuAlarmInfo',{
+                                history: res.data.rows,
+                            }).then(function () {
+                                //视图文件请求完毕，试图内容渲染回顾
+                            }).done(function () {
+                                //视图文件请求完毕和内容渲染完毕的回顾
+                            });
+                        }
+                    });
+                }else {
+                    lovexian.alert.error("获取历史报警信息失败!");
+                }
+            });
+        }
     });//操作
 
 
