@@ -123,7 +123,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
                 {field: 'createdAt', title: '部署时间', minWidth: 180, sort: true,align:'center'},
                 {field: 'updatedAt', title: '更新时间',minWidth: 180, sort: true,align:'center'},
                 {field: 'sensorFrequency', title: '采集频率',minWidth: 180, sort: true,align:'center'},
-                {title: '操作', toolbar: '#action-option', minWidth: 120, fixed: 'right'}
+                {title: '操作', toolbar: '#action-option', minWidth: 180, fixed: 'right'}
             ]],
         });
     }
