@@ -149,13 +149,18 @@
     <a lay-event="sel" title="查看相连的传感器"><i class="layui-icon lovexian-edit-area lovexian-purple">&#xe783;</i></a>
     {{# } }}
 
+    {{# if(hasPermission(['alarmInfo:list'])) { }}
+    <a lay-event="alarmInfo" title="查看历史报警信息"><i class="layui-icon lovexian-edit-area lovexian-purple">&#xe921;</i></a>
+    {{# } }}
+
     {{# if(d.deleteState==1) { }}
     <a lay-event="restore" title="还原"><i class="layui-icon lovexian-edit-area lovexian-blue">&#xe603;</i></a>
     {{# } }}
     {{# if(d.deleteState==1) { }}
     <a lay-event="del" title="彻底删除"><i class="layui-icon lovexian-edit-area lovexian-red">&#xe640;</i></a>
     {{# } }}
-    {{# if(lacksPermission(['gatewayInfo:list','gatewayInfo:add','gatewayInfo:del'])) { }}
+    {{# if(lacksPermission(['gatewayInfo:list','gatewayInfo:add','gatewayInfo:del']))
+    { }}
     <span>
             <span class="layui-badge-dot lovexian-bg-orange">无权限</span>
     </span>
