@@ -99,7 +99,7 @@ layui.define(['form', 'layer', 'admin', 'layedit', 'lovexian', 'laydate', 'uploa
   //   }
   //   return arr;
   // };
-  //
+
   // CRC.strToHex = function (hex, isFilterChinese) {
   //   hex = isFilterChinese ? CRC.filterChinese(hex).join('') : CRC.convertChinese(hex).join('');
   //
@@ -114,7 +114,7 @@ layui.define(['form', 'layer', 'admin', 'layedit', 'lovexian', 'laydate', 'uploa
   //   }
   //   return arr;
   // };
-  //
+
   // CRC.padLeft = function (s, w, pc) {
   //   if (pc == undefined) {
   //     pc = '0';
@@ -153,10 +153,38 @@ layui.define(['form', 'layer', 'admin', 'layedit', 'lovexian', 'laydate', 'uploa
     }
     return crc;
   };
-  // module.exports = {
+
+
+  CRC.stringToBytes =function ( str ) {
+
+    var result = [];
+    var list = str.split("");
+    for(var i=0;i<list.length;i++){
+      // if(i != 0){
+      //   //加空格，分割二进制
+      //   result.push(" ");
+      // }
+      var item = list[i];
+
+      //将字符串转化为10进制数据
+      var binaryStr = item.toString(16);
+      var res1=str_pad(binaryStr);
+      result.push(res1);
+
+    }
+    console.log(result);
+    return result.join("");
+  };
+
+  // var num = 444;
   //
-  //   crc16: crc16,
-  // }
+  // var hex_num = num.toString(16);
+  // console.log(hex_num);
+  function str_pad(hex){
+    var zero = '00';
+    var tmp  = 2-hex.length;
+    return '0x' + zero.substr(0,tmp) + hex;
+  }
 
   $(function () {
     $('#crc').on('click', function () {
@@ -166,8 +194,18 @@ layui.define(['form', 'layer', 'admin', 'layedit', 'lovexian', 'laydate', 'uploa
       var sensorNum = $("#sensorNum").val();
       var sensorType = $("#sensorType").val();
       var sensorAddr = $("#sensorAddr").val();
-      alert(CRC.CRC16('12345678',true));
-      alert(CRC.CRC16('12345678',false));
+
+      var num='12345678';
+      var bytes = [];
+      bytes = CRC.stringToBytes(num);
+      console.log(bytes);
+
+      // var change=bytes.toString(16);
+      // console.log(change);
+      var hex=CRC.CRC16(bytes);
+      alert(hex.toString(16));
+
+      // alert(CRC.CRC16('12345678',false));
 
       // alert(CRC.ToCRC16('AA5501A4000302000A', true));
       // alert(CRC.ToCRC16('AA5501A4000302000A', false));
