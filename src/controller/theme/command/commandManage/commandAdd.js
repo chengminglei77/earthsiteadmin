@@ -17,130 +17,51 @@ layui.define(['form', 'layer', 'admin', 'layedit', 'lovexian', 'laydate', 'uploa
   form.render();
 
 
-  // $("#command").on("change",function () {
-  //     if ($('#command option:selected').val()=="A1"){
-  //       $('#sensorNum').hide();
-  //     }
-  // })
+  form.on('select(command)', function(data){
+    // console.log(data);
+    // console.log(data.elem); //得到select原始DOM对象
+    // console.log(data.value); //得到被选中的值
+    // console.log(data.othis); //得到美化后的DOM对象
+      var command =data.value;
+    console.log(command);
+    // switch (command) {
+    //   case 'A1':$("#sensorSerialNum").removeAttr("disabled");
+    //   case 'A2':$("#sensorSerialNum").attr("disabled", true).addClass('layui-disabled');
+    //             $("#sensorType").attr("disabled", true).addClass('layui-disabled');
+    //             $("#sensorAddr").attr("disabled", true).addClass('layui-disabled');
+    // }
+    if(command=="A1"||command=="0")  {
+      $("#sensorSerialNum").removeAttr("disabled");
+      $("#sensorType").removeAttr("disabled");
+      $("#sensorNum").removeAttr("disabled");
+      $("#sensorAddr").removeAttr("disabled");
+
+      }
+    else if(command=="A2"||command=='A4'||command == 'A5'||command == 'A7'||command=='A9'){
+      $("#sensorSerialNum").attr("disabled", true).addClass('layui-disabled');
+        $("#sensorType").attr("disabled", true);
+      $("#sensorNum").attr("disabled", true).addClass('layui-disabled');
+      $("#sensorAddr").attr("disabled", true).addClass('layui-disabled');
+
+  }
+    else if(command=='A3'){
+      $("#sensorSerialNum").attr("disabled", true).addClass('layui-disabled');
+      $("#sensorType").attr("disabled", true);
+      $("#sensorAddr").attr("disabled", true).addClass('layui-disabled');
+    }
 
 
-//CRC-16MODEBUS校验代码
+    form.render('select');
+  });
+
 
   var CRC = {};
 
-  // CRC.CRC16 = function (data) {
-  //   var len = data.length;
-  //   if (len > 0) {
-  //     var crc = 0xFFFF;
-  //
-  //     for (var i = 0; i < len; i++) {
-  //       crc = (crc ^ (data[i]));
-  //       for (var j = 0; j < 8; j++) {
-  //         crc = (crc & 1) != 0 ? ((crc >> 1) ^ 0xA001) : (crc >> 1);
-  //       }
-  //     }
-  //     var hi = ((crc & 0xFF00) >> 8);  //高位置
-  //     var lo = (crc & 0x00FF);         //低位置
-  //
-  //     return [hi, lo];
-  //   }
-  //   return [0, 0];
-  // };
-  //
-  // CRC.isArray = function (arr) {
-  //   return Object.prototype.toString.call(arr) === '[object Array]';
-  // };
-  //
-  // CRC.ToCRC16 = function (str, isReverse) {
-  //   return CRC.toString(CRC.CRC16(CRC.isArray(str) ? str : CRC.strToByte(str)), isReverse);
-  // };
-  //
-  // CRC.ToModbusCRC16 = function (str, isReverse) {
-  //   return CRC.toString(CRC.CRC16(CRC.isArray(str) ? str : CRC.strToHex(str)), isReverse);
-  // };
-  //
-  // CRC.strToByte = function (str) {
-  //   var tmp = str.split(''), arr = [];
-  //   for (var i = 0, c = tmp.length; i < c; i++) {
-  //     var j = encodeURI(tmp[i]);
-  //     if (j.length == 1) {
-  //       arr.push(j.charCodeAt());
-  //     } else {
-  //       var b = j.split('%');
-  //       for (var m = 1; m < b.length; m++) {
-  //         arr.push(parseInt('0x' + b[m]));
-  //       }
-  //     }
-  //   }
-  //   return arr;
-  // };
-  //
-  // CRC.convertChinese = function (str) {
-  //   var tmp = str.split(''), arr = [];
-  //   for (var i = 0, c = tmp.length; i < c; i++) {
-  //     var s = tmp[i].charCodeAt();
-  //     if (s <= 0 || s >= 127) {
-  //       arr.push(s.toString(16));
-  //     }
-  //     else {
-  //       arr.push(tmp[i]);
-  //     }
-  //   }
-  //   return arr;
-  // };
-  //
-  // CRC.filterChinese = function (str) {
-  //   var tmp = str.split(''), arr = [];
-  //   for (var i = 0, c = tmp.length; i < c; i++) {
-  //     var s = tmp[i].charCodeAt();
-  //     if (s > 0 && s < 127) {
-  //       arr.push(tmp[i]);
-  //     }
-  //   }
-  //   return arr;
-  // };
-
-  // CRC.strToHex = function (hex, isFilterChinese) {
-  //   hex = isFilterChinese ? CRC.filterChinese(hex).join('') : CRC.convertChinese(hex).join('');
-  //
-  //   //清除所有空格
-  //   hex = hex.replace(/\s/g, "");
-  //   //若字符个数为奇数，补一个0
-  //   hex += hex.length % 2 != 0 ? "0" : "";
-  //
-  //   var c = hex.length / 2, arr = [];
-  //   for (var i = 0; i < c; i++) {
-  //     arr.push(parseInt(hex.substr(i * 2, 2), 16));
-  //   }
-  //   return arr;
-  // };
-
-  // CRC.padLeft = function (s, w, pc) {
-  //   if (pc == undefined) {
-  //     pc = '0';
-  //   }
-  //   for (var i = 0, c = w - s.length; i < c; i++) {
-  //     s = pc + s;
-  //   }
-  //   return s;
-  // };
-  //
-  // CRC.toString = function (arr, isReverse) {
-  //   if (typeof isReverse == 'undefined') {
-  //     isReverse = true;
-  //   }
-  //   var hi = arr[0], lo = arr[1];
-  //   return CRC.padLeft((isReverse ? hi + lo * 0x100 : hi * 0x100 + lo).toString(16).toUpperCase(), 4, '0');
-  // };
-
-
-
   CRC.CRC16 = function (bytes) {
     let crc = 0x0000; // initial value
-    let polynomial = 0x1021;// poly value reversed 0x1021; 0x8408
+    let polynomial = 0x8408;// poly value reversed 0x1021; 0x8408
 
-    let i, j;
-    for (i = 0; i < bytes.length; i++) {
+    for (var i = 0; i < bytes.length; i++) {
       crc ^= (bytes[i] & 0x000000ff);
       for (j = 0; j < 8; j++) {
         if ((crc & 0x00000001) != 0) {
@@ -151,42 +72,25 @@ layui.define(['form', 'layer', 'admin', 'layedit', 'lovexian', 'laydate', 'uploa
         }
       }
     }
-    return crc;
-  };
+
+    // console.log(crc.toString(16));
+    return (crc.toString(16));
+  }
 
 
-  CRC.stringToBytes =function ( str ) {
-
-    var result = [];
-    var list = str.split("");
-    for(var i=0;i<list.length;i++){
-      // if(i != 0){
-      //   //加空格，分割二进制
-      //   result.push(" ");
-      // }
-      var item = list[i];
-
-      //将字符串转化为10进制数据
-      var binaryStr = item.toString(16);
-      var res1=str_pad(binaryStr);
-      result.push(res1);
-
-    }
-    console.log(result);
-    return result.join("");
-  };
-
-  // var num = 444;
-  //
-  // var hex_num = num.toString(16);
-  // console.log(hex_num);
   function str_pad(hex){
-    var zero = '00';
-    var tmp  = 2-hex.length;
-    return '0x' + zero.substr(0,tmp) + hex;
+    if (hex<10){
+      return '0x'+'0'+hex;
+    }
+    else {
+      return '0x'+hex;
+    }
   }
 
   $(function () {
+    $("#command").on('click',function () {
+      console.log('A1')
+    });
     $('#crc').on('click', function () {
       var command = $("#command").val();
       var deviceId = $("#deviceId").val();
@@ -195,26 +99,127 @@ layui.define(['form', 'layer', 'admin', 'layedit', 'lovexian', 'laydate', 'uploa
       var sensorType = $("#sensorType").val();
       var sensorAddr = $("#sensorAddr").val();
 
-      var num='12345678';
-      var bytes = [];
-      bytes = CRC.stringToBytes(num);
-      console.log(bytes);
 
-      // var change=bytes.toString(16);
-      // console.log(change);
-      var hex=CRC.CRC16(bytes);
-      alert(hex.toString(16));
+      if (command=='A1'){
+        var data=[Number(deviceId),Number(sensorSerialNum),Number(sensorType),Number(sensorAddr)];
+        var data_len=data.length;
+        var encrc=[0xAA,0x55,0x00,parseInt(("0x"+command)) ,data_len,Number(deviceId),Number(sensorSerialNum),Number(sensorType),Number(sensorAddr)];
+        console.log("encrc1:",encrc);
 
-      // alert(CRC.CRC16('12345678',false));
+        var crc=CRC.CRC16(encrc);
+        console.log("crc:",crc);
 
-      // alert(CRC.ToCRC16('AA5501A4000302000A', true));
-      // alert(CRC.ToCRC16('AA5501A4000302000A', false));
-      // alert(command + deviceId + sensorSerialNum + sensorNum + sensorType + sensorAddr);
-      var crc=CRC.CRC16(command + deviceId + sensorSerialNum + sensorNum + sensorType + sensorAddr, false);
-      // alert(crc);
-      var cmd = "AA55" + command + deviceId + sensorSerialNum + sensorNum + sensorType + sensorAddr + crc + "55AA";
-      $('#crcData').val(cmd);
-      // alert(cmd);
+
+        var cmd = ['0xAA55','0x00','0x'+command ,'0x0'+data_len,'0x0'+deviceId,'0x0'+Number(sensorSerialNum),'0x0'+Number(sensorType),'0x0'+Number(sensorAddr),'0x'+crc,'0x55AA'];
+        $('#crcData').val(cmd);
+      }
+      else if (command=='A2'){
+        var encrc2=[0xAA,0x55,0x00,parseInt(("0x"+command)) ,0x00,0x01,Number(deviceId)];
+        console.log("encrc2:",encrc2);
+
+        var crc=CRC.CRC16(encrc2);
+        console.log("crc2:",crc);
+
+        var cmd = ['0xAA55','0x00',("0x"+command) ,'0x0001','0x0'+Number(deviceId),'0x'+crc,'0x55AA'];
+        $('#crcData').val(cmd);
+      }
+      else if (command=='A3') {
+        var encrc3=[0xAA,0x55,0x00,parseInt(("0x"+command)) ,0x00,0x02,Number(deviceId),Number(sensorNum)];
+        console.log("encrc3:",encrc3);
+
+        var crc=CRC.CRC16(encrc3);
+        console.log("crc3:",crc);
+
+        var cmd = ['0xAA55','0x00',("0x"+command) ,'0x0002','0x0'+Number(deviceId),'0x0'+Number(sensorNum),'0x'+crc,'0x55AA'];
+        $('#crcData').val(cmd);
+      }
+      else if (command=='A4'){
+
+        var encrc4=[0xAA,0x55,0x00,parseInt(("0x"+command)) ,0x00,0x03,Number(deviceId)];
+        console.log("encrc4:",encrc4);
+
+        var crc=CRC.CRC16(encrc4);
+        console.log("crc4:",crc);
+
+        var cmd = ['0xAA55','0x00',("0x"+command) ,'0x0003','0x0'+Number(deviceId),'0x'+crc,'0x55AA'];
+        $('#crcData').val(cmd);
+      }
+      else if (command=='A5'){
+
+        var encrc5=[0xAA,0x55,0x00,parseInt(("0x"+command)) ,0x00,0x01,Number(deviceId)];
+        console.log("encrc5:",encrc5);
+
+        var crc=CRC.CRC16(encrc5);
+        console.log("crc5:",crc);
+
+        var cmd = ['0xAA55','0x00',("0x"+command) ,'0x0001','0x0'+Number(deviceId),'0x'+crc,'0x55AA'];
+        $('#crcData').val(cmd);
+      }
+      else if (command=='A7'){
+        var encrc7=[0xAA,0x55,0x00,parseInt(("0x"+command)) ,0x00,0x01,Number(deviceId)];
+        console.log("encrc7:",encrc7);
+
+        var crc=CRC.CRC16(encrc7);
+        console.log("crc7:",crc);
+
+        var cmd = ['0xAA55','0x00',("0x"+command) ,'0x0001','0x0'+Number(deviceId),'0x'+crc,'0x55AA'];
+        $('#crcData').val(cmd);
+      }
+      else if (command=='A9'){
+        var encrc9=[0xAA,0x55,0x00,parseInt(("0x"+command)) ,0x00,0x01,Number(deviceId)];
+        console.log("encrc9:",encrc9);
+
+        var crc=CRC.CRC16(encrc9);
+        console.log("crc9:",crc);
+
+        var cmd = ['0xAA55','0x00',("0x"+command) ,'0x0001','0x0'+Number(deviceId),'0x'+crc,'0x55AA'];
+        $('#crcData').val(cmd);
+      }
+
+
+
+
+      // 测试(1)	设置上报数据的传感器类型和传感器地址：0xA1
+      // var str=[0xAA,0x55,0x00,0xA1,0x04,0x01,0x02,0x01,0x04];
+      // console.log(str);
+      // var hex=CRC.CRC16(str);
+      // console.log(hex);
+
+      //测试（2）：获取当前上报数据的传感器类型和传感器地址以及传感器个数：0xA2
+      // var str=[0xAA,0x55,0x00,0xA2,0x00,0x01,0x01];
+      // console.log(str);
+      // var hex=CRC.CRC16(str);
+      // console.log(hex);
+
+      //测试(3)	删除某个上报数据的传感器：0xA3
+      // var str=[0xAA,0x55,0x00,0xA3,0x00,0x02,0x01,0x02];
+      // console.log(str);
+      // var hex=CRC.CRC16(str);
+      // console.log(hex);
+
+      //测试（4）：	设置传感器上报数据时间：0xA4
+      // var str=[0xAA,0x55,0x00,0xA2,0x00,0x01,0x01];
+      // console.log(str);
+      // var hex=CRC.CRC16(str);
+      // console.log(hex);
+
+      //测试（5）：获取传感器上报数据时间：0xA5
+      // var str=[0xAA,0x55,0x00,0xA5,0x00,0x01,0x01];
+      // console.log(str);
+      // var hex=CRC.CRC16(str);
+      // console.log(hex);
+
+      //测试（7）：查询传感器数据指令：0xA7
+      // var str=[0xAA,0x55,0x00,0xA7,0x00,0x01,0x01];
+      // console.log(str);
+      // var hex=CRC.CRC16(str);
+      // console.log(hex);
+
+      //测试(9)查询电量指令：0xA9
+      // var str=[0xAA,0x55,0x00,0xA9,0x00,0x01,0x01];
+      // console.log(str);
+      // var hex=CRC.CRC16(str);
+      // console.log(hex);
     });
   });
 

@@ -22,7 +22,7 @@
                     <div class="layui-inline">
                     <label class="layui-form-label lovexian-form-item-require">下发命令</label>
                     <div class="layui-inline" style="width:200px !important">
-                      <select name="command" id="command" lay-filter="category" onchange="changeType()">
+                      <select lay-filter="command" name="command" id="command" >
                         <option value="0">请选择</option>
                         <option value="A1">A1</option>
                         <option value="A2">A2</option>
@@ -56,7 +56,7 @@
                   <div class="layui-form layui-form-item">
                     <div class="layui-inline">
                       <label class="layui-form-label lovexian-form-item-require">传感器类型</label>
-                      <div class="layui-inline" style="width:200px !important">
+                      <div class="layui-inline" style="width:200px !important" id="div1">
                         <select name="sensorType" id="sensorType">
                           <option value="0">请选择</option>
                           <option value="01">湿度传感器</option>
@@ -109,20 +109,29 @@
     </div>
   </div>
 </div>
-
-
 <script>
-  function changeType() {
-    if ($('#command option:selected').val()=="A1"){
-            $('#sensorNum').style.display=="none";
+  $ = layui.jquery;
+  $(function () {
+    layui.use(["layer","form"],function () {
+      var layer = layui.layer,
+          form = layui.form;
+      $("#command").bind("change",function(){
+        alert("change");
+        // document.getElementById("command").value="";
+        var command =document.getElementById("command").value;
+        if(command=="A1")  {
+          $('#div1').style.display = "none";
+          // $('#sensorAddr').setAttribute('disabled', 'disabled');
+          $("#sensorAddr").attr("disabled", true).addClass('layui-disabled');
+        } else {
+          $('#div1').style.display = "block";
         }
-    else if ($('#command option:selected').val()=="A2"){
-      $('#sensorNum').style.display=="none";
-    }
-  }
+      });
+      form.render();
+    })
+  });
 
-
-var starEle;
+  var starEle;
   var starNum = 0;
   layui.data.sendParams = function (params) {
     if (params.isEdit) {
