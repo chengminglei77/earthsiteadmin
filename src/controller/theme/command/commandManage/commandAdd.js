@@ -35,20 +35,30 @@ layui.define(['form', 'layer', 'admin', 'layedit', 'lovexian', 'laydate', 'uploa
       $("#sensorType").removeAttr("disabled");
       $("#sensorNum").removeAttr("disabled");
       $("#sensorAddr").removeAttr("disabled");
+      $("#sensorTime").attr("disabled", true);
 
       }
-    else if(command=="A2"||command=='A4'||command == 'A5'||command == 'A7'||command=='A9'){
+    else if(command=="A2"||command == 'A5'||command == 'A7'||command=='A9'){
       $("#sensorSerialNum").attr("disabled", true).addClass('layui-disabled');
         $("#sensorType").attr("disabled", true);
       $("#sensorNum").attr("disabled", true).addClass('layui-disabled');
       $("#sensorAddr").attr("disabled", true).addClass('layui-disabled');
+      $("#sensorTime").attr("disabled", true);
 
   }
     else if(command=='A3'){
       $("#sensorSerialNum").attr("disabled", true).addClass('layui-disabled');
       $("#sensorType").attr("disabled", true);
       $("#sensorAddr").attr("disabled", true).addClass('layui-disabled');
+      $("#sensorTime").attr("disabled", true);
     }
+    else if(command=='A4'){
+      $("#sensorSerialNum").attr("disabled", true).addClass('layui-disabled');
+      $("#sensorType").attr("disabled", true);
+      $("#sensorNum").attr("disabled", true).addClass('layui-disabled');
+      $("#sensorAddr").attr("disabled", true).addClass('layui-disabled');
+    }
+
 
 
     form.render('select');
@@ -98,7 +108,7 @@ layui.define(['form', 'layer', 'admin', 'layedit', 'lovexian', 'laydate', 'uploa
       var sensorNum = $("#sensorNum").val();
       var sensorType = $("#sensorType").val();
       var sensorAddr = $("#sensorAddr").val();
-
+      var sensorTime=$("#sensorTime").val();
 
       if (command=='A1'){
         var data=[Number(deviceId),Number(sensorSerialNum),Number(sensorType),Number(sensorAddr)];
@@ -135,13 +145,13 @@ layui.define(['form', 'layer', 'admin', 'layedit', 'lovexian', 'laydate', 'uploa
       }
       else if (command=='A4'){
 
-        var encrc4=[0xAA,0x55,0x00,parseInt(("0x"+command)) ,0x00,0x03,Number(deviceId)];
+        var encrc4=['0xAA','0x55','0x00',parseInt(("0x"+command)) ,'0x00','0x03','0x'+Number(deviceId),'0x00','0x'+Number(sensorTime)];
         console.log("encrc4:",encrc4);
 
         var crc=CRC.CRC16(encrc4);
         console.log("crc4:",crc);
 
-        var cmd = ['0xAA55','0x00',("0x"+command) ,'0x0003','0x0'+Number(deviceId),'0x'+crc,'0x55AA'];
+        var cmd = ['0xAA55','0x00',("0x"+command) ,'0x0003','0x0'+Number(deviceId),'0x00'+Number(sensorTime),'0x'+crc,'0x55AA'];
         $('#crcData').val(cmd);
       }
       else if (command=='A5'){
@@ -198,10 +208,10 @@ layui.define(['form', 'layer', 'admin', 'layedit', 'lovexian', 'laydate', 'uploa
       // console.log(hex);
 
       //测试（4）：	设置传感器上报数据时间：0xA4
-      // var str=[0xAA,0x55,0x00,0xA2,0x00,0x01,0x01];
-      // console.log(str);
-      // var hex=CRC.CRC16(str);
-      // console.log(hex);
+      var str=['0xAA','0x55','0x00','0xA4','0x00','0x03','0x01','0x00','0x30'];
+      console.log(str);
+      var hex=CRC.CRC16(str);
+      console.log(hex);
 
       //测试（5）：获取传感器上报数据时间：0xA5
       // var str=[0xAA,0x55,0x00,0xA5,0x00,0x01,0x01];

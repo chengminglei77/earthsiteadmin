@@ -56,7 +56,7 @@
                   <div class="layui-form layui-form-item">
                     <div class="layui-inline">
                       <label class="layui-form-label lovexian-form-item-require">传感器类型</label>
-                      <div class="layui-inline" style="width:200px !important" id="div1">
+                      <div class="layui-inline" style="width:200px !important">
                         <select name="sensorType" id="sensorType">
                           <option value="0">请选择</option>
                           <option value="01">湿度传感器</option>
@@ -70,6 +70,23 @@
                       <label  class="layui-form-label layui-form-label-md ">传感器地址</label>
                       <div class="layui-input-inline">
                         <input type="text" id="sensorAddr" name="sensorSerialNum" autocomplete="off" class="layui-input">
+                      </div>
+                    </div>
+
+                    <div class="layui-inline">
+                      <label class=" lovexian-form-item-require">上报数据时间</label>
+                      <div class="layui-inline" style="width:200px !important" id="div1">
+                        <select name="sensorType" id="sensorTime">
+                          <option value="0">请选择</option>
+                          <option value="01">1分钟</option>
+                          <option value="02">2分钟</option>
+                          <option value="05">5分钟</option>
+                          <option value="10">10分钟</option>
+                          <option value="15">15分钟</option>
+                          <option value="30">30分钟</option>
+                          <option value="60">60分钟</option>
+
+                        </select>
                       </div>
                     </div>
                   </div>
