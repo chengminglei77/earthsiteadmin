@@ -97,11 +97,9 @@ layui.define(['form', 'layer', 'admin', 'layedit', 'lovexian', 'laydate', 'uploa
     }
   }
 
-  $(function () {
-    $("#command").on('click',function () {
-      console.log('A1')
-    });
-    $('#crc').on('click', function () {
+
+
+ $('#crc').on('click', function () {
       var command = $("#command").val();
       var deviceId = $("#deviceId").val();
       var sensorSerialNum = $("#sensorSerialNum").val();
@@ -122,6 +120,8 @@ layui.define(['form', 'layer', 'admin', 'layedit', 'lovexian', 'laydate', 'uploa
 
         var cmd = ['0xAA55','0x00','0x'+command ,'0x0'+data_len,'0x0'+deviceId,'0x0'+Number(sensorSerialNum),'0x0'+Number(sensorType),'0x0'+Number(sensorAddr),'0x'+crc,'0x55AA'];
         $('#crcData').val(cmd);
+        var cmd1 = ['AA55'+'00'+command +'0'+data_len+'0'+deviceId+'0'+Number(sensorSerialNum)+'0'+Number(sensorType)+'0'+Number(sensorAddr)+crc+'55AA'];
+        showCmd(cmd1);
       }
       else if (command=='A2'){
         var encrc2=[0xAA,0x55,0x00,parseInt(("0x"+command)) ,0x00,0x01,Number(deviceId)];
@@ -132,6 +132,8 @@ layui.define(['form', 'layer', 'admin', 'layedit', 'lovexian', 'laydate', 'uploa
 
         var cmd = ['0xAA55','0x00',("0x"+command) ,'0x0001','0x0'+Number(deviceId),'0x'+crc,'0x55AA'];
         $('#crcData').val(cmd);
+        var cmd1 = ['AA55'+'00'+command +'0001'+'0'+Number(deviceId)+crc+'55AA'];
+        showCmd(cmd1);
       }
       else if (command=='A3') {
         var encrc3=[0xAA,0x55,0x00,parseInt(("0x"+command)) ,0x00,0x02,Number(deviceId),Number(sensorNum)];
@@ -142,6 +144,8 @@ layui.define(['form', 'layer', 'admin', 'layedit', 'lovexian', 'laydate', 'uploa
 
         var cmd = ['0xAA55','0x00',("0x"+command) ,'0x0002','0x0'+Number(deviceId),'0x0'+Number(sensorNum),'0x'+crc,'0x55AA'];
         $('#crcData').val(cmd);
+        var cmd1 = ['AA55'+'00'+command +'0002'+'0'+Number(deviceId)+'0'+Number(sensorNum)+crc+'55AA'];
+        showCmd(cmd1);
       }
       else if (command=='A4'){
 
@@ -153,6 +157,9 @@ layui.define(['form', 'layer', 'admin', 'layedit', 'lovexian', 'laydate', 'uploa
 
         var cmd = ['0xAA55','0x00',("0x"+command) ,'0x0003','0x0'+Number(deviceId),'0x00'+Number(sensorTime),'0x'+crc,'0x55AA'];
         $('#crcData').val(cmd);
+        var cmd1 = ['AA55'+'00'+command +'0003'+'0'+Number(deviceId)+'00'+Number(sensorTime)+crc+'55AA'];
+
+        showCmd(cmd1);
       }
       else if (command=='A5'){
 
@@ -164,6 +171,9 @@ layui.define(['form', 'layer', 'admin', 'layedit', 'lovexian', 'laydate', 'uploa
 
         var cmd = ['0xAA55','0x00',("0x"+command) ,'0x0001','0x0'+Number(deviceId),'0x'+crc,'0x55AA'];
         $('#crcData').val(cmd);
+        var cmd1 = ['AA55'+'00'+command +'0001'+'0'+Number(deviceId)+crc+'55AA'];
+
+        showCmd(cmd1);
       }
       else if (command=='A7'){
         var encrc7=[0xAA,0x55,0x00,parseInt(("0x"+command)) ,0x00,0x01,Number(deviceId)];
@@ -174,6 +184,9 @@ layui.define(['form', 'layer', 'admin', 'layedit', 'lovexian', 'laydate', 'uploa
 
         var cmd = ['0xAA55','0x00',("0x"+command) ,'0x0001','0x0'+Number(deviceId),'0x'+crc,'0x55AA'];
         $('#crcData').val(cmd);
+        var cmd1 = ['AA55'+'00'+command +'0001'+'0'+Number(deviceId)+crc+'55AA'];
+
+        showCmd(cmd1);
       }
       else if (command=='A9'){
         var encrc9=[0xAA,0x55,0x00,parseInt(("0x"+command)) ,0x00,0x01,Number(deviceId)];
@@ -184,6 +197,9 @@ layui.define(['form', 'layer', 'admin', 'layedit', 'lovexian', 'laydate', 'uploa
 
         var cmd = ['0xAA55','0x00',("0x"+command) ,'0x0001','0x0'+Number(deviceId),'0x'+crc,'0x55AA'];
         $('#crcData').val(cmd);
+        var cmd1 = ['AA55'+'00'+command +'0001'+'0'+Number(deviceId)+crc+'55AA'];
+
+        showCmd(cmd1);
       }
 
 
@@ -208,10 +224,10 @@ layui.define(['form', 'layer', 'admin', 'layedit', 'lovexian', 'laydate', 'uploa
       // console.log(hex);
 
       //测试（4）：	设置传感器上报数据时间：0xA4
-      var str=['0xAA','0x55','0x00','0xA4','0x00','0x03','0x01','0x00','0x30'];
-      console.log(str);
-      var hex=CRC.CRC16(str);
-      console.log(hex);
+      // var str=['0xAA','0x55','0x00','0xA4','0x00','0x03','0x01','0x00','0x30'];
+      // console.log(str);
+      // var hex=CRC.CRC16(str);
+      // console.log(hex);
 
       //测试（5）：获取传感器上报数据时间：0xA5
       // var str=[0xAA,0x55,0x00,0xA5,0x00,0x01,0x01];
@@ -231,22 +247,25 @@ layui.define(['form', 'layer', 'admin', 'layedit', 'lovexian', 'laydate', 'uploa
       // var hex=CRC.CRC16(str);
       // console.log(hex);
     });
-  });
 
 
-  var btn = document.getElementById("btn");
-  $(function getValue() {
-    var str = $("selectid option:selected").val();
-    $('#btn').on('click', function () {
+
+
+  function showCmd(cmd1){
+
+    console.log(cmd1);
+    var str=cmd1[0];
+    $('#btn').on('click',function () {
       $.ajax({
-        type: "GET",
-        url: "http://192.168.43.87:5000/command",
+        type: "post",
+        url: "http://39.105.171.192:8886/command?cmd="+str,
         data: {
-          cmd: 12
+          // cmd: str
         },
         dataType: "json",
         async: true,
         success: function (data) {
+          console.log("cmd1="+cmd);
           /* alert("服务器返回的数据是"+data);
            var cmd=data.cmd;
            console.log(cmd);
@@ -254,9 +273,41 @@ layui.define(['form', 'layer', 'admin', 'layedit', 'lovexian', 'laydate', 'uploa
            console.log(cmdToHexadecimal);*/
         },
       });
+      var description = $('.commandReason').val();
+      var commanddata = {
+            command: str,
+            description: description,
+          };
+      lovexian.post(proPath + '/admin/commandInfo/saveOrUpdate',commanddata,function () {//存入数据的路径
+        lovexian.alert.success('保存成功');
+        // $('#lovexian-job').find('#query').click();
+      });
+    })
+  }
 
-    });
-  });
+  // var btn = document.getElementById("btn");
+  // $(function getValue() {
+  //   var str = $("selectid option:selected").val();
+  //   $('#btn').on('click', function () {
+  //     $.ajax({
+  //       type: "post",
+  //       url: "http://39.105.171.192:8886/command",
+  //       data: {
+  //         cmd: cmd
+  //       },
+  //       dataType: "json",
+  //       async: true,
+  //       success: function (data) {
+  //         /* alert("服务器返回的数据是"+data);
+  //          var cmd=data.cmd;
+  //          console.log(cmd);
+  //          var cmdToHexadecimal=cmd.toString(16);
+  //          console.log(cmdToHexadecimal);*/
+  //       },
+  //     });
+  //
+  //   });
+  // });
   function getQueryParams() {
     return {//根据find不同,调用不同的方法,其中dtuName对应queryDtuInfo,而status对应listByTypeId
       deviceId: $searchForm.find('input[name="deviceId"]').val().trim(),//此处对应<input type="text" name="dtuName" autocomplete="off" class="layui-input">
@@ -271,26 +322,26 @@ layui.define(['form', 'layer', 'admin', 'layedit', 'lovexian', 'laydate', 'uploa
   }
 
 
-  form.on("submit(execute)", function (data) {
-
-    var id = $("input[name='id']").val();     //input[name='id']是访问input对象id属性
-    var command = $('.commandInfo').val();
-    var description = $('.commandReason').val();
-    // var dealtime = new Date(dealTime);
-    //dtudata对象
-    var commanddata = {
-      id: id,
-      command: command,
-      description: description,
-    };
-    lovexian.post(proPath + '/admin/commandInfo/saveOrUpdate', commanddata, function () {//存入数据的路径
-      lovexian.alert.success('执行成功');
-      // $('#lovexian-job').find('#query').click();
-    });
-    layui.use('theme/command/commandManage/command', layui.factory('theme/command/commandManage/command'));
-    layer.closeAll();
-    return false;
-  });
+  // form.on("submit(execute)", function (data) {
+  //
+  //   var id = $("input[name='id']").val();     //input[name='id']是访问input对象id属性
+  //   var command = $('.commandInfo').val();
+  //   var description = $('.commandReason').val();
+  //   // var dealtime = new Date(dealTime);
+  //   //dtudata对象
+  //   var commanddata = {
+  //     id: id,
+  //     command: command,
+  //     description: description,
+  //   };
+  //   lovexian.post(proPath + '/admin/commandInfo/saveOrUpdate', commanddata, function () {//存入数据的路径
+  //     lovexian.alert.success('执行成功');
+  //     // $('#lovexian-job').find('#query').click();
+  //   });
+  //   layui.use('theme/command/commandManage/command', layui.factory('theme/command/commandManage/command'));
+  //   layer.closeAll();
+  //   return false;
+  // });
 
   form.on("submit(cancelBtn)", function (data) {
 
