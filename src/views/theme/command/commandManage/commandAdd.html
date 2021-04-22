@@ -22,7 +22,7 @@
                     <div class="layui-inline">
                     <label class="layui-form-label lovexian-form-item-require">下发命令</label>
                     <div class="layui-inline" style="width:200px !important">
-                      <select name="command" id="command" lay-filter="category" onchange="changeType()">
+                      <select lay-filter="command" name="command" id="command" >
                         <option value="0">请选择</option>
                         <option value="A1">A1</option>
                         <option value="A2">A2</option>
@@ -72,6 +72,23 @@
                         <input type="text" id="sensorAddr" name="sensorSerialNum" autocomplete="off" class="layui-input">
                       </div>
                     </div>
+
+                    <div class="layui-inline">
+                      <label class=" lovexian-form-item-require">上报数据时间</label>
+                      <div class="layui-inline" style="width:200px !important" id="div1">
+                        <select name="sensorType" id="sensorTime">
+                          <option value="0">请选择</option>
+                          <option value="01">1分钟</option>
+                          <option value="02">2分钟</option>
+                          <option value="05">5分钟</option>
+                          <option value="10">10分钟</option>
+                          <option value="15">15分钟</option>
+                          <option value="30">30分钟</option>
+                          <option value="60">60分钟</option>
+
+                        </select>
+                      </div>
+                    </div>
                   </div>
 
                     <div class="layui-form-item magt3">
@@ -84,7 +101,7 @@
                       </div><!--同样需要修改变量名称-->
                     </div>
                   <div class="layui-form layui-form-item">
-                    <button class="layui-btn layui-btn-normal" id="crc" onclick="crc() " lay-filter="execute" lay-submit><i
+                    <button class="layui-btn layui-btn-normal" id="crc" lay-filter="execute" lay-submit><i
                             class="layui-icon">&#xe621;</i>CRC校验
                     </button>
                     <div class="layui-inline">
@@ -109,20 +126,29 @@
     </div>
   </div>
 </div>
-
-
 <script>
-  function changeType() {
-    if ($('#command option:selected').val()=="A1"){
-            $('#sensorNum').style.display=="none";
+  $ = layui.jquery;
+  $(function () {
+    layui.use(["layer","form"],function () {
+      var layer = layui.layer,
+          form = layui.form;
+      $("#command").bind("change",function(){
+        alert("change");
+        // document.getElementById("command").value="";
+        var command =document.getElementById("command").value;
+        if(command=="A1")  {
+          $('#div1').style.display = "none";
+          // $('#sensorAddr').setAttribute('disabled', 'disabled');
+          $("#sensorAddr").attr("disabled", true).addClass('layui-disabled');
+        } else {
+          $('#div1').style.display = "block";
         }
-    else if ($('#command option:selected').val()=="A2"){
-      $('#sensorNum').style.display=="none";
-    }
-  }
+      });
+      form.render();
+    })
+  });
 
-
-var starEle;
+  var starEle;
   var starNum = 0;
   layui.data.sendParams = function (params) {
     if (params.isEdit) {

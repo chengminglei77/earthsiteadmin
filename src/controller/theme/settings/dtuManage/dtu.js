@@ -165,7 +165,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
                 {field: 'createdAt', title: '部署时间', minWidth: 180, sort: true,align:'center'},
                 {field: 'updatedAt', title: '更新时间',minWidth: 180, sort: true,align:'center'},
                 // {field: 'disInfo', title: 'dis信息',minWidth: 180, sort: true,align:'center'},
-                {title: '操作', toolbar: '#action-option', minWidth: 120, fixed: 'right'}
+                {title: '操作', toolbar: '#action-option', minWidth: 180, fixed: 'right'}
             ]],
         });
     }
@@ -254,6 +254,31 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
                 }
             });
 
+        }
+
+        if (layEvent == 'alarmInfo'){
+            lovexian.get(proPath + "/admin/alarmInfo/dtuAlarmInfoHistory",{"dtuId":data.dtuId},function (res) {
+                if (res.status = '200'){
+                    admin.popup({
+                        id: 'LAY-theme-action-check',
+                        area: ['400px','80%'],
+                        shadeClose: 0,
+                        title: '历史报警信息',
+                        success:function () {
+                            console.log(res.data.dtuName);
+                            viewDtu(this.id).render('common/dtuAlarmInfo',{
+                                history: res.data.rows,
+                            }).then(function () {
+                                //视图文件请求完毕，试图内容渲染回顾
+                            }).done(function () {
+                                //视图文件请求完毕和内容渲染完毕的回顾
+                            });
+                        }
+                    });
+                }else {
+                    lovexian.alert.error("获取历史报警信息失败!");
+                }
+            });
         }
     });//操作
 

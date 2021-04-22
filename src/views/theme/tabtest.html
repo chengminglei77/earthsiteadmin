@@ -21,7 +21,7 @@
             ,saveH:600     //保存高度
             ,mark:4/3   //选取比例
             ,area:'900px'  //弹窗宽度
-            ,url: 'http://127.0.0.1:9090/fileupload/smallfile'  //图片上传接口返回和（layui 的upload 模块）返回的JOSN一样
+            ,url: 'http://39.105.171.192:9090/fileupload/smallfile'  //图片上传接口返回和（layui 的upload 模块）返回的JOSN一样
             ,done: function(res){ //上传完毕回调
                 console.log(res);
                 $("#productImg").val(res.data.url);

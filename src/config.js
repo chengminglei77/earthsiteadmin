@@ -15,7 +15,7 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
     ,entry: 'index' //默认视图文件名
     ,engine: '.html' //视图文件后缀名
     ,pageTabs: false //是否开启页面选项卡功能。单页版不推荐开启
-    ,projectPath:'http://127.0.0.1:9090/'
+    ,projectPath:'http://39.105.171.192:9090/'
     ,name: '土遗址后台管理系统'
     ,tableName: 'EarthSiteAdmin' //本地存储表名
     ,TOKENNAME:'Authentication'

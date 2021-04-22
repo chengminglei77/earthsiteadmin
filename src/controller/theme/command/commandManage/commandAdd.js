@@ -17,130 +17,61 @@ layui.define(['form', 'layer', 'admin', 'layedit', 'lovexian', 'laydate', 'uploa
   form.render();
 
 
-  // $("#command").on("change",function () {
-  //     if ($('#command option:selected').val()=="A1"){
-  //       $('#sensorNum').hide();
-  //     }
-  // })
+  form.on('select(command)', function(data){
+    // console.log(data);
+    // console.log(data.elem); //得到select原始DOM对象
+    // console.log(data.value); //得到被选中的值
+    // console.log(data.othis); //得到美化后的DOM对象
+      var command =data.value;
+    console.log(command);
+    // switch (command) {
+    //   case 'A1':$("#sensorSerialNum").removeAttr("disabled");
+    //   case 'A2':$("#sensorSerialNum").attr("disabled", true).addClass('layui-disabled');
+    //             $("#sensorType").attr("disabled", true).addClass('layui-disabled');
+    //             $("#sensorAddr").attr("disabled", true).addClass('layui-disabled');
+    // }
+    if(command=="A1"||command=="0")  {
+      $("#sensorSerialNum").removeAttr("disabled");
+      $("#sensorType").removeAttr("disabled");
+      $("#sensorNum").removeAttr("disabled");
+      $("#sensorAddr").removeAttr("disabled");
+      $("#sensorTime").attr("disabled", true);
+
+      }
+    else if(command=="A2"||command == 'A5'||command == 'A7'||command=='A9'){
+      $("#sensorSerialNum").attr("disabled", true).addClass('layui-disabled');
+        $("#sensorType").attr("disabled", true);
+      $("#sensorNum").attr("disabled", true).addClass('layui-disabled');
+      $("#sensorAddr").attr("disabled", true).addClass('layui-disabled');
+      $("#sensorTime").attr("disabled", true);
+
+  }
+    else if(command=='A3'){
+      $("#sensorSerialNum").attr("disabled", true).addClass('layui-disabled');
+      $("#sensorType").attr("disabled", true);
+      $("#sensorAddr").attr("disabled", true).addClass('layui-disabled');
+      $("#sensorTime").attr("disabled", true);
+    }
+    else if(command=='A4'){
+      $("#sensorSerialNum").attr("disabled", true).addClass('layui-disabled');
+      $("#sensorType").attr("disabled", true);
+      $("#sensorNum").attr("disabled", true).addClass('layui-disabled');
+      $("#sensorAddr").attr("disabled", true).addClass('layui-disabled');
+    }
 
 
-//CRC-16MODEBUS校验代码
+
+    form.render('select');
+  });
+
 
   var CRC = {};
 
-  // CRC.CRC16 = function (data) {
-  //   var len = data.length;
-  //   if (len > 0) {
-  //     var crc = 0xFFFF;
-  //
-  //     for (var i = 0; i < len; i++) {
-  //       crc = (crc ^ (data[i]));
-  //       for (var j = 0; j < 8; j++) {
-  //         crc = (crc & 1) != 0 ? ((crc >> 1) ^ 0xA001) : (crc >> 1);
-  //       }
-  //     }
-  //     var hi = ((crc & 0xFF00) >> 8);  //高位置
-  //     var lo = (crc & 0x00FF);         //低位置
-  //
-  //     return [hi, lo];
-  //   }
-  //   return [0, 0];
-  // };
-  //
-  // CRC.isArray = function (arr) {
-  //   return Object.prototype.toString.call(arr) === '[object Array]';
-  // };
-  //
-  // CRC.ToCRC16 = function (str, isReverse) {
-  //   return CRC.toString(CRC.CRC16(CRC.isArray(str) ? str : CRC.strToByte(str)), isReverse);
-  // };
-  //
-  // CRC.ToModbusCRC16 = function (str, isReverse) {
-  //   return CRC.toString(CRC.CRC16(CRC.isArray(str) ? str : CRC.strToHex(str)), isReverse);
-  // };
-  //
-  // CRC.strToByte = function (str) {
-  //   var tmp = str.split(''), arr = [];
-  //   for (var i = 0, c = tmp.length; i < c; i++) {
-  //     var j = encodeURI(tmp[i]);
-  //     if (j.length == 1) {
-  //       arr.push(j.charCodeAt());
-  //     } else {
-  //       var b = j.split('%');
-  //       for (var m = 1; m < b.length; m++) {
-  //         arr.push(parseInt('0x' + b[m]));
-  //       }
-  //     }
-  //   }
-  //   return arr;
-  // };
-  //
-  // CRC.convertChinese = function (str) {
-  //   var tmp = str.split(''), arr = [];
-  //   for (var i = 0, c = tmp.length; i < c; i++) {
-  //     var s = tmp[i].charCodeAt();
-  //     if (s <= 0 || s >= 127) {
-  //       arr.push(s.toString(16));
-  //     }
-  //     else {
-  //       arr.push(tmp[i]);
-  //     }
-  //   }
-  //   return arr;
-  // };
-  //
-  // CRC.filterChinese = function (str) {
-  //   var tmp = str.split(''), arr = [];
-  //   for (var i = 0, c = tmp.length; i < c; i++) {
-  //     var s = tmp[i].charCodeAt();
-  //     if (s > 0 && s < 127) {
-  //       arr.push(tmp[i]);
-  //     }
-  //   }
-  //   return arr;
-  // };
-  //
-  // CRC.strToHex = function (hex, isFilterChinese) {
-  //   hex = isFilterChinese ? CRC.filterChinese(hex).join('') : CRC.convertChinese(hex).join('');
-  //
-  //   //清除所有空格
-  //   hex = hex.replace(/\s/g, "");
-  //   //若字符个数为奇数，补一个0
-  //   hex += hex.length % 2 != 0 ? "0" : "";
-  //
-  //   var c = hex.length / 2, arr = [];
-  //   for (var i = 0; i < c; i++) {
-  //     arr.push(parseInt(hex.substr(i * 2, 2), 16));
-  //   }
-  //   return arr;
-  // };
-  //
-  // CRC.padLeft = function (s, w, pc) {
-  //   if (pc == undefined) {
-  //     pc = '0';
-  //   }
-  //   for (var i = 0, c = w - s.length; i < c; i++) {
-  //     s = pc + s;
-  //   }
-  //   return s;
-  // };
-  //
-  // CRC.toString = function (arr, isReverse) {
-  //   if (typeof isReverse == 'undefined') {
-  //     isReverse = true;
-  //   }
-  //   var hi = arr[0], lo = arr[1];
-  //   return CRC.padLeft((isReverse ? hi + lo * 0x100 : hi * 0x100 + lo).toString(16).toUpperCase(), 4, '0');
-  // };
-
-
-
   CRC.CRC16 = function (bytes) {
     let crc = 0x0000; // initial value
-    let polynomial = 0x1021;// poly value reversed 0x1021; 0x8408
+    let polynomial = 0x8408;// poly value reversed 0x1021; 0x8408
 
-    let i, j;
-    for (i = 0; i < bytes.length; i++) {
+    for (var i = 0; i < bytes.length; i++) {
       crc ^= (bytes[i] & 0x000000ff);
       for (j = 0; j < 8; j++) {
         if ((crc & 0x00000001) != 0) {
@@ -151,49 +82,190 @@ layui.define(['form', 'layer', 'admin', 'layedit', 'lovexian', 'laydate', 'uploa
         }
       }
     }
-    return crc;
-  };
-  // module.exports = {
-  //
-  //   crc16: crc16,
-  // }
 
-  $(function () {
-    $('#crc').on('click', function () {
+    // console.log(crc.toString(16));
+    return (crc.toString(16));
+  }
+
+
+  function str_pad(hex){
+    if (hex<10){
+      return '0x'+'0'+hex;
+    }
+    else {
+      return '0x'+hex;
+    }
+  }
+
+
+
+ $('#crc').on('click', function () {
       var command = $("#command").val();
       var deviceId = $("#deviceId").val();
       var sensorSerialNum = $("#sensorSerialNum").val();
       var sensorNum = $("#sensorNum").val();
       var sensorType = $("#sensorType").val();
       var sensorAddr = $("#sensorAddr").val();
-      alert(CRC.CRC16('12345678',true));
-      alert(CRC.CRC16('12345678',false));
+      var sensorTime=$("#sensorTime").val();
 
-      // alert(CRC.ToCRC16('AA5501A4000302000A', true));
-      // alert(CRC.ToCRC16('AA5501A4000302000A', false));
-      // alert(command + deviceId + sensorSerialNum + sensorNum + sensorType + sensorAddr);
-      var crc=CRC.CRC16(command + deviceId + sensorSerialNum + sensorNum + sensorType + sensorAddr, false);
-      // alert(crc);
-      var cmd = "AA55" + command + deviceId + sensorSerialNum + sensorNum + sensorType + sensorAddr + crc + "55AA";
-      $('#crcData').val(cmd);
-      // alert(cmd);
+      if (command=='A1'){
+        var data=[Number(deviceId),Number(sensorSerialNum),Number(sensorType),Number(sensorAddr)];
+        var data_len=data.length;
+        var encrc=[0xAA,0x55,0x00,parseInt(("0x"+command)) ,data_len,Number(deviceId),Number(sensorSerialNum),Number(sensorType),Number(sensorAddr)];
+        console.log("encrc1:",encrc);
+
+        var crc=CRC.CRC16(encrc);
+        console.log("crc:",crc);
+
+
+        var cmd = ['0xAA55','0x00','0x'+command ,'0x0'+data_len,'0x0'+deviceId,'0x0'+Number(sensorSerialNum),'0x0'+Number(sensorType),'0x0'+Number(sensorAddr),'0x'+crc,'0x55AA'];
+        $('#crcData').val(cmd);
+        var cmd1 = ['AA55'+'00'+command +'0'+data_len+'0'+deviceId+'0'+Number(sensorSerialNum)+'0'+Number(sensorType)+'0'+Number(sensorAddr)+crc+'55AA'];
+        showCmd(cmd1);
+      }
+      else if (command=='A2'){
+        var encrc2=[0xAA,0x55,0x00,parseInt(("0x"+command)) ,0x00,0x01,Number(deviceId)];
+        console.log("encrc2:",encrc2);
+
+        var crc=CRC.CRC16(encrc2);
+        console.log("crc2:",crc);
+
+        var cmd = ['0xAA55','0x00',("0x"+command) ,'0x0001','0x0'+Number(deviceId),'0x'+crc,'0x55AA'];
+        $('#crcData').val(cmd);
+        var cmd1 = ['AA55'+'00'+command +'0001'+'0'+Number(deviceId)+crc+'55AA'];
+        showCmd(cmd1);
+      }
+      else if (command=='A3') {
+        var encrc3=[0xAA,0x55,0x00,parseInt(("0x"+command)) ,0x00,0x02,Number(deviceId),Number(sensorNum)];
+        console.log("encrc3:",encrc3);
+
+        var crc=CRC.CRC16(encrc3);
+        console.log("crc3:",crc);
+
+        var cmd = ['0xAA55','0x00',("0x"+command) ,'0x0002','0x0'+Number(deviceId),'0x0'+Number(sensorNum),'0x'+crc,'0x55AA'];
+        $('#crcData').val(cmd);
+        var cmd1 = ['AA55'+'00'+command +'0002'+'0'+Number(deviceId)+'0'+Number(sensorNum)+crc+'55AA'];
+        showCmd(cmd1);
+      }
+      else if (command=='A4'){
+
+        var encrc4=['0xAA','0x55','0x00',parseInt(("0x"+command)) ,'0x00','0x03','0x'+Number(deviceId),'0x00','0x'+Number(sensorTime)];
+        console.log("encrc4:",encrc4);
+
+        var crc=CRC.CRC16(encrc4);
+        console.log("crc4:",crc);
+
+        var cmd = ['0xAA55','0x00',("0x"+command) ,'0x0003','0x0'+Number(deviceId),'0x00'+Number(sensorTime),'0x'+crc,'0x55AA'];
+        $('#crcData').val(cmd);
+        var cmd1 = ['AA55'+'00'+command +'0003'+'0'+Number(deviceId)+'00'+Number(sensorTime)+crc+'55AA'];
+
+        showCmd(cmd1);
+      }
+      else if (command=='A5'){
+
+        var encrc5=[0xAA,0x55,0x00,parseInt(("0x"+command)) ,0x00,0x01,Number(deviceId)];
+        console.log("encrc5:",encrc5);
+
+        var crc=CRC.CRC16(encrc5);
+        console.log("crc5:",crc);
+
+        var cmd = ['0xAA55','0x00',("0x"+command) ,'0x0001','0x0'+Number(deviceId),'0x'+crc,'0x55AA'];
+        $('#crcData').val(cmd);
+        var cmd1 = ['AA55'+'00'+command +'0001'+'0'+Number(deviceId)+crc+'55AA'];
+
+        showCmd(cmd1);
+      }
+      else if (command=='A7'){
+        var encrc7=[0xAA,0x55,0x00,parseInt(("0x"+command)) ,0x00,0x01,Number(deviceId)];
+        console.log("encrc7:",encrc7);
+
+        var crc=CRC.CRC16(encrc7);
+        console.log("crc7:",crc);
+
+        var cmd = ['0xAA55','0x00',("0x"+command) ,'0x0001','0x0'+Number(deviceId),'0x'+crc,'0x55AA'];
+        $('#crcData').val(cmd);
+        var cmd1 = ['AA55'+'00'+command +'0001'+'0'+Number(deviceId)+crc+'55AA'];
+
+        showCmd(cmd1);
+      }
+      else if (command=='A9'){
+        var encrc9=[0xAA,0x55,0x00,parseInt(("0x"+command)) ,0x00,0x01,Number(deviceId)];
+        console.log("encrc9:",encrc9);
+
+        var crc=CRC.CRC16(encrc9);
+        console.log("crc9:",crc);
+
+        var cmd = ['0xAA55','0x00',("0x"+command) ,'0x0001','0x0'+Number(deviceId),'0x'+crc,'0x55AA'];
+        $('#crcData').val(cmd);
+        var cmd1 = ['AA55'+'00'+command +'0001'+'0'+Number(deviceId)+crc+'55AA'];
+
+        showCmd(cmd1);
+      }
+
+
+
+
+      // 测试(1)	设置上报数据的传感器类型和传感器地址：0xA1
+      // var str=[0xAA,0x55,0x00,0xA1,0x04,0x01,0x02,0x01,0x04];
+      // console.log(str);
+      // var hex=CRC.CRC16(str);
+      // console.log(hex);
+
+      //测试（2）：获取当前上报数据的传感器类型和传感器地址以及传感器个数：0xA2
+      // var str=[0xAA,0x55,0x00,0xA2,0x00,0x01,0x01];
+      // console.log(str);
+      // var hex=CRC.CRC16(str);
+      // console.log(hex);
+
+      //测试(3)	删除某个上报数据的传感器：0xA3
+      // var str=[0xAA,0x55,0x00,0xA3,0x00,0x02,0x01,0x02];
+      // console.log(str);
+      // var hex=CRC.CRC16(str);
+      // console.log(hex);
+
+      //测试（4）：	设置传感器上报数据时间：0xA4
+      // var str=['0xAA','0x55','0x00','0xA4','0x00','0x03','0x01','0x00','0x30'];
+      // console.log(str);
+      // var hex=CRC.CRC16(str);
+      // console.log(hex);
+
+      //测试（5）：获取传感器上报数据时间：0xA5
+      // var str=[0xAA,0x55,0x00,0xA5,0x00,0x01,0x01];
+      // console.log(str);
+      // var hex=CRC.CRC16(str);
+      // console.log(hex);
+
+      //测试（7）：查询传感器数据指令：0xA7
+      // var str=[0xAA,0x55,0x00,0xA7,0x00,0x01,0x01];
+      // console.log(str);
+      // var hex=CRC.CRC16(str);
+      // console.log(hex);
+
+      //测试(9)查询电量指令：0xA9
+      // var str=[0xAA,0x55,0x00,0xA9,0x00,0x01,0x01];
+      // console.log(str);
+      // var hex=CRC.CRC16(str);
+      // console.log(hex);
     });
-  });
 
 
-  var btn = document.getElementById("btn");
-  $(function getValue() {
-    var str = $("selectid option:selected").val();
-    $('#btn').on('click', function () {
+
+
+  function showCmd(cmd1){
+
+    console.log(cmd1);
+    var str=cmd1[0];
+    $('#btn').on('click',function () {
       $.ajax({
-        type: "GET",
-        url: "http://192.168.43.87:5000/command",
+        type: "post",
+        url: "http://39.105.171.192:8886/command?cmd="+str,
         data: {
-          cmd: 12
+          // cmd: str
         },
         dataType: "json",
         async: true,
         success: function (data) {
+          console.log("cmd1="+cmd);
           /* alert("服务器返回的数据是"+data);
            var cmd=data.cmd;
            console.log(cmd);
@@ -201,9 +273,41 @@ layui.define(['form', 'layer', 'admin', 'layedit', 'lovexian', 'laydate', 'uploa
            console.log(cmdToHexadecimal);*/
         },
       });
+      var description = $('.commandReason').val();
+      var commanddata = {
+            command: str,
+            description: description,
+          };
+      lovexian.post(proPath + '/admin/commandInfo/saveOrUpdate',commanddata,function () {//存入数据的路径
+        lovexian.alert.success('保存成功');
+        // $('#lovexian-job').find('#query').click();
+      });
+    })
+  }
 
-    });
-  });
+  // var btn = document.getElementById("btn");
+  // $(function getValue() {
+  //   var str = $("selectid option:selected").val();
+  //   $('#btn').on('click', function () {
+  //     $.ajax({
+  //       type: "post",
+  //       url: "http://39.105.171.192:8886/command",
+  //       data: {
+  //         cmd: cmd
+  //       },
+  //       dataType: "json",
+  //       async: true,
+  //       success: function (data) {
+  //         /* alert("服务器返回的数据是"+data);
+  //          var cmd=data.cmd;
+  //          console.log(cmd);
+  //          var cmdToHexadecimal=cmd.toString(16);
+  //          console.log(cmdToHexadecimal);*/
+  //       },
+  //     });
+  //
+  //   });
+  // });
   function getQueryParams() {
     return {//根据find不同,调用不同的方法,其中dtuName对应queryDtuInfo,而status对应listByTypeId
       deviceId: $searchForm.find('input[name="deviceId"]').val().trim(),//此处对应<input type="text" name="dtuName" autocomplete="off" class="layui-input">
@@ -218,26 +322,26 @@ layui.define(['form', 'layer', 'admin', 'layedit', 'lovexian', 'laydate', 'uploa
   }
 
 
-  form.on("submit(execute)", function (data) {
-
-    var id = $("input[name='id']").val();     //input[name='id']是访问input对象id属性
-    var command = $('.commandInfo').val();
-    var description = $('.commandReason').val();
-    // var dealtime = new Date(dealTime);
-    //dtudata对象
-    var commanddata = {
-      id: id,
-      command: command,
-      description: description,
-    };
-    lovexian.post(proPath + '/admin/commandInfo/saveOrUpdate', commanddata, function () {//存入数据的路径
-      lovexian.alert.success('执行成功');
-      // $('#lovexian-job').find('#query').click();
-    });
-    layui.use('theme/command/commandManage/command', layui.factory('theme/command/commandManage/command'));
-    layer.closeAll();
-    return false;
-  });
+  // form.on("submit(execute)", function (data) {
+  //
+  //   var id = $("input[name='id']").val();     //input[name='id']是访问input对象id属性
+  //   var command = $('.commandInfo').val();
+  //   var description = $('.commandReason').val();
+  //   // var dealtime = new Date(dealTime);
+  //   //dtudata对象
+  //   var commanddata = {
+  //     id: id,
+  //     command: command,
+  //     description: description,
+  //   };
+  //   lovexian.post(proPath + '/admin/commandInfo/saveOrUpdate', commanddata, function () {//存入数据的路径
+  //     lovexian.alert.success('执行成功');
+  //     // $('#lovexian-job').find('#query').click();
+  //   });
+  //   layui.use('theme/command/commandManage/command', layui.factory('theme/command/commandManage/command'));
+  //   layer.closeAll();
+  //   return false;
+  // });
 
   form.on("submit(cancelBtn)", function (data) {
 
