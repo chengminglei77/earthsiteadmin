@@ -9,123 +9,196 @@
 </script>
 
 
+
 <div class="layui-fluid layui-anim lovexian-anim" id="lovexian-command" lay-title="接口管理">
   <div class="layui-row lovexian-container">
     <div class="layui-col-md12">
       <div class="layui-card">
         <div class="layui-card-body lovexian-table-full">
           <div class="layui-row">
-            <form name="messageForm" class="layui-form layui-table-form" lay-filter="action-table-form">
-              <div class="layui-row">
-                <div class="layui-col-md12">
-                  <div class="layui-form layui-form-item">
-                    <div class="layui-inline">
-                    <label class="layui-form-label lovexian-form-item-require">下发命令</label>
-                    <div class="layui-inline" style="width:200px !important">
-                      <select lay-filter="command" name="command" id="command" >
-                        <option value="0">请选择</option>
-                        <option value="A1">A1</option>
-                        <option value="A2">A2</option>
-                        <option value="A3">A3</option>
-                        <option value="A4">A4</option>
-                        <option value="A5">A5</option>
-                        <option value="A7">A7</option>
-                        <option value="A9">A9</option>
-                      </select>
-                    </div>
-                    </div>
-                    <div class="layui-inline">
-                      <label  class="layui-form-label  lovexian-form-item-require layui-form-label-md ">设备ID</label>
-                      <div class="layui-input-inline">
-                        <input type="text" id="deviceId" name="deviceId" autocomplete="off" class="layui-input">
-                      </div>
-                    </div>
-                    <div class="layui-inline">
-                      <label  class="layui-form-label layui-form-label-sm">传感器编号</label>
-                      <div class="layui-input-inline">
-                        <input type="text" id="sensorSerialNum" name="sensorSerialNum" autocomplete="off" class="layui-input">
-                      </div>
-                    </div>
-                    <div class="layui-inline">
-                      <label  class="layui-form-label layui-form-label-sm">传感器个数</label>
-                      <div class="layui-input-inline">
-                        <input type="text" id="sensorNum" name="sensorNum" autocomplete="off" class="layui-input">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="layui-form layui-form-item">
-                    <div class="layui-inline">
-                      <label class="layui-form-label lovexian-form-item-require">传感器类型</label>
-                      <div class="layui-inline" style="width:200px !important">
-                        <select name="sensorType" id="sensorType">
-                          <option value="0">请选择</option>
-                          <option value="01">湿度传感器</option>
-                          <option value="02">风速传感器</option>
-                          <option value="03">水盐传感器</option>
-                        </select>
-                      </div>
-                    </div>
+            <div class="layui-tab layui-tab-brief" lay-filter="commandTab">
+              <ul class="layui-tab-title">
+                <li class="layui-this" lay-id="00">下发命令</li>
+                <li lay-id="01">webSocket</li>
+              </ul>
+              <input hidden="hidden" id="actTypeId" value="">
+              <!--景点信息开始-->
+              <div class="layui-tab-content"><!--景点信息-->
+                <div class="layui-fluid layui-tab-item layui-show">
+                  <form name="messageForm" class="layui-form layui-table-form" lay-filter="action-table-form">
+                    <div class="layui-row">
+                      <div class="layui-col-md12">
+                        <div class="layui-form layui-form-item">
+                          <div class="layui-inline">
+                            <label class="layui-form-label lovexian-form-item-require">下发命令</label>
+                            <div class="layui-inline" style="width:200px !important">
+                              <select lay-filter="command" name="command" id="command" >
+                                <option value="0">请选择</option>
+                                <option value="A1">A1</option>
+                                <option value="A2">A2</option>
+                                <option value="A3">A3</option>
+                                <option value="A4">A4</option>
+                                <option value="A5">A5</option>
+                                <option value="A7">A7</option>
+                                <option value="A9">A9</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="layui-inline">
+                            <label  class="layui-form-label  lovexian-form-item-require layui-form-label-md ">设备ID</label>
+                            <div class="layui-input-inline">
+                              <input type="text" id="deviceId" name="deviceId" autocomplete="off" class="layui-input">
+                            </div>
+                          </div>
+                          <div class="layui-inline">
+                            <label  class="layui-form-label layui-form-label-sm">传感器编号</label>
+                            <div class="layui-input-inline">
+                              <input type="text" id="sensorSerialNum" name="sensorSerialNum" autocomplete="off" class="layui-input">
+                            </div>
+                          </div>
+                          <div class="layui-inline">
+                            <label  class="layui-form-label layui-form-label-sm">传感器个数</label>
+                            <div class="layui-input-inline">
+                              <input type="text" id="sensorNum" name="sensorNum" autocomplete="off" class="layui-input">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layui-form layui-form-item">
+                          <div class="layui-inline">
+                            <label class="layui-form-label lovexian-form-item-require">传感器类型</label>
+                            <div class="layui-inline" style="width:200px !important">
+                              <select name="sensorType" id="sensorType">
+                                <option value="0">请选择</option>
+                                <option value="01">湿度传感器</option>
+                                <option value="02">风速传感器</option>
+                                <option value="03">水盐传感器</option>
+                              </select>
+                            </div>
+                          </div>
 
-                    <div class="layui-inline">
-                      <label  class="layui-form-label layui-form-label-md ">传感器地址</label>
-                      <div class="layui-input-inline">
-                        <input type="text" id="sensorAddr" name="sensorSerialNum" autocomplete="off" class="layui-input">
-                      </div>
-                    </div>
+                          <div class="layui-inline">
+                            <label  class="layui-form-label layui-form-label-md ">传感器地址</label>
+                            <div class="layui-input-inline">
+                              <input type="text" id="sensorAddr" name="sensorSerialNum" autocomplete="off" class="layui-input">
+                            </div>
+                          </div>
 
-                    <div class="layui-inline">
-                      <label class=" lovexian-form-item-require">上报数据时间</label>
-                      <div class="layui-inline" style="width:200px !important" id="div1">
-                        <select name="sensorType" id="sensorTime">
-                          <option value="0">请选择</option>
-                          <option value="01">1分钟</option>
-                          <option value="02">2分钟</option>
-                          <option value="05">5分钟</option>
-                          <option value="10">10分钟</option>
-                          <option value="15">15分钟</option>
-                          <option value="30">30分钟</option>
-                          <option value="60">60分钟</option>
+                          <div class="layui-inline">
+                            <label class=" lovexian-form-item-require">上报数据时间</label>
+                            <div class="layui-inline" style="width:200px !important" id="div1">
+                              <select name="sensorType" id="sensorTime">
+                                <option value="0">请选择</option>
+                                <option value="01">1分钟</option>
+                                <option value="02">2分钟</option>
+                                <option value="05">5分钟</option>
+                                <option value="10">10分钟</option>
+                                <option value="15">15分钟</option>
+                                <option value="30">30分钟</option>
+                                <option value="60">60分钟</option>
 
-                        </select>
-                      </div>
-                    </div>
-                  </div>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
 
-                    <div class="layui-form-item magt3">
-                      <label class="layui-form-label lovexian-form-item-require">描述</label>
-                      <div class="layui-input-block">
-                        <div class="layui-input-inline">
+                        <div class="layui-form-item magt3">
+                          <label class="layui-form-label lovexian-form-item-require">描述</label>
+                          <div class="layui-input-block">
+                            <div class="layui-input-inline">
                           <textarea style="width: 500px;height: 100px" placeholder="请输入描述"
                                     class="layui-textarea commandReason" name="description"></textarea>
+                            </div>
+                          </div><!--同样需要修改变量名称-->
                         </div>
-                      </div><!--同样需要修改变量名称-->
-                    </div>
-                  <div class="layui-form layui-form-item">
-                    <button class="layui-btn layui-btn-normal" id="crc" lay-filter="execute" lay-submit><i
-                            class="layui-icon">&#xe621;</i>CRC校验
-                    </button>
-                    <div class="layui-inline">
-                      <label class="layui-form-label lovexian-form-item-require">数据</label>
-                      <div class="layui-inline" style="width:500px !important">
-                        <input type="text" id="crcData" name="data" autocomplete="off" class="layui-input">
+                        <div class="layui-form layui-form-item">
+                          <button class="layui-btn layui-btn-normal" id="crc" lay-filter="execute" lay-submit><i
+                                  class="layui-icon">&#xe681;</i>CRC校验
+                          </button>
+                          <div class="layui-inline">
+                            <label class="layui-form-label lovexian-form-item-require">数据</label>
+                            <div class="layui-inline" style="width:500px !important">
+                              <input type="text" id="crcData" name="data" autocomplete="off" class="layui-input">
+                            </div>
+                          </div>
+                        </div>
+                        <button class="layui-btn layui-btn-normal" id="btn" onclick="threeFn() " lay-filter="execute" lay-submit><i
+                                class="layui-icon">&#xe628;</i>执行
+                        </button>
+                        <button class="layui-btn layui-btn-primary layui-btn-normal" lay-filter="cancelBtn" lay-submit><i
+                                class="layui-icon">&#xe669;</i>取消
+                        </button>
                       </div>
                     </div>
+                  </form>
+                </div><!--景点信息结束-->
+                <div class="layui-fluid layui-tab-item">
+                  <div class="layui-row"><!--Websocket-->
+                    <form name="messageForm" class="layui-form layui-table-form" lay-filter="action-table-form">
+                      <div class="layui-row">
+                        <div class="layui-col-md12">
+                          <div class="layui-form layui-form-item">
+                            <div class="layui-inline">
+                              <label class="layui-form-label lovexian-form-item-require">发送区</label>
+                              <div class="layui-inline" style="width:200px !important">
+                                <textarea style="width: 500px;height: 100px" placeholder="发送数据"
+                                          class="layui-textarea commandReason" name="sendMessage"></textarea>
+                              </div>
+
+                            </div>
+
+                          </div>
+                          <div class="layui-form layui-form-item">
+                            <div class="layui-inline">
+                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                              <button class="layui-btn layui-btn-normal"  lay-filter="execute" lay-submit><i
+                                      class="layui-icon">&#xe609;</i>发送
+                              </button>
+                              <button class="layui-btn layui-btn-normal" lay-filter="execute" lay-submit><i
+                                      class="layui-icon">&#xe639;</i>清空
+                              </button>
+                            </div>
+                          </div>
+
+                          <div class="layui-form layui-form-item">
+                            <div class="layui-inline">
+                              <label class="layui-form-label lovexian-form-item-require">接收区</label>
+                              <div class="layui-inline" style="width:200px !important">
+                                <textarea style="width: 500px;height: 100px" placeholder="接收数据"
+                                          class="layui-textarea commandReason" name="receiveMessage"></textarea>
+                              </div>
+
+
+
+                            </div>
+
+                          </div>
+                          <div class="layui-form layui-form-item">
+                            <div class="layui-inline">
+                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <input type="checkbox" name="" title="按16进制" lay-skin="primary" checked>
+                              <button class="layui-btn layui-btn-normal" lay-filter="execute" lay-submit><i
+                                      class="layui-icon">&#xe639;</i>清空
+                              </button>
+
+                            </div>
+                          </div>
+
+
+                        </div>
+                      </div>
+                    </form>
                   </div>
-                  <button class="layui-btn layui-btn-normal" id="btn" onclick="threeFn() " lay-filter="execute" lay-submit><i
-                          class="layui-icon">&#xe621;</i>执行
-                  </button>
-                  <button class="layui-btn layui-btn-primary layui-btn-normal" lay-filter="cancelBtn" lay-submit><i
-                          class="layui-icon">&#xe669;</i>取消
-                  </button>
-                </div>
+                </div><!--景点信息结束-->
               </div>
-            </form>
+            </div>
+
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
 <script>
   $ = layui.jquery;
   $(function () {

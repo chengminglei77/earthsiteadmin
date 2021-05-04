@@ -45,7 +45,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
     });
 
     function initTable() {
-        console.log($(".layui-tab-title .layui-this").attr("lay-id"))
+        // console.log($(".layui-tab-title .layui-this").attr("lay-id"));
         tableIns = lovexian.table.init({
             elem: $('#commandInfoTable' + $(".layui-tab-title .layui-this").attr("lay-id")),
             id: 'commandInfoTable' + $(".layui-tab-title .layui-this").attr("lay-id"),
