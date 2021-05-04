@@ -1,4 +1,4 @@
-layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view','validate','baseSetting','lovexian','jquery', 'laydate', 'form', 'table', 'treeSelect','laytpl'], function(exports){
+layui.define(['element', 'dropdown', 'baseSetting', 'admin', 'formSelects', 'view', 'validate', 'baseSetting', 'lovexian', 'jquery', 'laydate', 'form', 'table', 'treeSelect', 'laytpl'], function (exports) {
     var $ = layui.jquery,
         admin = layui.admin,
         laydate = layui.laydate,
@@ -17,19 +17,19 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
         pre_bg = $(".preview-bg"),
         pre_phone = $("#previewPhone");
     $searchForm = $view.find('form');
-    $query=$searchForm.find("div[name='query']");
-    $reset=$searchForm.find("div[name='reset']");
+    $query = $searchForm.find("div[name='query']");
+    $reset = $searchForm.find("div[name='reset']");
     var stars;
 
     form.render();
     initTable();
-    var typeId=1;
+    var typeId = 1;
 
-    element.on('tab(alarmTab)',function (data) {
-        var idvalue=data.index+1;//从0开始
+    element.on('tab(alarmTab)', function (data) {
+        var idvalue = data.index + 1;//从0开始
         initTable();
     });
-   element.tabChange('alarmTab',0);
+    element.tabChange('alarmTab', 0);
 
     //渲染权限
     var fakerData = ["faker"];
@@ -49,9 +49,9 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
     dropdown.render({//添加和删除小组件
         elem: $view.find('.action-more'),
         click: function (name, elem, event) {
-            var checkStatus = table.checkStatus('alarmInfoTable'+$(".layui-tab-title .layui-this").attr("lay-id"))
+            var checkStatus = table.checkStatus('alarmInfoTable' + $(".layui-tab-title .layui-this").attr("lay-id"))
             if (name === 'add') {
-                addalarmInfo("",0);
+                addalarmInfo("", 0);
                 //跳转到actionAdd页面
                 // location.hash = search.redirect ? decodeURIComponent(search.redirect) : '/theme/life/actionAdd';
             }
@@ -82,28 +82,28 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
         }]
     });
 
-    function addalarmInfo(data,isEdit){
+    function addalarmInfo(data, isEdit) {
         // console.log(isEdit);
-        if(isEdit===1){
-        lovexian.popup("theme/message/alarmManage/alarmEdit",isEdit?"编辑报警信息":"添加报警信息",$.extend(data,{isEdit:isEdit}),function () {
+        if (isEdit === 1) {
+            lovexian.popup("theme/message/alarmManage/alarmEdit", isEdit ? "编辑报警信息" : "添加报警信息", $.extend(data, {isEdit: isEdit}), function () {
                     layui.use('theme/message/alarmManage/alarmEdit', layui.factory('theme/message/alarmManage/alarmEdit'));
-                    form.val("lawerForm",{
-                        "id":data.id,
-                        "alarmInfo":data.alarmInfo,
-                        "status":data.status,
-                        "alarmTime":data.alarmTime,
-                        "dealAdmin":data.dealAdmin,
-                        "dealTime":data.dealTime,
-                        "alarmReason":data.alarmReason,
-                        "deletestatus":data.deletestatus,
+                    form.val("lawerForm", {
+                        "id": data.id,
+                        "alarmInfo": data.alarmInfo,
+                        "status": data.status,
+                        "alarmTime": data.alarmTime,
+                        "dealAdmin": data.dealAdmin,
+                        "dealTime": data.dealTime,
+                        "alarmReason": data.alarmReason,
+                        "deletestatus": data.deletestatus,
                     });
-            },
-            function () {
-                // $query.click();
-            });}
-        else{
-            lovexian.popup("theme/message/alarmManage/alarmAdd",isEdit?"编辑报警信息":"添加报警信息",$.extend(data,{isEdit:isEdit}),function () {
-                        layui.use('theme/message/alarmManage/alarmAdd', layui.factory('theme/message/alarmManage/alarmAdd'));
+                },
+                function () {
+                    // $query.click();
+                });
+        } else {
+            lovexian.popup("theme/message/alarmManage/alarmAdd", isEdit ? "编辑报警信息" : "添加报警信息", $.extend(data, {isEdit: isEdit}), function () {
+                    layui.use('theme/message/alarmManage/alarmAdd', layui.factory('theme/message/alarmManage/alarmAdd'));
                 },
                 function () {
                     // $query.click();
@@ -117,18 +117,24 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
         tableIns = lovexian.table.init({
             elem: $('#alarmInfoTable' + $(".layui-tab-title .layui-this").attr("lay-id")),
             id: 'alarmInfoTable' + $(".layui-tab-title .layui-this").attr("lay-id"),
-            url: proPath + '/admin/alarmInfo/listByTypeId?status='+$(".layui-tab-title .layui-this").attr("lay-id"),
+            url: proPath + '/admin/alarmInfo/listByTypeId?status=' + $(".layui-tab-title .layui-this").attr("lay-id"),
             type: 'GET',
             headers: {
                 Authentication: layui.data(setter.tableName)[setter.TOKENNAME]
             },
             cols: [[
-                {type: 'checkbox',fixed: 'lift'},
-                {field: 'alarmTime', title: '报警时间', minWidth:180,align:'center'},
-                {field: 'alarmReason', title: '报警原因', minWidth: 180, sort: true,align:'center'},
-                {title: '处理状态', templet: '#check-state',minWidth:120,align:'center'},
-                $(".layui-tab-title .layui-this").attr("lay-id")==1?{field: 'dealAdmin', title: '处理人', minWidth: 120, sort: true,align:'center'}
-                    :null,
+                {type: 'checkbox', fixed: 'lift'},
+                {field: 'alarmTime', title: '报警时间', minWidth: 110, align: 'center'},
+                {field: 'alarmInfo', title: '报警信息', minWidth: 110, align: 'center'},
+                {title: '处理状态', templet: '#check-state', minWidth: 100, align: 'center'},
+                $(".layui-tab-title .layui-this").attr("lay-id") == 1 ? {
+                        field: 'dealAdmin',
+                        title: '处理人',
+                        minWidth: 120,
+                        sort: true,
+                        align: 'center'
+                    }
+                    : null,
                 // {field: 'dealTime', title: '处理时间',minWidth: 180, sort: true,align:'center'},
                 {title: '操作', toolbar: '#action-option', minWidth: 120, fixed: 'right'}
             ]],
@@ -141,8 +147,8 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
         console.log(data.status)
         if (layEvent === 'del') {
             //逻辑删除
-            if(data.status == 1) //已处理则删除
-                 {
+            if (data.status == 1) //已处理则删除
+            {
                 lovexian.modal.confirm('删除报警信息', '确定删除这条报警记录吗？', function () {
                     lovexian.del(proPath + '/admin/alarmInfo/deleteById?id=' + obj.data.id, null, function () {
                         console.log("success");
@@ -150,20 +156,19 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
                         $query.click();
                     });
                 });
-            }
-            else {
+            } else {
                 lovexian.alert.warn('该报警信息未处理，不能删除');
             }
         }
         if (layEvent === 'edit') {
             //编辑也跳转到actionAdd，根据类型判断是添加还是编辑
-            addalarmInfo(obj.data,1);
+            addalarmInfo(obj.data, 1);
         }
 
         if (layEvent === 'restore') {
             //还原
             lovexian.modal.confirm('还原报警信息', '确定还原这条报警记录吗？', function () {
-                lovexian.post(proPath + '/admin/alarmInfo/restoreById?id='+ obj.data.id, null, function () {
+                lovexian.post(proPath + '/admin/alarmInfo/restoreById?id=' + obj.data.id, null, function () {
                     console.log("success");
                     lovexian.alert.success('还原该报警信息成功');
                     $query.click();
@@ -173,7 +178,7 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
         if (layEvent === 'destroy') {
             //彻底删除
             lovexian.modal.confirm('删除报警信息', '确定彻底删除这条报警记录吗？', function () {
-                lovexian.del(proPath + '/admin/alarmInfo/completelyDelete?id='+ obj.data.id, null, function () {
+                lovexian.del(proPath + '/admin/alarmInfo/completelyDelete?id=' + obj.data.id, null, function () {
                     console.log("success");
                     lovexian.alert.success('删除该报警信息成功');
                     $query.click();
@@ -194,10 +199,10 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
 
 
     function getQueryParams() {
-        var createTimeFrom='',
-        createTimeTo='',
+        var createTimeFrom = '',
+            createTimeTo = '',
 
-        createTime = $searchForm.find('input[name="createTime"]').val();
+            createTime = $searchForm.find('input[name="createTime"]').val();
         //alert(createTime);
         if (createTime) {
             createTimeFrom = createTime.split(' - ')[0];
@@ -213,13 +218,13 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
         };
     }
 
-    $query.on('click',function () {
+    $query.on('click', function () {
         var params = getQueryParams();
         console.log(params);
         tableIns.reload({where: params});
     });
 
-    $reset.on('click',function () {//重置
+    $reset.on('click', function () {//重置
         $searchForm[0].reset();
         initTable();
     });
