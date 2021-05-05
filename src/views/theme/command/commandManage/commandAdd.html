@@ -19,7 +19,7 @@
             <div class="layui-tab layui-tab-brief" lay-filter="commandTab">
               <ul class="layui-tab-title">
                 <li class="layui-this" lay-id="00">下发命令</li>
-                <li lay-id="01">webSocket</li>
+                <li lay-id="01">网关配置</li>
               </ul>
               <input hidden="hidden" id="actTypeId" value="">
               <!--景点信息开始-->
@@ -140,31 +140,37 @@
                             <div class="layui-inline">
                               <label class="layui-form-label lovexian-form-item-require">发送区</label>
                               <div class="layui-inline" style="width:200px !important">
-                                <textarea style="width: 500px;height: 100px" placeholder="发送数据"
-                                          class="layui-textarea commandReason" name="sendMessage"></textarea>
+                                <select lay-filter="sendMessage" name="sendMessage" id="sendMessage" >
+                                  <option value="0">请选择</option>
+                                  <option value="AT">AT</option>
+                                  <option value="ATT">ATT</option>
+                                  <option value="ATI">ATI</option>
+                                  <option value="+++">+++</option>
+                                </select>
                               </div>
-
                             </div>
-
+                            <br><br>
                           </div>
                           <div class="layui-form layui-form-item">
                             <div class="layui-inline">
                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                              <button class="layui-btn layui-btn-normal"  lay-filter="execute" lay-submit><i
-                                      class="layui-icon">&#xe609;</i>发送
-                              </button>
-                              <button class="layui-btn layui-btn-normal" lay-filter="execute" lay-submit><i
-                                      class="layui-icon">&#xe639;</i>清空
-                              </button>
+<!--                              <button class="layui-btn layui-btn-normal" id="sendMessageBtn"  lay-filter="sendMessageBtn"><i-->
+<!--                                      class="layui-icon">&#xe609;</i>发送-->
+<!--                              </button>-->
+                              <input style="width: 88px;" class="layui-btn test layui-btn-normal" id="sendMessageBtn" value="发送" lay-filter="sendMessageBtn">
+                              <input style="width: 88px;" class="layui-btn test layui-btn-normal" id="clearMessageBtn" value="清空" lay-filter="clearMessageBtn">
+<!--                              <button class="layui-btn layui-btn-normal" lay-filter="clearMessageBtn" id="clearMessageBtn"><i-->
+<!--                                      class="layui-icon">&#xe639;</i>清空-->
+<!--                              </button>-->
                             </div>
                           </div>
-
+                          <br><br>
                           <div class="layui-form layui-form-item">
                             <div class="layui-inline">
                               <label class="layui-form-label lovexian-form-item-require">接收区</label>
                               <div class="layui-inline" style="width:200px !important">
                                 <textarea style="width: 500px;height: 100px" placeholder="接收数据"
-                                          class="layui-textarea commandReason" name="receiveMessage"></textarea>
+                                          class="layui-textarea commandReason" name="receiveMessage" id="receiveMessage"></textarea>
                               </div>
 
 
@@ -176,9 +182,11 @@
                             <div class="layui-inline">
                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <input type="checkbox" name="" title="按16进制" lay-skin="primary" checked>
-                              <button class="layui-btn layui-btn-normal" lay-filter="execute" lay-submit><i
-                                      class="layui-icon">&#xe639;</i>清空
-                              </button>
+                              <input style="width: 88px;" class="layui-btn test layui-btn-normal" id="clearMessageBtn2" value="清空" lay-filter="clearMessageBtn2">
+
+<!--                              <button class="layui-btn layui-btn-normal" lay-filter="execute" lay-submit><i-->
+<!--                                      class="layui-icon">&#xe639;</i>清空-->
+<!--                              </button>-->
 
                             </div>
                           </div>

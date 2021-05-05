@@ -24,12 +24,7 @@ layui.define(['form', 'layer', 'admin', 'layedit', 'lovexian', 'laydate', 'uploa
     // console.log(data.othis); //得到美化后的DOM对象
       var command =data.value;
     console.log(command);
-    // switch (command) {
-    //   case 'A1':$("#sensorSerialNum").removeAttr("disabled");
-    //   case 'A2':$("#sensorSerialNum").attr("disabled", true).addClass('layui-disabled');
-    //             $("#sensorType").attr("disabled", true).addClass('layui-disabled');
-    //             $("#sensorAddr").attr("disabled", true).addClass('layui-disabled');
-    // }
+
     if(command=="A1"||command=="0")  {
       $("#sensorSerialNum").removeAttr("disabled");
       $("#sensorType").removeAttr("disabled");
@@ -62,6 +57,7 @@ layui.define(['form', 'layer', 'admin', 'layedit', 'lovexian', 'laydate', 'uploa
 
 
     form.render('select');
+
   });
 
 
@@ -249,7 +245,74 @@ layui.define(['form', 'layer', 'admin', 'layedit', 'lovexian', 'laydate', 'uploa
     });
 
 
+  $('#sendMessageBtn').on('click', function () {
+    var at = $("#sendMessage").val();
+    var ascii;
+    switch (at) {
+      case 'AT':ascii=4154+'0D0A';break;
+      case 'ATT':ascii=415454+'0D0A';break;
+      case 'ATI':ascii=415449+'0D0A';break;
+      case '+++':ascii='2B2B2B';break;
+    }
+    console.log(ascii);
+    var sendData={
+      at:at,
+      ascii:ascii,
+    };
+    // $.ajax({
+    //   type:"post",
+    //   url:"http://39.105.171.192:8886/admin/gatewaysConfig/setGatewayConfig",
+    //   data: {
+    //     sendData:sendData,
+    //   },
+    //   async: true,
+    //   success: function (data) {
+    //     console.log("sendData="+sendData);
+    //     /* alert("服务器返回的数据是"+data);
+    //      var cmd=data.cmd;
+    //      console.log(cmd);
+    //      var cmdToHexadecimal=cmd.toString(16);
+    //      console.log(cmdToHexadecimal);*/
+    //   },
+    // });
+    // console.log(sendMessage);
+      lovexian.post(proPath + '/admin/gatewaysConfig/setGatewayConfig',sendData,function () {//存入数据的路径
+        lovexian.alert.success('发送成功');
 
+      });
+  });
+ $('#clearMessageBtn').on('click',function () {
+   $('#sendMessage').val("");
+   form.render();
+ });
+  $('#clearMessageBtn2').on('click',function () {
+    $('#receiveMessage').val("");
+    form.render();
+  });
+
+  // form.on("submit(sendMessageBtn)",function(data){
+  //
+  //   var at = $("input[name='sendMessageBtn']").val();     //input[name='id']是访问input对象id属性
+  //   var ascii;
+  //   switch (at) {
+  //     case 'AT':ascii=4154;break;
+  //     case 'ATT':ascii=415454;break;
+  //     case 'ATI':ascii=415449;break;
+  //   }
+  //   console.log(at);
+  //   //dtudata对象
+  //   var senddata = {
+  //     at:at,
+  //     ascii:ascii,
+  //   };
+  //
+  //   lovexian.post(proPath + '/admin/alarmInfo/saveOrUpdate',alarmdata,function () {//存入数据的路径
+  //     lovexian.alert.success('保存成功');
+  //     // $('#lovexian-job').find('#query').click();
+  //   });
+  //   layer.closeAll();
+  //   return false;
+  // });
 
   function showCmd(cmd1){
 
@@ -285,29 +348,7 @@ layui.define(['form', 'layer', 'admin', 'layedit', 'lovexian', 'laydate', 'uploa
     })
   }
 
-  // var btn = document.getElementById("btn");
-  // $(function getValue() {
-  //   var str = $("selectid option:selected").val();
-  //   $('#btn').on('click', function () {
-  //     $.ajax({
-  //       type: "post",
-  //       url: "http://39.105.171.192:8886/command",
-  //       data: {
-  //         cmd: cmd
-  //       },
-  //       dataType: "json",
-  //       async: true,
-  //       success: function (data) {
-  //         /* alert("服务器返回的数据是"+data);
-  //          var cmd=data.cmd;
-  //          console.log(cmd);
-  //          var cmdToHexadecimal=cmd.toString(16);
-  //          console.log(cmdToHexadecimal);*/
-  //       },
-  //     });
-  //
-  //   });
-  // });
+
   function getQueryParams() {
     return {//根据find不同,调用不同的方法,其中dtuName对应queryDtuInfo,而status对应listByTypeId
       deviceId: $searchForm.find('input[name="deviceId"]').val().trim(),//此处对应<input type="text" name="dtuName" autocomplete="off" class="layui-input">
@@ -322,26 +363,7 @@ layui.define(['form', 'layer', 'admin', 'layedit', 'lovexian', 'laydate', 'uploa
   }
 
 
-  // form.on("submit(execute)", function (data) {
-  //
-  //   var id = $("input[name='id']").val();     //input[name='id']是访问input对象id属性
-  //   var command = $('.commandInfo').val();
-  //   var description = $('.commandReason').val();
-  //   // var dealtime = new Date(dealTime);
-  //   //dtudata对象
-  //   var commanddata = {
-  //     id: id,
-  //     command: command,
-  //     description: description,
-  //   };
-  //   lovexian.post(proPath + '/admin/commandInfo/saveOrUpdate', commanddata, function () {//存入数据的路径
-  //     lovexian.alert.success('执行成功');
-  //     // $('#lovexian-job').find('#query').click();
-  //   });
-  //   layui.use('theme/command/commandManage/command', layui.factory('theme/command/commandManage/command'));
-  //   layer.closeAll();
-  //   return false;
-  // });
+
 
   form.on("submit(cancelBtn)", function (data) {
 
