@@ -255,31 +255,25 @@ layui.define(['form', 'layer', 'admin', 'layedit', 'lovexian', 'laydate', 'uploa
       case '+++':ascii='2B2B2B';break;
     }
     console.log(ascii);
-    var sendData={
-      at:at,
-      ascii:ascii,
-    };
-    // $.ajax({
-    //   type:"post",
-    //   url:"http://39.105.171.192:8886/admin/gatewaysConfig/setGatewayConfig",
-    //   data: {
-    //     sendData:sendData,
-    //   },
-    //   async: true,
-    //   success: function (data) {
-    //     console.log("sendData="+sendData);
-    //     /* alert("服务器返回的数据是"+data);
-    //      var cmd=data.cmd;
-    //      console.log(cmd);
-    //      var cmdToHexadecimal=cmd.toString(16);
-    //      console.log(cmdToHexadecimal);*/
-    //   },
-    // });
-    // console.log(sendMessage);
-      lovexian.post(proPath + '/admin/gatewaysConfig/setGatewayConfig',sendData,function () {//存入数据的路径
-        lovexian.alert.success('发送成功');
-
-      });
+    $.ajax({
+      type:"post",
+      url:"http://localhost:9090/admin/gatewaysConfig/setGatewayConfig",
+      data: {
+        at:at,
+        ascii:ascii,
+      },
+      async: true,
+      dataType: 'json',
+      success: function (msg) {
+        // alert("msg="+msg.data);
+        $('#receiveMessage').val(msg.data);
+      },
+    });
+    console.log(sendMessage);
+    //   lovexian.post(proPath + '/admin/gatewaysConfig/setGatewayConfig',sendData,function () {//存入数据的路径
+    //     lovexian.alert.success('发送成功');
+    //
+    //   });
   });
  $('#clearMessageBtn').on('click',function () {
    $('#sendMessage').val("");
