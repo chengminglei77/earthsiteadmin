@@ -257,7 +257,7 @@ layui.define(['form', 'layer', 'admin', 'layedit', 'lovexian', 'laydate', 'uploa
     console.log(ascii);
     $.ajax({
       type:"post",
-      url:"http://localhost:9090/admin/gatewaysConfig/setGatewayConfig",
+      url:"http://39.105.171.192:9090/admin/gatewaysConfig/setGatewayConfig",
       data: {
         at:at,
         ascii:ascii,
