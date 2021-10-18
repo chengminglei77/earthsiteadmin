@@ -124,7 +124,7 @@ layui.define(['element', 'dropdown', 'baseSetting', 'admin', 'formSelects', 'vie
             },
             cols: [[
                 {type: 'checkbox', fixed: 'lift'},
-                {field: 'alarmTime', title: '报警时间', minWidth: 110, align: 'center'},
+                {field: 'alarmTime', title: '报警时间', minWidth: 110, align: 'center',/*templet: valCenter()*/},
                 {field: 'alarmInfo', title: '报警信息', minWidth: 110, align: 'center'},
                 {title: '处理状态', templet: '#check-state', minWidth: 100, align: 'center'},
                 $(".layui-tab-title .layui-this").attr("lay-id") == 1 ? {
@@ -188,6 +188,9 @@ layui.define(['element', 'dropdown', 'baseSetting', 'admin', 'formSelects', 'vie
 
     });//操作
 
+   /* function valCenter(d) {
+        return '<div style="text-align: center">'+d.val+'</div>>'
+    }*/
 
     function deleteActions(alarmIds) {//操作组件之一，删除
         lovexian.del(proPath + '/admin/alarmInfo/BatchDelete/' + alarmIds, null, function () {
