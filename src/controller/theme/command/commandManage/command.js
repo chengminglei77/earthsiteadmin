@@ -55,11 +55,12 @@ layui.define(['element','dropdown', 'baseSetting','admin','formSelects', 'view',
                 Authentication: layui.data(setter.tableName)[setter.TOKENNAME]
             },
             cols: [[
-                {field: 'command', title: '命令信息',minWidth: 120,align:'center',fixed: 'lift'},//对应后台idea的字段
+                {field: 'command', title: '命令信息',minWidth: 180,align:'center',fixed: 'lift'},//对应后台idea的字段
                 {title: '执行状态', templet: '#check-state',minWidth:120,align:'center'},
                 {field: 'sendTime', title: '发送时间', minWidth:180,align:'center'},
-                {field: 'receiveTime', title: '响应时间', minWidth: 120, sort: true,align:'center'},
-                {field: 'description', title: '描述',minWidth: 180, sort: true,align:'center'},
+                {field: 'receiveTime', title: '响应时间', minWidth: 120, align:'center'},
+                {field: 'content', title: '返回内容',minWidth: 180, align:'center'},
+                {field: 'description', title: '描述',minWidth: 180, align:'center'},
             ]],
         });
     }
